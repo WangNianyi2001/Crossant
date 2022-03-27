@@ -9,10 +9,11 @@
 #include <assert.h>
 #include <gl/gl.h>
 #include <gl/glu.h>
+#include <gl/glut.h>
 
 class Drawer {
 public:
-	struct Color3f { GLfloat r, g, b; };
+	struct Color3f { GLclampf r, g, b; };
 protected:
 	int width = 800, height = 600;
 	double perspective;
@@ -44,7 +45,6 @@ public:
 
 	void SetClearColor(Color3f color) {
 		clear_color = color;
-		glClearColor(color.r, color.g, color.b, 1);
 	}
 
 	void SetHDC(HDC hDC) {
@@ -58,6 +58,7 @@ public:
 		descriptor.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 		descriptor.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
 		descriptor.iPixelType = PFD_TYPE_RGBA;
+		descriptor.cColorBits = 32;
 		descriptor.cDepthBits = 32;
 		descriptor.iLayerType = PFD_MAIN_PLANE;
 		int pixel_format = ChoosePixelFormat(hDC, &descriptor);
@@ -68,6 +69,21 @@ public:
 		SetPixelFormat(hDC, pixel_format, &descriptor);
 		hRC = wglCreateContext(hDC);
 		wglMakeCurrent(hDC, hRC);
+
+		// Enable lighting
+		GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+		GLfloat mat_shininess[] = { 50.0 };
+		GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+		glClearColor(0.0, 0.0, 0.0, 0.0);
+		glShadeModel(GL_SMOOTH);
+
+		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+		glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		glEnable(GL_DEPTH_TEST);
 		return true;
 	}
 
@@ -75,6 +91,7 @@ public:
 
 	void Render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(clear_color.r, clear_color.g, clear_color.b, 1);
 		glLoadIdentity();
 		glPushMatrix();
 		Draw();

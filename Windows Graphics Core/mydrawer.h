@@ -5,6 +5,10 @@
 class MyDrawer : public Drawer {
 	float rotation = 0;
 public:
+	MyDrawer() {
+		SetClearColor(Color3f{ .1f, .1f, .1f });
+	}
+
 	virtual void PostUpdate() override {
 		rotation += 1;
 		if(rotation > 360)
@@ -13,31 +17,9 @@ public:
 
 	virtual void Draw() override {
 		glTranslatef(0, 0, -4);
-		glRotatef(rotation, 1.0, 1.0, 1.0);
-		glColor3f(1.0f, 1.0f, 1.0f);
-
-		glBegin(GL_QUAD_STRIP);
-		glVertex3f(0.0f, 0.0f, 0.0f);
-		glVertex3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(1.0f, 0.0f, 0.0f);
-		glVertex3f(1.0f, 1.0f, 0.0f);
-		glVertex3f(1.0f, 0.0f, -1.0f);
-		glVertex3f(1.0f, 1.0f, -1.0f);
-		glVertex3f(0.0f, 0.0f, -1.0f);
-		glVertex3f(0.0f, 1.0f, -1.0f);
-		glVertex3f(0.0f, 0.0f, 0.0f);
-		glVertex3f(0.0f, 1.0f, 0.0f);
-		glEnd();
-
-		glBegin(GL_POLYGON);
-		glVertex3f(0.0f, 0.0f, 0.0f);
-		glVertex3f(1.0f, 0.0f, 0.0f);
-		glVertex3f(1.0f, 0.0f, -1.0f);
-		glVertex3f(0.0f, 0.0f, -1.0f);
-		glVertex3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(1.0f, 1.0f, 0.0f);
-		glVertex3f(1.0f, 1.0f, -1.0f);
-		glVertex3f(0.0f, 1.0f, -1.0f);
-		glEnd();
+		glRotatef(rotation, 1, 1, 1);
+		// Color makes no effect after enabling lighting
+		// glColor3f(.3f, .1f, .05f);
+		glutSolidTorus(0.275, 0.85, 128, 128);
 	}
 };

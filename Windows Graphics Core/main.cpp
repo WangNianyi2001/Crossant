@@ -1,42 +1,35 @@
-#include "graphics/win32/opengl.hpp"
-#include <gl/glut.h>
+#include "graphics/win32/bitmap.hpp"
 
 using namespace Graphics::Win32;
 
-class DrawingContext : public OpenGLContext {
+class DrawingContext : public BitmapContext {
+	static constexpr inline BLENDFUNCTION blend_function = {
+		AC_SRC_OVER, 0, 255, AC_SRC_ALPHA
+	};
 public:
 	virtual void Render() override {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0, 0, 0, 1);
-		glLoadIdentity();
-		glPushMatrix();
-		glTranslatef(0, 0, -4);
-		//
-		glutSolidSphere(1, 8, 8);
-		//
-		glPopMatrix();
-		glFlush();
-		SwapBuffers(hDC);
+		SelectObject(hDC, GetStockObject(BLACK_BRUSH));
+		Rectangle(hDC, 0, 0, width, height);
+		SelectObject(hDC, GetStockObject(WHITE_BRUSH));
+		Ellipse(hDC, 0, 0, 100, 200);
+		//AlphaBlend(target, 0, 0, width, height, hDC, 0, 0, width, height, blend_function);
+		BitBlt(target, 0, 0, width, height, hDC, 0, 0, SRCCOPY);
 	}
 };
 
-OpenGLContext *context;
+BitmapContext *context;
 
 LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch(message) {
 	case WM_ACTIVATE:
 		context->SetTarget(GetDC(hWnd));
-		context->SetPerspective(45);
 		break;
-	case WM_PAINT: {
+	case WM_PAINT:
 		context->Render();
 		break;
-	}
 	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	case WM_QUIT:
 		delete context;
+		PostQuitMessage(0);
 		break;
 	case WM_SIZE:
 		context->SetSize(LOWORD(lParam), HIWORD(lParam));

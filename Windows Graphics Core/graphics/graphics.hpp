@@ -5,6 +5,8 @@
 namespace Graphics {
 	template<typename Target>
 	class Context {
+	protected:
+		virtual void Dispose() = 0;
 	public:
 		virtual ~Context() = default;
 		virtual void SetTarget(Target const &target) = 0;

@@ -145,11 +145,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="bitmap.hpp" />
     <ClInclude Include="graphics\graphics.hpp" />
+    <ClInclude Include="graphics\win32\bitmap.hpp" />
     <ClInclude Include="graphics\win32\opengl.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="graphics\win32\bitmap.cpp" />
     <ClCompile Include="graphics\win32\opengl.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

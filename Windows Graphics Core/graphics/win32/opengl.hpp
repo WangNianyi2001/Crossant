@@ -9,7 +9,6 @@
 
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
-#pragma comment(lib, "Msimg32.lib")
 
 namespace Graphics {
 	namespace Win32 {
@@ -17,11 +16,11 @@ namespace Graphics {
 		protected:
 			GLdouble width, height;
 			GLdouble perspective;
-			HDC hDC;	// External target drawing context
+			HDC target;
 			HGLRC hRC;
-			void FreeRC();
+			virtual void Dispose() override;
 		public:
-			virtual ~OpenGLContext();
+			virtual ~OpenGLContext() override;
 			virtual void SetTarget(HDC const &target) override;
 			virtual void Render() override = 0;
 			virtual void SetSize(int width, int height) override;

@@ -1,38 +1,45 @@
-#include "drawer.h"
-#include "mydrawer.h"
+#include "graphics/win32/opengl.hpp"
+#include <gl/glut.h>
 
-Drawer *drawer;
-int width = 800, height = 600;
+using namespace Graphics::Win32;
 
-bool MainLoop() {
-	for(MSG msg; PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE); ) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-		if(msg.message == WM_QUIT)
-			return false;
+class DrawingContext : public OpenGLContext {
+public:
+	virtual void Render() override {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0, 0, 0, 1);
+		glLoadIdentity();
+		glPushMatrix();
+		glTranslatef(0, 0, -4);
+		//
+		glutSolidSphere(1, 8, 8);
+		//
+		glPopMatrix();
+		glFlush();
+		SwapBuffers(hDC);
 	}
-	drawer->Render();
-	return true;
-}
+};
+
+OpenGLContext *context;
 
 LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch(message) {
-	case WM_CREATE:
-		drawer->SetHDC(GetDC(hWnd));
-		drawer->SetPerspective(45);
+	case WM_ACTIVATE:
+		context->SetTarget(GetDC(hWnd));
+		context->SetPerspective(45);
 		break;
-	case WM_KEYUP:
-		if(wParam != VK_ESCAPE)
-			break;
-	case WM_CLOSE:
-		delete drawer;
+	case WM_PAINT: {
+		context->Render();
+		break;
+	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+	case WM_QUIT:
+		delete context;
+		break;
 	case WM_SIZE:
-		height = HIWORD(lParam);
-		width = LOWORD(lParam);
-		drawer->SetSize(width, height);
+		context->SetSize(LOWORD(lParam), HIWORD(lParam));
 		break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
@@ -41,9 +48,10 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 }
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
+	int iw = 800, ih = 600;
 	int w = GetSystemMetrics(SM_CXSCREEN);
 	int h = GetSystemMetrics(SM_CYSCREEN);
-	int nX = (w - width) / 2, nY = (h - height) / 2;
+	int nX = (w - iw) / 2, nY = (h - ih) / 2;
 
 	auto window_class_name = TEXT("Window");
 	WNDCLASSEX wc = {
@@ -52,15 +60,25 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 		window_class_name, NULL
 	};
 	RegisterClassEx(&wc);
-	drawer = new MyDrawer();
 	HWND hWnd = CreateWindowEx(NULL,
 		window_class_name,
 		TEXT("OpenGL Window"),
 		WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
-		nX, nY, width, height,
+		nX, nY, iw, ih,
 		NULL, NULL, hInst, NULL);
+
+	context = new DrawingContext();
+
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 	UpdateWindow(hWnd);
-	for(; MainLoop(); );
+	for(MSG msg; ; ) {
+		if(!PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
+			continue;
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+		if(msg.message == WM_QUIT)
+			break;
+	}
+
 	return 0;
 }

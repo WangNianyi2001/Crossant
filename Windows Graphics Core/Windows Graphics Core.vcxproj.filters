@@ -11,15 +11,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="drawer.h">
+    <ClInclude Include="bitmap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mydrawer.h">
+    <ClInclude Include="graphics\graphics.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\win32\opengl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\win32\opengl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

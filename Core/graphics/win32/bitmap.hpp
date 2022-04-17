@@ -9,6 +9,7 @@
 namespace Graphics {
 	namespace Win32 {
 		class BitmapContext : public Context<HDC> {
+			static BLENDFUNCTION blend_function;
 		protected:
 			HDC target;
 			HBITMAP hBm = NULL;
@@ -19,7 +20,7 @@ namespace Graphics {
 			HDC hDC;
 			virtual ~BitmapContext() override;
 			virtual void SetTarget(HDC const &target) override;
-			virtual void Render() override = 0;
+			virtual void Render() override;
 			virtual void SetSize(int width, int height) override;
 		};
 	}

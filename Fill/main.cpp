@@ -1,4 +1,4 @@
-#include "graphics/win32/bitmap.hpp"
+#include "../Core/graphics/win32/bitmap.hpp"
 #include <vector>
 
 using namespace Graphics::Win32;
@@ -33,16 +33,12 @@ struct Line {
 };
 
 class DrawingContext : public BitmapContext {
-	static constexpr inline BLENDFUNCTION blend_function = {
-		AC_SRC_OVER, 0, 255, AC_SRC_ALPHA
-	};
 public:
-	void DrawPixel(Vec2 pos) {
-		Rectangle(hDC, pos.x, pos.y, pos.x + 2, pos.y + 2);
-		int a = GetLastError();
+	void DrawPixel(Vec2 pos, COLORREF color) {
+		SetPixel(hDC, pos.x, pos.y, color);
 	}
 
-	void DrawLine(Line line) {
+	void DrawLine(Line line, COLORREF color) {
 		HGDIOBJ old_brush = SelectObject(hDC, GetStockObject(WHITE_BRUSH));
 		HGDIOBJ old_pen = SelectObject(hDC, GetStockObject(NULL_PEN));
 		float len = line.len();
@@ -51,16 +47,11 @@ public:
 		Vec2 unit = line.vec().unify() * unit_len;
 		for(int i = 0; i < step_count; ++i) {
 			Vec2 pos = line.begin + unit * i;
-			DrawPixel(pos);
+			DrawPixel(pos, color);
 		}
-		DrawPixel(line.end);
+		DrawPixel(line.end, color);
 		SelectObject(hDC, old_brush);
 		SelectObject(hDC, old_pen);
-	}
-
-	virtual void Render() override {
-		//AlphaBlend(target, 0, 0, width, height, hDC, 0, 0, width, height, blend_function);
-		BitBlt(target, 0, 0, width, height, hDC, 0, 0, SRCCOPY);
 	}
 };
 
@@ -68,6 +59,7 @@ DrawingContext *context;
 bool first = false;
 Vec2 mouse_pos, first_point;
 std::vector<Line> lines;
+constexpr COLORREF line_color = 0xffffffU;
 
 LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch(message) {
@@ -77,10 +69,10 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	case WM_PAINT:
 		SelectObject(context->hDC, GetStockObject(BLACK_BRUSH));
 		Rectangle(context->hDC, 0, 0, context->width, context->height);
-		for(Line line : lines)
-			context->DrawLine(line);
+		for(Line &line : lines)
+			context->DrawLine(line, line_color);
 		if(first)
-			context->DrawLine({ first_point, mouse_pos });
+			context->DrawLine({ first_point, mouse_pos }, line_color);
 		context->Render();
 		ValidateRect(hWnd, NULL);
 		break;

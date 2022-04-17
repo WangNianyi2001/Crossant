@@ -2,6 +2,10 @@
 
 using namespace Graphics::Win32;
 
+BLENDFUNCTION BitmapContext::blend_function = {
+	AC_SRC_OVER, 0, 255, AC_SRC_ALPHA
+};
+
 void BitmapContext::Dispose() {
 	if(data != nullptr) {
 		delete[] data;
@@ -19,6 +23,11 @@ BitmapContext::~BitmapContext() {
 
 void BitmapContext::SetTarget(HDC const &target) {
 	this->target = target;
+}
+
+void BitmapContext::Render() {
+	//AlphaBlend(target, 0, 0, width, height, hDC, 0, 0, width, height, blend_function);
+	BitBlt(target, 0, 0, width, height, hDC, 0, 0, SRCCOPY);
 }
 
 void BitmapContext::SetSize(int width, int height) {

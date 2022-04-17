@@ -20,12 +20,21 @@
     <ClInclude Include="win32\bitmap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="win32\window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\opengl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win32\bitmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="event.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

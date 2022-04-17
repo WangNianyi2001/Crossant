@@ -149,10 +149,13 @@
     <ClInclude Include="graphics.hpp" />
     <ClInclude Include="win32\bitmap.hpp" />
     <ClInclude Include="win32\opengl.hpp" />
+    <ClInclude Include="win32\window.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="event.hpp" />
     <ClCompile Include="win32\bitmap.cpp" />
     <ClCompile Include="win32\opengl.cpp" />
+    <ClCompile Include="win32\window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

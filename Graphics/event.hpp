@@ -54,5 +54,9 @@ namespace Graphics {
 		void Listen(Type type, Listener *listener) {
 			listeners[type].insert(listener);
 		}
+
+		void Listen(Type type, function<void(Event)> listener) {
+			Listen(type, new EventHandler<Type, Event>(listener));
+		}
 	};
 }

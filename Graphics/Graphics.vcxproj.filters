@@ -11,21 +11,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="graphics\graphics.hpp">
+    <ClInclude Include="graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\win32\opengl.hpp">
+    <ClInclude Include="win32\opengl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\win32\bitmap.hpp">
+    <ClInclude Include="win32\bitmap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="graphics\win32\opengl.cpp">
+    <ClCompile Include="win32\opengl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\win32\bitmap.cpp">
+    <ClCompile Include="win32\bitmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

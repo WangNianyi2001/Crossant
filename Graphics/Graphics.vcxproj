@@ -24,7 +24,7 @@
     <ProjectGuid>{5b48f86c-9ea0-4f28-914f-40a6c7f77944}</ProjectGuid>
     <RootNamespace>WindowsGraphicsCore</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Core</ProjectName>
+    <ProjectName>Graphics</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -146,13 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="graphics\graphics.hpp" />
-    <ClInclude Include="graphics\win32\bitmap.hpp" />
-    <ClInclude Include="graphics\win32\opengl.hpp" />
+    <ClInclude Include="graphics.hpp" />
+    <ClInclude Include="win32\bitmap.hpp" />
+    <ClInclude Include="win32\opengl.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="graphics\win32\bitmap.cpp" />
-    <ClCompile Include="graphics\win32\opengl.cpp" />
+    <ClCompile Include="win32\bitmap.cpp" />
+    <ClCompile Include="win32\opengl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

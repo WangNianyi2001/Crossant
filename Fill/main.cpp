@@ -1,4 +1,4 @@
-#include "../Core/graphics/win32/bitmap.hpp"
+#include "Graphics/win32/bitmap.hpp"
 #include <vector>
 
 using namespace Graphics::Win32;

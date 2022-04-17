@@ -78,6 +78,5 @@ Window *Window::Create() {
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 	::hInst = hInst;
-	Main();
-	return 0;
+	return Main();
 }

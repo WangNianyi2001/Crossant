@@ -32,6 +32,6 @@ namespace Graphics {
 			void Stop();
 		};
 
-		extern void Main();
+		extern int Main();
 	}
 }

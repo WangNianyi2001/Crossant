@@ -3,33 +3,32 @@
 
 using namespace Graphics::Win32;
 
-static std::map<void *, Window *> windowMap = std::map<void *, Window *>();
-
 LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	auto it = windowMap.find(hWnd);
-	if(it == windowMap.end())
+	auto it = Window::windowMap.find(hWnd);
+	if(it == Window::windowMap.end())
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	Window *window = it->second;
-	Window::Event event;
-	event.type = message;
-	event.w = wParam;
-	event.l = lParam;
-	if(!window->Fire(event))
-		return window->DefaultProcess(event);
+	if(Window::eventMap.find(message) != Window::eventMap.end()) {
+		Legacy::Window::Event bypass;
+		bypass.type = message;
+		bypass.w = wParam;
+		bypass.l = lParam;
+		return window->ByPass(bypass);
+	}
+	Graphics::WindowEvent event;
+	event.type = Window::eventMap[message];
+	window->Fire(event);
 	return 0;
 }
-
-Application *Application::current = nullptr;
 
 LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 #undef CreateWindow
-Window *Application::CreateWindow(Window::CreationArguments arguments) {
+Window *Application::CreateWindow() {
+	Legacy::Window::CreationArguments arguments{};
 	arguments.instance = instance;
 	arguments.windowClass = defaultWindowClass;
-	Window *window = new Window(arguments);
-	windowMap[window->handle] = window;
-	return window;
+	return new Window(arguments);
 }
 
 Application::Application(Legacy::ModuleInstance *instance) :
@@ -45,8 +44,8 @@ Application::Application(Legacy::ModuleInstance *instance) :
 #pragma warning(push)
 #pragma warning(disable: 28251)
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
-	Application* current = Application::current =
-		new Application(new Legacy::ModuleInstance(hInst));
+	auto *instance = new Legacy::ModuleInstance(hInst);
+	Application::current = new Application(instance);
 	return Application::Main();
 }
 #pragma warning(pop)

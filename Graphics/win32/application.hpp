@@ -1,21 +1,18 @@
 #pragma once
 
+#include "../application.hpp"
 #include "window.hpp"
 #include "legacy/user.hpp"
 
 namespace Graphics::Win32 {
-	class Application {
+	class Application : public Graphics::Application {
 	protected:
 		Legacy::ModuleInstance *const instance;
 
 	public:
-		static Application *current;
-
-		static int Main();
-
 		Legacy::WindowClass *defaultWindowClass;
 
-		Window *CreateWindow(Window::CreationArguments arguments);
+		virtual Window *CreateWindow() override;
 
 		Application(Legacy::ModuleInstance *instance);
 	};

@@ -38,6 +38,12 @@
     <ClInclude Include="win32\application.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="application.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\drawingcontext\opengl.cpp">

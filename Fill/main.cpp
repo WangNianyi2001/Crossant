@@ -1,12 +1,12 @@
 #include "Graphics/win32/application.hpp"
 
-int Graphics::Win32::Application::Main() {
+using namespace Graphics;
+
+int Application::Main() {
 	Application *app = Application::current;
-	Window::CreationArguments arguments{};
-	Window *window = app->CreateWindow(arguments);
-	window->Listen(0x0010, [=](Window::Event) {
+	Window *window = app->CreateWindow();
+	window->Listen(WindowEventType::Close, [=](WindowEvent) {
 		window->Quit();
 	});
-	window->Run();
 	return 0;
 }

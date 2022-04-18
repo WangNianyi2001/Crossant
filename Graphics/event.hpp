@@ -20,7 +20,7 @@ namespace Graphics {
 	template<typename Type, derived_from<Event<Type>> Event>
 	class EventTarget {
 	public:
-		virtual void Fire(Event event) = 0;
+		virtual bool Fire(Event event) = 0;
 	};
 
 	template<typename Type, derived_from<Event<Type>> Event>
@@ -30,8 +30,9 @@ namespace Graphics {
 	public:
 		EventHandler(function<void(Event)> callable) : callable(callable) {}
 
-		virtual void Fire(Event event) override {
-			return callable(event);
+		virtual bool Fire(Event event) override {
+			callable(event);
+			return true;
 		}
 	};
 
@@ -41,14 +42,13 @@ namespace Graphics {
 		map<Type, set<Listener *>> listeners;
 
 	public:
-		virtual void Miss(Event event) {}
-
-		virtual void Fire(Event event) override {
+		virtual bool Fire(Event event) override {
 			auto type = listeners.find(event.type);
 			if(type == listeners.end())
-				return Miss(event);
+				return false;
 			for(auto receiver : type->second)
 				receiver->Fire(event);
+			return true;
 		}
 
 		void Listen(Type type, Listener *listener) {

@@ -146,15 +146,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="graphics.hpp" />
-    <ClInclude Include="win32\bitmap.hpp" />
-    <ClInclude Include="win32\opengl.hpp" />
+    <ClInclude Include="drawingcontext.hpp" />
+    <ClInclude Include="win32\application.hpp" />
+    <ClInclude Include="win32\drawingcontext\bitmap.hpp" />
+    <ClInclude Include="win32\drawingcontext\opengl.hpp" />
+    <ClInclude Include="win32\legacy\gdi.hpp" />
+    <ClInclude Include="win32\legacy\kernel.hpp" />
+    <ClInclude Include="win32\legacy\legacy.hpp" />
+    <ClInclude Include="win32\legacy\user.hpp" />
     <ClInclude Include="win32\window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="event.hpp" />
-    <ClCompile Include="win32\bitmap.cpp" />
-    <ClCompile Include="win32\opengl.cpp" />
+    <ClCompile Include="win32\application.cpp" />
+    <ClCompile Include="win32\drawingcontext\bitmap.cpp" />
+    <ClCompile Include="win32\drawingcontext\opengl.cpp" />
+    <ClCompile Include="win32\legacy\legacy.cpp" />
+    <ClCompile Include="win32\legacy\user.cpp" />
     <ClCompile Include="win32\window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

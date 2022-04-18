@@ -1,14 +1,8 @@
 #include "window.hpp"
-#include <Windows.h>
 
 using namespace Graphics::Win32;
 
 std::map<void *, Window *> Window::windowMap = std::map<void *, Window *>();
-
-using Graphics::WindowEventType;
-std::map<unsigned, WindowEventType> Window::eventMap = std::map<unsigned, WindowEventType>{
-	{ WM_CLOSE, WindowEventType::Close }
-};
 
 Window::Window(Legacy::Window::CreationArguments arguments) :
 	legacy(new Legacy::Window(arguments)) {
@@ -28,5 +22,5 @@ void Window::Solo() {
 }
 
 __int64 Window::ByPass(Legacy::Window::Event event) {
-	return legacy->DefaultProcess(event);
+	return legacy->DefWindowProc(event);
 }

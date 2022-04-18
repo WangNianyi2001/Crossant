@@ -97,7 +97,7 @@ namespace Graphics::Win32::Legacy {
 
 		void Run();
 
-		__int64 DefaultProcess(Event event);
+		__int64 DefWindowProc(Event event);
 
 		void Quit();
 	};

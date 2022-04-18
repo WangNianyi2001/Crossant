@@ -39,7 +39,10 @@ void Window::Run() {
 	}
 }
 
-__int64 Window::DefaultProcess(Event event) {
+#pragma push_macro("DefWindowProc")
+#undef DefWindowProc
+__int64 Window::DefWindowProc(Event event) {
+#pragma pop_macro("DefWindowProc")
 	return DefWindowProc(GetHandle<HWND>(), event.type, event.w, event.l);
 }
 

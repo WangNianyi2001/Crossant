@@ -15,13 +15,13 @@ ATOM RegisterClass(WindowClass::Info info) {
 	classEx.lpfnWndProc = (WNDPROC)info.process;
 	classEx.cbClsExtra = 0;
 	classEx.cbWndExtra = 0;
-	classEx.hInstance = GET_HANDLE(HINSTANCE, info.instance);
-	classEx.hIcon = GET_HANDLE(HICON, info.icon);
-	classEx.hCursor = GET_HANDLE(HCURSOR, info.cursor);
-	classEx.hbrBackground = GET_HANDLE(HBRUSH, info.brush);
+	classEx.hInstance = info.instance->GetHandle<HINSTANCE>();
+	classEx.hIcon = info.icon->GetHandle<HICON>();
+	classEx.hCursor = info.cursor->GetHandle<HCURSOR>();
+	classEx.hbrBackground = info.brush->GetHandle<HBRUSH>();
 	classEx.lpszMenuName = info.menuName.c_str();
 	classEx.lpszClassName = info.className.c_str();
-	classEx.hIconSm = GET_HANDLE(HICON, info.smallIcon);
+	classEx.hIconSm = info.smallIcon->GetHandle<HICON>();
 	ATOM classId = RegisterClassEx(&classEx);
 	if(!classId)
 		TryThrowLastError();
@@ -31,49 +31,7 @@ ATOM RegisterClass(WindowClass::Info info) {
 WindowClass::WindowClass(Info info) : info(info), id(RegisterClass(info)) {}
 
 WindowClass::~WindowClass() {
-	if(!UnregisterClass((LPCWSTR)id, GET_HANDLE(HINSTANCE, info.instance)))
+	if(!UnregisterClass((LPCWSTR)id, info.instance->GetHandle<HINSTANCE>()))
 		TryThrowLastError();
 }
 
-Window::Window(CreationArguments arguments) : Window(CreateWindowEx(
-	(DWORD)arguments.extendedStyle,
-	(LPCWSTR)arguments.windowClass->id,
-	arguments.windowName.c_str(),
-	(DWORD)arguments.style,
-	arguments.x,
-	arguments.y,
-	arguments.width,
-	arguments.height,
-	GET_HANDLE(HWND, arguments.parent),
-	GET_HANDLE(HMENU, arguments.menu),
-	GET_HANDLE(HINSTANCE, arguments.instance),
-	NULL
-)) {}
-
-Window::~Window() {
-	if(!handle)
-		return;
-	if(DestroyWindow((HWND)handle))
-		TryThrowLastError();
-}
-
-void Window::Run() {
-	ShowWindow(GET_HANDLE(HWND, this), SW_SHOWDEFAULT);
-	UpdateWindow(GET_HANDLE(HWND, this));
-	for(MSG msg; ; ) {
-		if(!PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-			continue;
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-		if(msg.message == WM_QUIT)
-			break;
-	}
-}
-
-__int64 Window::DefaultProcess(Event event) {
-	return DefWindowProc(GET_HANDLE(HWND, this), event.type, event.w, event.l);
-}
-
-void Window::Quit() {
-	return PostQuitMessage(0);
-}

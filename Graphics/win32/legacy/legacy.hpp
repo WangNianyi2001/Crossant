@@ -24,5 +24,12 @@ namespace Graphics::Win32::Legacy {
 		HandledObject(void *const handle) : handle(handle) {}
 
 		virtual ~HandledObject() = default;
+
+		template<typename H>
+		inline H GetHandle() {
+			if(this == nullptr)
+				return nullptr;
+			return reinterpret_cast<H>(handle);
+		}
 	};
 }

@@ -17,6 +17,8 @@ namespace Graphics::Win32 {
 
 		virtual ~Window() override;
 
+		virtual void Solo() override;
+
 		virtual void Quit() override;
 
 		long ByPass(Legacy::Window::Event event);

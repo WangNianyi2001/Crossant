@@ -17,6 +17,8 @@ namespace Graphics {
 	public:
 		virtual ~Window() = default;
 
+		virtual void Solo() = 0;
+
 		virtual void Quit() = 0;
 	};
 }

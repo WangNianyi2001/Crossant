@@ -23,6 +23,10 @@ void Window::Quit() {
 	legacy->Quit();
 }
 
+void Window::Solo() {
+	legacy->Run();
+}
+
 long Window::ByPass(Legacy::Window::Event event) {
 	return legacy->DefaultProcess(event);
 }

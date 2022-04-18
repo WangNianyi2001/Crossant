@@ -8,5 +8,6 @@ int Application::Main() {
 	window->Listen(WindowEventType::Close, [=](WindowEvent) {
 		window->Quit();
 	});
+	window->Solo();
 	return 0;
 }

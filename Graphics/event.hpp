@@ -38,26 +38,29 @@ namespace Graphics {
 	template<typename Type, derived_from<Event<Type>> Event>
 	class EventDistributor : public EventTarget<Type, Event> {
 		using Listener = EventTarget<Type, Event>;
-		map<Type, set<Listener *>> listeners;
+		map<Type, Listener *> listeners;
 
 	public:
-		bool HasListener(Type type) {
-			return listeners.find(type) != listeners.end();
-		}
-
 		virtual void Fire(Event event) override {
-			if(!HasListener(event.type))
+			if(!listeners.contains(event.type))
 				return;
-			for(auto receiver : listeners.find(event.type)->second)
-				receiver->Fire(event);
+			listeners[event.type]->Fire(event);
 		}
 
 		void Listen(Type type, Listener *listener) {
-			listeners[type].insert(listener);
+			Unlisten(type);
+			listeners[type] = listener;
 		}
 
 		void Listen(Type type, function<void(Event)> listener) {
 			Listen(type, new EventHandler<Type, Event>(listener));
+		}
+
+		void Unlisten(Type type) {
+			if(!listeners.contains(type))
+				return;
+			delete listeners[type];
+			listeners.erase(listeners.find(type));
 		}
 	};
 }

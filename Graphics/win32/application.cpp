@@ -4,11 +4,10 @@
 using namespace Graphics::Win32;
 
 LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	auto it = Window::windowMap.find(hWnd);
-	if(it == Window::windowMap.end())
+	if(!Window::windowMap.contains(hWnd))
 		return DefWindowProc(hWnd, message, wParam, lParam);
-	Window *window = it->second;
-	if(Window::eventMap.find(message) != Window::eventMap.end()) {
+	Window *window = Window::windowMap[hWnd];
+	if(!Window::eventMap.contains(message)) {
 		Legacy::Window::Event bypass;
 		bypass.type = message;
 		bypass.w = wParam;

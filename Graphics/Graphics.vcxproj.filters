@@ -11,21 +11,60 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="graphics.hpp">
+    <ClInclude Include="drawingcontext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\opengl.hpp">
+    <ClInclude Include="win32\drawingcontext\opengl.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\bitmap.hpp">
+    <ClInclude Include="win32\drawingcontext\bitmap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\legacy\legacy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\legacy\gdi.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\legacy\user.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\legacy\kernel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\application.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="application.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="win32\opengl.cpp">
+    <ClCompile Include="win32\drawingcontext\opengl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="win32\bitmap.cpp">
+    <ClCompile Include="win32\drawingcontext\bitmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="event.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\legacy\user.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\legacy\legacy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

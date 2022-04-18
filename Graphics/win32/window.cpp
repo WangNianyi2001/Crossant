@@ -27,6 +27,6 @@ void Window::Solo() {
 	legacy->Run();
 }
 
-long Window::ByPass(Legacy::Window::Event event) {
+__int64 Window::ByPass(Legacy::Window::Event event) {
 	return legacy->DefaultProcess(event);
 }

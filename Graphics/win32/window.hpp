@@ -21,6 +21,6 @@ namespace Graphics::Win32 {
 
 		virtual void Quit() override;
 
-		long ByPass(Legacy::Window::Event event);
+		__int64 ByPass(Legacy::Window::Event event);
 	};
 }

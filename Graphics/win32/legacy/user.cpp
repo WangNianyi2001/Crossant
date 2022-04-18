@@ -69,7 +69,7 @@ void Window::Run() {
 	}
 }
 
-long Window::DefaultProcess(Event event) {
+__int64 Window::DefaultProcess(Event event) {
 	return DefWindowProc(GET_HANDLE(HWND, this), event.type, event.w, event.l);
 }
 

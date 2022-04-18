@@ -62,8 +62,8 @@ namespace Graphics::Win32::Legacy {
 
 	struct Window : UserObject {
 		struct Event : Graphics::Event<long> {
-			unsigned int w = 0U;
-			long l = 0L;
+			unsigned __int64 w = 0;
+			__int64 l = 0;
 		};
 
 		static constexpr int useDefaultCoordinate = 0x80000000;
@@ -153,7 +153,7 @@ namespace Graphics::Win32::Legacy {
 
 		void Run();
 
-		long DefaultProcess(Event event);
+		__int64 DefaultProcess(Event event);
 
 		void Quit();
 	};

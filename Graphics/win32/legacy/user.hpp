@@ -53,11 +53,9 @@ namespace Graphics::Win32::Legacy {
 		unsigned short const id;
 		Info const info;
 
-		WindowClass(unsigned short id, Info info) : id(id), info(info) {}
+		WindowClass(Info info);
 
-		static WindowClass *Register(Info info);
-
-		void Unregister();
+		virtual ~WindowClass();
 	};
 
 	struct Window : UserObject {

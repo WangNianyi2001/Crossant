@@ -31,13 +31,13 @@ Window *Application::CreateWindow() {
 }
 
 Application::Application(Legacy::ModuleInstance *instance) :
-	instance(instance) {
-	Legacy::WindowClass::Info info{
-		.process = &MsgProc,
-		.instance = instance,
-		.className = Legacy::String(L"Window"),
-	};
-	defaultWindowClass = Legacy::WindowClass::Register(info);
+	instance(instance),
+	defaultWindowClass(new Legacy::WindowClass(
+		{
+			.process = &MsgProc,
+			.instance = instance,
+			.className = Legacy::String(L"Window"),
+		})) {
 }
 
 #pragma warning(push)

@@ -8,7 +8,7 @@
 
 using namespace Graphics::Win32::Legacy;
 
-WindowClass *WindowClass::Register(Info info) {
+ATOM RegisterClass(WindowClass::Info info) {
 	WNDCLASSEX classEx;
 	classEx.cbSize = sizeof(WNDCLASSEX);
 	classEx.style = (UINT)info.style;
@@ -25,19 +25,13 @@ WindowClass *WindowClass::Register(Info info) {
 	ATOM classId = RegisterClassEx(&classEx);
 	if(!classId)
 		TryThrowLastError();
-	WindowClass *windowClass = new WindowClass(classId, info);
-	return windowClass;
+	return classId;
 }
 
-void WindowClass::Unregister() {
+WindowClass::WindowClass(Info info) : info(info), id(RegisterClass(info)) {}
+
+WindowClass::~WindowClass() {
 	if(!UnregisterClass((LPCWSTR)id, GET_HANDLE(HINSTANCE, info.instance)))
-		TryThrowLastError();
-}
-
-Window::~Window() {
-	if(!handle)
-		return;
-	if(DestroyWindow((HWND)handle))
 		TryThrowLastError();
 }
 
@@ -55,6 +49,13 @@ Window::Window(CreationArguments arguments) : Window(CreateWindowEx(
 	GET_HANDLE(HINSTANCE, arguments.instance),
 	NULL
 )) {}
+
+Window::~Window() {
+	if(!handle)
+		return;
+	if(DestroyWindow((HWND)handle))
+		TryThrowLastError();
+}
 
 void Window::Run() {
 	ShowWindow(GET_HANDLE(HWND, this), SW_SHOWDEFAULT);

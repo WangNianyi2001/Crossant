@@ -10,7 +10,7 @@ namespace Graphics::Win32 {
 		Legacy::ModuleInstance *const instance;
 
 	public:
-		Legacy::WindowClass *defaultWindowClass;
+		Legacy::WindowClass *const defaultWindowClass;
 
 		virtual Window *CreateWindow() override;
 

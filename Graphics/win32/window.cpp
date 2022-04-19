@@ -5,9 +5,19 @@ using namespace Graphics::Win32;
 
 std::map<void *, Window *> Window::windowMap{};
 
-std::map<unsigned, Graphics::WindowEventType> Window::eventMap{
-	{ WM_PAINT, WindowEventType::Paint },
-	{ WM_CLOSE, WindowEventType::Close }
+template<Graphics::WindowEvent::Type type>
+Graphics::WindowEvent directEvent(Legacy::Window::Event) {
+	Graphics::WindowEvent event;
+	event.type = type;
+	return event;
+}
+
+std::map<
+	unsigned,
+	std::function<Graphics::WindowEvent(Legacy::Window::Event)>
+> Window::eventConversion{
+	{ WM_PAINT, &directEvent<WindowEvent::Type::Paint> },
+	{ WM_CLOSE, &directEvent<WindowEvent::Type::Close> }
 };
 
 Window::Window(Legacy::Window::CreationArguments arguments) :
@@ -25,7 +35,7 @@ bool Window::Alive() {
 }
 
 void Window::Live() {
-	for(Push(WindowEvent(WindowEventType::Update));
+	for(Push(WindowEvent(WindowEvent::Type::Update));
 		legacy->ProcessEvent();
 		);
 }

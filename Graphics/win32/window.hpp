@@ -2,6 +2,7 @@
 
 #include "../window.hpp"
 #include "legacy/user.hpp"
+#include <functional>
 #include <map>
 
 namespace Graphics::Win32 {
@@ -16,7 +17,10 @@ namespace Graphics::Win32 {
 
 	public:
 		static std::map<void *, Window *> windowMap;
-		static std::map<unsigned, WindowEventType> eventMap;
+		static std::map<
+			unsigned,
+			std::function<WindowEvent(Legacy::Window::Event)>
+		> eventConversion;
 
 		Window(Legacy::Window::CreationArguments arguments);
 

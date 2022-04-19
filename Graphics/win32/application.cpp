@@ -7,14 +7,15 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	if(!Window::windowMap.contains(hWnd))
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	Window *window = Window::windowMap[hWnd];
-	if(!Window::eventMap.contains(message)) {
+	if(!Window::eventConversion.contains(message)) {
 		return window->ByPass(
 			Legacy::Window::Event(message, wParam, lParam)
 		);
 	}
-	window->Push(
-		Graphics::WindowEvent(Window::eventMap[message])
-	);
+	Legacy::Window::Event legacyEvent{
+		message, wParam, lParam
+	};
+	window->Push(Window::eventConversion[message](legacyEvent));
 	return 0;
 }
 

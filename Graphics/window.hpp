@@ -4,18 +4,19 @@
 #include "common/listener.hpp"
 
 namespace Graphics {
-	enum struct WindowEventType {
-		Update,
-		Paint,
-		Close,
-	};
-
 	struct WindowEvent {
-		WindowEventType type;
+		enum struct Type {
+			Update,
+			Paint,
+			Close,
+		};
+
+		Type type;
 	};
 
 	class Window :
-		public Listener<WindowEventType, WindowEvent>, public Destroyable {
+		public Listener<WindowEvent::Type, WindowEvent>,
+		public Destroyable {
 	protected:
 		Window() = default;
 

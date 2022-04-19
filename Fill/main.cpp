@@ -19,10 +19,10 @@ int Application::Main() {
 		}
 	});
 
-	window->Listen(WindowEventType::Paint, [&](WindowEvent) {
+	window->Listen(WindowEvent::Type::Paint, [&](WindowEvent) {
 		gdiContext.Draw();
 	});
-	window->Listen(WindowEventType::Close, [&](WindowEvent) {
+	window->Listen(WindowEvent::Type::Close, [&](WindowEvent) {
 		window->Destroy();
 	});
 

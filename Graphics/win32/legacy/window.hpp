@@ -11,20 +11,10 @@ namespace Graphics::Win32::Legacy {
 		struct Event : Graphics::Event<Message> {
 			W w = 0;
 			L l = 0;
-			unsigned long time;
-			long x, y;
 
-			Event(
-				Message type, W w, L l,
-				unsigned long time, long x, long y) :
-				Graphics::Event<Message>(type),
-				w(w), l(l),
-				time(time),
-				x(x), y(y) {
-			}
 			Event(Message type, W w, L l) :
-				Event(type, w, l, 0, 0, 0) {
-			}
+				Graphics::Event<Message>(type),
+				w(w), l(l) {}
 		};
 
 		static constexpr int useDefaultCoordinate = 0x80000000;
@@ -109,9 +99,7 @@ namespace Graphics::Win32::Legacy {
 
 		~Window() override;
 
-		bool HasEvent(Message min = 0, Message max = 0);
-		Event GetEvent(bool remove = true, Message min = 0, Message max = 0);
-		L DispatchEvent(Event event);
+		bool ProcessEvent(Message min = 0, Message max = 0);
 		L DefProc(Event event);
 
 		enum struct ShowState : char {

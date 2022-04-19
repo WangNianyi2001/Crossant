@@ -24,32 +24,13 @@ Window::~Window() {
 		TryThrowLastError();
 }
 
-Window::Event Window::GetEvent(bool remove, Message min, Message max) {
+bool Window::ProcessEvent(Message min, Message max) {
 	MSG msg;
-	PeekMessage(&msg, GetHandle<HWND>(), 0, 0, remove);
+	if(!PeekMessage(&msg, GetHandle<HWND>(), 0, 0, true))
+		return false;
 	TranslateMessage(&msg);
-	Event event(
-		msg.message, msg.wParam, msg.lParam,
-		msg.time, msg.pt.x, msg.pt.y
-	);
-	return event;
-}
-
-bool Window::HasEvent(Message min, Message max) {
-	MSG msg;
-	return PeekMessage(&msg, GetHandle<HWND>(), min, max, false);
-}
-
-Window::L Window::DispatchEvent(Event event) {
-	MSG msg{
-		.hwnd = GetHandle<HWND>(),
-		.message = event.type,
-		.wParam = event.w,
-		.lParam = event.l,
-		.time = event.time,
-		.pt = POINT{ event.x, event.y }
-	};
-	return DispatchMessage(&msg);
+	DispatchMessage(&msg);
+	return true;
 }
 
 Window::L Window::DefProc(Event event) {

@@ -8,7 +8,7 @@ int Application::Main() {
 	window->Listen(WindowEventType::Paint, [=](WindowEvent) {
 		window->FinishPaint();
 	});
-	window->Listen(WindowEventType::Update, [=](WindowEvent) {
+	window->Listen(WindowEventType::Close, [=](WindowEvent) {
 		window->Destroy();
 	});
 	window->Show();

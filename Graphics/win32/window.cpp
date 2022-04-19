@@ -25,9 +25,9 @@ bool Window::Alive() {
 }
 
 void Window::Live() {
-	Fire(WindowEvent(WindowEventType::Update));
-	for(; legacy->HasEvent();
-		legacy->DispatchEvent(legacy->GetEvent()));
+	for(Fire(WindowEvent(WindowEventType::Update));
+		legacy->ProcessEvent();
+		);
 }
 
 void Window::Destroy() {

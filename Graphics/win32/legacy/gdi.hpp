@@ -1,6 +1,6 @@
 #pragma once
 
-#include "legacy.hpp"
+#include "../legacy.hpp"
 #include "user.hpp"
 
 namespace Graphics::Win32::Legacy {

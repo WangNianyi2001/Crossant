@@ -1,6 +1,6 @@
 #pragma once
 
-#include "event.hpp"
+#include "eventsystem/event.hpp"
 
 namespace Graphics {
 	enum struct WindowEventType {
@@ -9,12 +9,12 @@ namespace Graphics {
 		Close,
 	};
 
-	struct WindowEvent : Event<WindowEventType> {
-		WindowEvent(WindowEventType type) : Event(type) {}
+	struct WindowEvent {
+		WindowEventType type;
 	};
 
 	class Window :
-		public EventDistributor<WindowEventType, WindowEvent> {
+		public EventListener<WindowEventType, WindowEvent> {
 	protected:
 		Window() = default;
 

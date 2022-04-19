@@ -14,16 +14,13 @@
     <ClInclude Include="drawingcontext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\drawingcontext\opengl.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\drawingcontext\bitmap.hpp">
+    <ClInclude Include="win32\drawingcontext\gdi.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="win32\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\legacy\legacy.hpp">
+    <ClInclude Include="win32\legacy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="win32\legacy\gdi.hpp">
@@ -47,15 +44,18 @@
     <ClInclude Include="win32\legacy\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="win32\drawingcontext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eventsystem\subscriber.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="win32\drawingcontext\opengl.cpp">
+    <ClCompile Include="win32\drawingcontext\gdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="win32\drawingcontext\bitmap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="event.hpp">
+    <ClCompile Include="eventsystem\event.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win32\window.cpp">
@@ -64,7 +64,7 @@
     <ClCompile Include="win32\legacy\user.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="win32\legacy\legacy.cpp">
+    <ClCompile Include="win32\legacy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win32\application.cpp">

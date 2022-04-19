@@ -23,7 +23,7 @@ namespace Graphics::Win32::Legacy {
 
 		HandledObject(void *const handle) : handle(handle) {}
 
-		virtual ~HandledObject() = default;
+		virtual ~HandledObject() override = default;
 
 		template<typename H>
 		inline H GetHandle() {

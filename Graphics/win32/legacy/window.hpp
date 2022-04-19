@@ -8,13 +8,10 @@ namespace Graphics::Win32::Legacy {
 		using W = unsigned __int64;
 		using L = __int64;
 
-		struct Event : Graphics::Event<Message> {
+		struct Event {
+			Message type;
 			W w = 0;
 			L l = 0;
-
-			Event(Message type, W w, L l) :
-				Graphics::Event<Message>(type),
-				w(w), l(l) {}
 		};
 
 		static constexpr int useDefaultCoordinate = 0x80000000;
@@ -97,7 +94,7 @@ namespace Graphics::Win32::Legacy {
 		};
 		Window(CreationArguments arguments);
 
-		~Window() override;
+		virtual ~Window() override;
 
 		bool ProcessEvent(Message min = 0, Message max = 0);
 		L DefProc(Event event);

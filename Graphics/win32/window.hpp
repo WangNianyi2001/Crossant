@@ -3,9 +3,12 @@
 #include "../window.hpp"
 #include "legacy/user.hpp"
 #include <map>
+#include "drawingcontext.hpp"
 
 namespace Graphics::Win32 {
 	class Window : public Graphics::Window {
+		friend DrawingContext;
+
 	protected:
 		Legacy::Window *const legacy;
 		bool alive;
@@ -16,7 +19,7 @@ namespace Graphics::Win32 {
 
 		Window(Legacy::Window::CreationArguments arguments);
 
-		virtual ~Window() = default;
+		virtual ~Window() override = default;
 
 		__int64 ByPass(Legacy::Window::Event event);
 

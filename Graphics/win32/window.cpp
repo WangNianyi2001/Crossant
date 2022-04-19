@@ -25,7 +25,7 @@ bool Window::Alive() {
 }
 
 void Window::Live() {
-	for(Fire(WindowEvent(WindowEventType::Update));
+	for(Push(WindowEvent(WindowEventType::Update));
 		legacy->ProcessEvent();
 		);
 }

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "legacy.hpp"
+#include "../legacy.hpp"
 #include "kernel.hpp"
-#include "../../event.hpp"
+#include "../../eventsystem/event.hpp"
 
 namespace Graphics::Win32::Legacy {
 	struct UserObject : HandledObject {
 		UserObject(void *const handle) : HandledObject(handle) {}
 
-		virtual ~UserObject() = default;
+		virtual ~UserObject() override = default;
 	};
 
 	struct ModuleInstance : UserObject {
@@ -55,7 +55,7 @@ namespace Graphics::Win32::Legacy {
 
 		WindowClass(Info info);
 
-		virtual ~WindowClass();
+		virtual ~WindowClass() override;
 	};
 }
 

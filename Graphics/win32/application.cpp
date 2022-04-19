@@ -12,7 +12,7 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 			Legacy::Window::Event(message, wParam, lParam)
 		);
 	}
-	window->Fire(
+	window->Push(
 		Graphics::WindowEvent(Window::eventMap[message])
 	);
 	return 0;

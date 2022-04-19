@@ -14,16 +14,12 @@ namespace Graphics::Win32::Legacy {
 
 	void TryThrowLastError();
 
-	struct Object {
-		virtual ~Object() = default;
-	};
-
-	struct HandledObject : Object {
+	struct HandledObject {
 		void *const handle;
 
 		HandledObject(void *const handle) : handle(handle) {}
 
-		virtual ~HandledObject() override = default;
+		virtual ~HandledObject() = default;
 
 		template<typename H>
 		inline H GetHandle() {

@@ -1,4 +1,5 @@
 #include "window.hpp"
+#include "gdi.hpp"
 #include <Windows.h>
 
 using namespace Graphics::Win32::Legacy;
@@ -47,4 +48,12 @@ void Window::UpdateClient() {
 
 void Window::ValidateClient() {
 	ValidateRect(GetHandle<HWND>(), NULL);
+}
+
+void Window::BeginPaint(PaintStruct *paintStruct) {
+	::BeginPaint(GetHandle<HWND>(), (LPPAINTSTRUCT)paintStruct->ps);
+}
+
+void Window::EndPaint(PaintStruct *paintStruct) {
+	::EndPaint(GetHandle<HWND>(), (LPPAINTSTRUCT)paintStruct->ps);
 }

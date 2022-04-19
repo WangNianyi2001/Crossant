@@ -2,7 +2,7 @@
 
 #include "../legacy.hpp"
 #include "kernel.hpp"
-#include "../../eventsystem/event.hpp"
+#include "../../common/listener.hpp"
 
 namespace Graphics::Win32::Legacy {
 	struct UserObject : HandledObject {
@@ -19,7 +19,7 @@ namespace Graphics::Win32::Legacy {
 		Menu(void *const handle) : UserObject(handle) {}
 	};
 
-	struct WindowClass : Object {
+	struct WindowClass {
 		enum struct Style : unsigned long {
 			VRedraw = 0x00000001,
 			HRedraw = 0x00000002,
@@ -55,7 +55,7 @@ namespace Graphics::Win32::Legacy {
 
 		WindowClass(Info info);
 
-		virtual ~WindowClass() override;
+		virtual ~WindowClass();
 	};
 }
 

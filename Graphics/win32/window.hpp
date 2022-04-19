@@ -5,7 +5,11 @@
 #include <map>
 
 namespace Graphics::Win32 {
+	class GDIContext;
+
 	class Window : public Graphics::Window {
+		friend class GDIContext;
+
 	protected:
 		Legacy::Window *const legacy;
 		bool alive;
@@ -13,8 +17,6 @@ namespace Graphics::Win32 {
 	public:
 		static std::map<void *, Window *> windowMap;
 		static std::map<unsigned, WindowEventType> eventMap;
-
-		void *paintStruct;
 
 		Window(Legacy::Window::CreationArguments arguments);
 
@@ -29,9 +31,5 @@ namespace Graphics::Win32 {
 
 		// Window state
 		virtual void Show() override;
-
-		// Painting
-		virtual void BeginPaint();
-		virtual void FinishPaint();
 	};
 }

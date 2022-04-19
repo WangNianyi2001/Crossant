@@ -11,10 +11,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="drawingcontext.hpp">
+    <ClInclude Include="graphicscontext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\drawingcontext\gdi.hpp">
+    <ClInclude Include="win32\graphicscontext\gdi.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="win32\window.hpp">
@@ -44,18 +44,27 @@
     <ClInclude Include="win32\legacy\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\drawingcontext.hpp">
+    <ClInclude Include="win32\graphicscontext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="eventsystem\subscriber.hpp">
+    <ClInclude Include="common\subscriber.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\interface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\geometry.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="win32\drawingcontext\gdi.cpp">
+    <ClCompile Include="win32\graphicscontext\gdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="eventsystem\event.hpp">
+    <ClCompile Include="common\listener.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win32\window.cpp">
@@ -73,7 +82,7 @@
     <ClCompile Include="win32\legacy\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="win32\drawingcontext.cpp">
+    <ClCompile Include="win32\legacy\gdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

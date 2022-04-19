@@ -1,6 +1,7 @@
 #pragma once
 
-#include "eventsystem/event.hpp"
+#include "common/interface.hpp"
+#include "common/listener.hpp"
 
 namespace Graphics {
 	enum struct WindowEventType {
@@ -14,7 +15,7 @@ namespace Graphics {
 	};
 
 	class Window :
-		public EventListener<WindowEventType, WindowEvent> {
+		public Listener<WindowEventType, WindowEvent>, public Destroyable {
 	protected:
 		Window() = default;
 
@@ -24,7 +25,6 @@ namespace Graphics {
 		// Life cycle
 		virtual bool Alive() = 0;
 		virtual void Live() = 0;
-		virtual void Destroy() = 0;
 
 		// Window state
 		virtual void Show() = 0;

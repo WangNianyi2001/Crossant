@@ -152,13 +152,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="drawingcontext.hpp" />
+    <ClInclude Include="common\geometry.hpp" />
+    <ClInclude Include="graphicscontext.hpp" />
     <ClInclude Include="application.hpp" />
-    <ClInclude Include="eventsystem\subscriber.hpp" />
+    <ClInclude Include="common\subscriber.hpp" />
     <ClInclude Include="win32\application.hpp" />
-    <ClInclude Include="win32\drawingcontext\gdi.hpp" />
-    <ClInclude Include="win32\drawingcontext.hpp" />
+    <ClInclude Include="win32\graphicscontext\gdi.hpp" />
+    <ClInclude Include="win32\graphicscontext.hpp" />
+    <ClInclude Include="common\interface.hpp" />
     <ClInclude Include="win32\legacy\gdi.hpp" />
+    <ClInclude Include="common\color.hpp" />
     <ClInclude Include="win32\legacy\kernel.hpp" />
     <ClInclude Include="win32\legacy.hpp" />
     <ClInclude Include="win32\legacy\user.hpp" />
@@ -167,11 +170,11 @@
     <ClInclude Include="window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="eventsystem\event.hpp" />
+    <ClCompile Include="common\listener.hpp" />
     <ClCompile Include="win32\application.cpp" />
-    <ClCompile Include="win32\drawingcontext.cpp" />
-    <ClCompile Include="win32\drawingcontext\gdi.cpp" />
+    <ClCompile Include="win32\graphicscontext\gdi.cpp" />
     <ClCompile Include="win32\legacy.cpp" />
+    <ClCompile Include="win32\legacy\gdi.cpp" />
     <ClCompile Include="win32\legacy\user.cpp" />
     <ClCompile Include="win32\legacy\window.cpp" />
     <ClCompile Include="win32\window.cpp" />

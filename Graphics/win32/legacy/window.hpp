@@ -3,6 +3,8 @@
 #include "user.hpp"
 
 namespace Graphics::Win32::Legacy {
+	struct PaintStruct;
+
 	struct Window : UserObject {
 		using Message = unsigned int;
 		using W = unsigned __int64;
@@ -96,9 +98,11 @@ namespace Graphics::Win32::Legacy {
 
 		virtual ~Window() override;
 
+		// Event handling
 		bool ProcessEvent(Message min = 0, Message max = 0);
 		L DefProc(Event event);
 
+		// Window state
 		enum struct ShowState : char {
 			Hide = 0,
 			Shownormal = 1,
@@ -118,7 +122,12 @@ namespace Graphics::Win32::Legacy {
 		};
 		void SetShowState(ShowState state);
 
+		// Validation
 		void UpdateClient();
 		void ValidateClient();
+
+		// Painting
+		void BeginPaint(PaintStruct *paintStruct);
+		void EndPaint(PaintStruct *paintStruct);
 	};
 }

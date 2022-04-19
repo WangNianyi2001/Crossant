@@ -8,6 +8,7 @@ namespace Graphics::Win32 {
 	class Window : public Graphics::Window {
 	protected:
 		Legacy::Window *const legacy;
+		bool alive;
 
 	public:
 		static std::map<void *, Window *> windowMap;
@@ -15,12 +16,13 @@ namespace Graphics::Win32 {
 
 		Window(Legacy::Window::CreationArguments arguments);
 
-		virtual ~Window() override;
-
-		virtual void Solo() override;
-
-		virtual void Quit() override;
+		virtual ~Window() = default;
 
 		__int64 ByPass(Legacy::Window::Event event);
+
+		virtual void Show() override;
+		virtual bool Alive() override;
+		virtual void Live() override;
+		virtual void Destroy() override;
 	};
 }

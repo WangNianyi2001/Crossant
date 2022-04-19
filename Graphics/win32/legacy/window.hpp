@@ -3,14 +3,33 @@
 #include "user.hpp"
 
 namespace Graphics::Win32::Legacy {
-
 	struct Window : UserObject {
-		struct Event : Graphics::Event<long> {
-			unsigned __int64 w = 0;
-			__int64 l = 0;
+		using Message = unsigned int;
+		using W = unsigned __int64;
+		using L = __int64;
+
+		struct Event : Graphics::Event<Message> {
+			W w = 0;
+			L l = 0;
+			unsigned long time;
+			long x, y;
+
+			Event(
+				Message type, W w, L l,
+				unsigned long time, long x, long y) :
+				Graphics::Event<Message>(type),
+				w(w), l(l),
+				time(time),
+				x(x), y(y) {
+			}
+			Event(Message type, W w, L l) :
+				Event(type, w, l, 0, 0, 0) {
+			}
 		};
 
 		static constexpr int useDefaultCoordinate = 0x80000000;
+
+		Window(void *const handle) : UserObject(handle) {}
 
 		enum struct Style : unsigned long {
 			Overlapped = 0x00000000L,
@@ -43,7 +62,6 @@ namespace Graphics::Win32::Legacy {
 			SizeBox = ThickFrame,
 			TiledWindow = OverlappedWindow,
 		};
-
 		enum struct ExtendedStyle : unsigned long {
 			DLGModalFrame = 0x00000001L,
 			NoParentNotify = 0x00000004L,
@@ -74,7 +92,6 @@ namespace Graphics::Win32::Legacy {
 			OverlappedWindow = WindowEdge | ClientEdge,
 			PaletteWindow = WindowEdge | ToolWindow | Topmost,
 		};
-
 		struct CreationArguments {
 			ExtendedStyle extendedStyle = ExtendedStyle::OverlappedWindow;
 			WindowClass *windowClass;
@@ -88,17 +105,35 @@ namespace Graphics::Win32::Legacy {
 			Menu *menu = nullptr;
 			ModuleInstance *instance;
 		};
-
-		Window(void *const handle) : UserObject(handle) {}
-
 		Window(CreationArguments arguments);
 
 		~Window() override;
 
-		void Run();
+		Event GetEvent(bool remove = true, Message min = 0, Message max = 0);
 
-		__int64 DefWindowProc(Event event);
+		L DispatchEvent(Event event);
 
-		void Quit();
+		L DefProc(Event event);
+
+		enum struct ShowState : char {
+			Hide = 0,
+			Shownormal = 1,
+			Normal = 1,
+			Showminimized = 2,
+			Showmaximized = 3,
+			Maximize = 3,
+			Shownoactivate = 4,
+			SetShowState = 5,
+			Minimize = 6,
+			Showminnoactive = 7,
+			Showna = 8,
+			Restore = 9,
+			Showdefault = 10,
+			Forceminimize = 11,
+			Max = 11,
+		};
+		void SetShowState(ShowState state);
+
+		void UpdateClient();
 	};
 }

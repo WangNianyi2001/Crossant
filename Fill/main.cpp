@@ -6,8 +6,9 @@ int Application::Main() {
 	Application *app = Application::current;
 	Window *window = app->CreateWindow();
 	window->Listen(WindowEventType::Close, [=](WindowEvent) {
-		window->Quit();
+		window->Destroy();
 	});
-	window->Solo();
+	window->Show();
+	for(; window->Alive(); window->Live());
 	return 0;
 }

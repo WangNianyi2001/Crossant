@@ -20,32 +20,41 @@ Window::Window(CreationArguments arguments) : Window(CreateWindowEx(
 }
 
 Window::~Window() {
-	if(!handle)
-		return;
-	if(DestroyWindow((HWND)handle))
+	if(DestroyWindow(GetHandle<HWND>()))
 		TryThrowLastError();
 }
 
-void Window::Run() {
-	ShowWindow(GetHandle<HWND>(), SW_SHOWDEFAULT);
-	UpdateWindow(GetHandle<HWND>());
-	for(MSG msg; ; ) {
-		if(!PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-			continue;
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-		if(msg.message == WM_QUIT)
-			break;
-	}
+Window::Event Window::GetEvent(bool remove, Message min, Message max) {
+	MSG msg;
+	GetMessage(&msg, NULL, 0, 0);
+	TranslateMessage(&msg);
+	Event event(
+		msg.message, msg.wParam, msg.lParam,
+		msg.time, msg.pt.x, msg.pt.y
+	);
+	return event;
 }
 
-#pragma push_macro("DefWindowProc")
-#undef DefWindowProc
-__int64 Window::DefWindowProc(Event event) {
-#pragma pop_macro("DefWindowProc")
+Window::L Window::DispatchEvent(Event event) {
+	MSG msg{
+		.hwnd = GetHandle<HWND>(),
+		.message = event.type,
+		.wParam = event.w,
+		.lParam = event.l,
+		.time = event.time,
+		.pt = POINT{ event.x, event.y }
+	};
+	return DispatchMessage(&msg);
+}
+
+Window::L Window::DefProc(Event event) {
 	return DefWindowProc(GetHandle<HWND>(), event.type, event.w, event.l);
 }
 
-void Window::Quit() {
-	return PostQuitMessage(0);
+void Window::SetShowState(ShowState state) {
+	ShowWindow(GetHandle<HWND>(), (int)state);
+}
+
+void Window::UpdateClient() {
+	UpdateWindow(GetHandle<HWND>());
 }

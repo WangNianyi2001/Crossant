@@ -12,6 +12,9 @@ namespace Graphics {
 	struct Event {
 		Type type;
 
+		Event() = default;
+		Event(Type type) : type(type) {}
+
 		virtual bool operator==(Event<Type> other) {
 			return type == other.type;
 		}

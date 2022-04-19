@@ -5,6 +5,7 @@
 namespace Graphics {
 	enum struct WindowEventType {
 		Close,
+		Destroy
 	};
 
 	struct WindowEvent : Event<WindowEventType> {};
@@ -17,8 +18,9 @@ namespace Graphics {
 	public:
 		virtual ~Window() = default;
 
-		virtual void Solo() = 0;
-
-		virtual void Quit() = 0;
+		virtual void Show() = 0;
+		virtual bool Alive() = 0;
+		virtual void Live() = 0;
+		virtual void Destroy() = 0;
 	};
 }

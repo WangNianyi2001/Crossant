@@ -173,7 +173,6 @@
     <ClCompile Include="win32\legacy\legacy.cpp" />
     <ClCompile Include="win32\legacy\user.cpp" />
     <ClCompile Include="win32\legacy\window.cpp" />
-    <ClCompile Include="win32\windoweventmap.cpp" />
     <ClCompile Include="win32\window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

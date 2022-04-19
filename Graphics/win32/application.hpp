@@ -12,8 +12,8 @@ namespace Graphics::Win32 {
 	public:
 		Legacy::WindowClass *const defaultWindowClass;
 
-		virtual Window *CreateWindow() override;
-
 		Application(Legacy::ModuleInstance *instance);
+
+		virtual Window *CreateWindow() override;
 	};
 }

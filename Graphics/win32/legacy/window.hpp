@@ -109,10 +109,9 @@ namespace Graphics::Win32::Legacy {
 
 		~Window() override;
 
+		bool HasEvent(Message min = 0, Message max = 0);
 		Event GetEvent(bool remove = true, Message min = 0, Message max = 0);
-
 		L DispatchEvent(Event event);
-
 		L DefProc(Event event);
 
 		enum struct ShowState : char {
@@ -135,5 +134,6 @@ namespace Graphics::Win32::Legacy {
 		void SetShowState(ShowState state);
 
 		void UpdateClient();
+		void ValidateClient();
 	};
 }

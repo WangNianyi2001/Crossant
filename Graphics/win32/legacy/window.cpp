@@ -26,13 +26,18 @@ Window::~Window() {
 
 Window::Event Window::GetEvent(bool remove, Message min, Message max) {
 	MSG msg;
-	GetMessage(&msg, NULL, 0, 0);
+	PeekMessage(&msg, GetHandle<HWND>(), 0, 0, remove);
 	TranslateMessage(&msg);
 	Event event(
 		msg.message, msg.wParam, msg.lParam,
 		msg.time, msg.pt.x, msg.pt.y
 	);
 	return event;
+}
+
+bool Window::HasEvent(Message min, Message max) {
+	MSG msg;
+	return PeekMessage(&msg, GetHandle<HWND>(), min, max, false);
 }
 
 Window::L Window::DispatchEvent(Event event) {
@@ -57,4 +62,8 @@ void Window::SetShowState(ShowState state) {
 
 void Window::UpdateClient() {
 	UpdateWindow(GetHandle<HWND>());
+}
+
+void Window::ValidateClient() {
+	ValidateRect(GetHandle<HWND>(), NULL);
 }

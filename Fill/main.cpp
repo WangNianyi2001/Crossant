@@ -5,7 +5,10 @@ using namespace Graphics;
 int Application::Main() {
 	Application *app = Application::current;
 	Window *window = app->CreateWindow();
-	window->Listen(WindowEventType::Close, [=](WindowEvent) {
+	window->Listen(WindowEventType::Paint, [=](WindowEvent) {
+		window->FinishPaint();
+	});
+	window->Listen(WindowEventType::Update, [=](WindowEvent) {
 		window->Destroy();
 	});
 	window->Show();

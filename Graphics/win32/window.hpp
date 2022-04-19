@@ -20,9 +20,11 @@ namespace Graphics::Win32 {
 
 		__int64 ByPass(Legacy::Window::Event event);
 
-		virtual void Show() override;
 		virtual bool Alive() override;
 		virtual void Live() override;
 		virtual void Destroy() override;
+
+		virtual void Show() override;
+		virtual void FinishPaint() override;
 	};
 }

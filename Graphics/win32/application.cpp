@@ -12,9 +12,9 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 			Legacy::Window::Event(message, wParam, lParam)
 		);
 	}
-	Graphics::WindowEvent event;
-	event.type = Window::eventMap[message];
-	window->Fire(event);
+	window->Fire(
+		Graphics::WindowEvent(Window::eventMap[message])
+	);
 	return 0;
 }
 
@@ -28,7 +28,7 @@ Application::Application(Legacy::ModuleInstance *instance) :
 		})) {
 }
 
-#pragma push_macro(CreateWindow)
+#pragma push_macro("CreateWindow")
 #undef CreateWindow
 Window *Application::CreateWindow() {
 	Legacy::Window::CreationArguments arguments{};
@@ -36,7 +36,7 @@ Window *Application::CreateWindow() {
 	arguments.windowClass = defaultWindowClass;
 	return new Window(arguments);
 }
-#pragma pop_macro(CreateWindow)
+#pragma pop_macro("CreateWindow")
 
 #pragma warning(push)
 #pragma warning(disable: 28251)

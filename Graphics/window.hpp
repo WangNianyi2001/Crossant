@@ -21,11 +21,12 @@ namespace Graphics {
 	public:
 		virtual ~Window() = default;
 
+		// Life cycle
 		virtual bool Alive() = 0;
 		virtual void Live() = 0;
 		virtual void Destroy() = 0;
 
+		// Window state
 		virtual void Show() = 0;
-		virtual void FinishPaint() = 0;
 	};
 }

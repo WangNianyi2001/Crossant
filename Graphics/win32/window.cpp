@@ -14,6 +14,7 @@ Window::Window(Legacy::Window::CreationArguments arguments) :
 	legacy(new Legacy::Window(arguments)) {
 	windowMap[legacy->handle] = this;
 	alive = true;
+	paintStruct = new PAINTSTRUCT;
 }
 
 __int64 Window::ByPass(Legacy::Window::Event event) {
@@ -34,12 +35,17 @@ void Window::Destroy() {
 	windowMap.erase(windowMap.find(legacy->handle));
 	delete legacy;
 	alive = false;
+	delete paintStruct;
 }
 
 void Window::Show() {
 	legacy->SetShowState(Legacy::Window::ShowState::Showdefault);
 }
 
+void Window::BeginPaint() {
+	::BeginPaint(legacy->GetHandle<HWND>(), (PAINTSTRUCT *)paintStruct);
+}
+
 void Window::FinishPaint() {
-	legacy->ValidateClient();
+	::EndPaint(legacy->GetHandle<HWND>(), (PAINTSTRUCT *)paintStruct);
 }

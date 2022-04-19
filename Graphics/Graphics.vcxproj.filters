@@ -73,5 +73,8 @@
     <ClCompile Include="win32\legacy\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="win32\drawingcontext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

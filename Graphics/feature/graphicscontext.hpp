@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/subscriber.hpp"
+#include "../common/subscriber.hpp"
 
 namespace Graphics {
 	template<typename Target>

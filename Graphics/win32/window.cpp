@@ -1,32 +1,49 @@
 #include "window.hpp"
 #include <Windows.h>
+#include <windowsx.h>
 
 using namespace Graphics::Win32;
+using Graphics::WindowEvent;
+using LegacyWindow = Legacy::Window;
+using Event = Legacy::Window::Event;
+using Type = WindowEvent::Type;
 
 std::map<void *, Window *> Window::windowMap{};
 
-template<Graphics::WindowEvent::Type type>
-Graphics::WindowEvent directEvent(Legacy::Window::Event) {
-	Graphics::WindowEvent event;
-	event.type = type;
+template<Type type>
+WindowEvent directEvent(Event) {
+	return WindowEvent{ type };
+}
+
+template<Type type>
+WindowEvent mouseEvent(Event legacyEvent) {
+	WindowEvent event{ type };
+	event.mouse = Graphics::Mouse{
+		.position = {
+			GET_X_LPARAM(legacyEvent.l),
+			GET_Y_LPARAM(legacyEvent.l),
+		}
+	};
 	return event;
 }
 
 std::map<
 	unsigned,
-	std::function<Graphics::WindowEvent(Legacy::Window::Event)>
+	std::function<WindowEvent(Event)>
 > Window::eventConversion{
-	{ WM_PAINT, &directEvent<WindowEvent::Type::Paint> },
-	{ WM_CLOSE, &directEvent<WindowEvent::Type::Close> }
+	{ WM_CLOSE, &directEvent<Type::Close> },
+	{ WM_LBUTTONDOWN, &mouseEvent<Type::MouseDown> },
+	{ WM_LBUTTONUP, &mouseEvent<Type::MouseUp> },
+	{ WM_PAINT, &directEvent<Type::Paint> },
 };
 
-Window::Window(Legacy::Window::CreationArguments arguments) :
-	legacy(new Legacy::Window(arguments)) {
+Window::Window(LegacyWindow::CreationArguments arguments) :
+	legacy(new LegacyWindow(arguments)) {
 	windowMap[legacy->handle] = this;
 	alive = true;
 }
 
-__int64 Window::ByPass(Legacy::Window::Event event) {
+__int64 Window::ByPass(Event event) {
 	return legacy->DefProc(event);
 }
 
@@ -35,9 +52,8 @@ bool Window::Alive() {
 }
 
 void Window::Live() {
-	for(Push(WindowEvent(WindowEvent::Type::Update));
-		legacy->ProcessEvent();
-		);
+	Push(WindowEvent(Type::Update));
+	while(legacy->ProcessEvent());
 }
 
 void Window::Destroy() {
@@ -47,5 +63,5 @@ void Window::Destroy() {
 }
 
 void Window::Show() {
-	legacy->SetShowState(Legacy::Window::ShowState::Showdefault);
+	legacy->SetShowState(LegacyWindow::ShowState::Showdefault);
 }

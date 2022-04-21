@@ -4,6 +4,8 @@
 using namespace Graphics;
 
 int Application::Main() {
+	using EventType = WindowEvent::Type;
+
 	Application *app = Application::current;
 	Window *window = app->CreateWindow();
 	Win32::GDIContext gdiContext((Win32::Window *)window);
@@ -19,10 +21,13 @@ int Application::Main() {
 		}
 	});
 
-	window->Listen(WindowEvent::Type::Paint, [&](WindowEvent) {
+	window->Listen(EventType::MouseUp, [&](WindowEvent event) {
+		//
+	});
+	window->Listen(EventType::Paint, [&](WindowEvent) {
 		gdiContext.Draw();
 	});
-	window->Listen(WindowEvent::Type::Close, [&](WindowEvent) {
+	window->Listen(EventType::Close, [&](WindowEvent) {
 		window->Destroy();
 	});
 

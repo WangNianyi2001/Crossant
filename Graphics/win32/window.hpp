@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../window.hpp"
+#include "../feature/window.hpp"
 #include "legacy/user.hpp"
 #include <functional>
 #include <map>

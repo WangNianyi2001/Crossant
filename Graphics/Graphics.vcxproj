@@ -153,9 +153,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="common\geometry.hpp" />
-    <ClInclude Include="graphicscontext.hpp" />
-    <ClInclude Include="application.hpp" />
+    <ClInclude Include="feature\graphicscontext.hpp" />
+    <ClInclude Include="feature\application.hpp" />
     <ClInclude Include="common\subscriber.hpp" />
+    <ClInclude Include="feature\mouse.hpp" />
     <ClInclude Include="win32\application.hpp" />
     <ClInclude Include="win32\graphicscontext\gdi.hpp" />
     <ClInclude Include="win32\graphicscontext.hpp" />
@@ -167,7 +168,7 @@
     <ClInclude Include="win32\legacy\user.hpp" />
     <ClInclude Include="win32\legacy\window.hpp" />
     <ClInclude Include="win32\window.hpp" />
-    <ClInclude Include="window.hpp" />
+    <ClInclude Include="feature\window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\listener.hpp" />

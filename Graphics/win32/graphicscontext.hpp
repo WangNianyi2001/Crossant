@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../graphicscontext.hpp"
+#include "../feature/graphicscontext.hpp"
 #include "window.hpp"
 
 namespace Graphics::Win32 {

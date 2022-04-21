@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../application.hpp"
+#include "../feature/application.hpp"
 #include "window.hpp"
 #include "legacy/user.hpp"
 

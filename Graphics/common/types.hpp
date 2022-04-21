@@ -11,29 +11,23 @@ namespace Graphics {
 
 	// Screen coordinate
 
-	//struct ScreenCoord : Vector2I {
-	//	bool operator<(ScreenCoord const &coord) {
-	//		return operator[0] <=
-	//	}
-	//};
+	template<typename Point>
+	struct Range {
+		virtual bool Contains(Point point) const = 0;
+	};
 
-	//template<typename Point>
-	//struct Range {
-	//	virtual bool Contains(Point point) = 0;
-	//};
+	template<typename Point>
+	struct BoxRange : Range<Point> {
+		Point const min, max;
 
-	//template<typename Point>
-	//struct MinMaxRange : Range<Point> {
-	//	Point const min, max;
+		BoxRange(Point min, Point max) : min(min), max(max) {}
 
-	//	MinMaxRange(Point min, Point max) : min(min), max(max) {}
+		virtual bool Contains(Point point) const override {
+			return point >= min && point < max;	// Left-close right-open
+		}
+	};
 
-	//	virtual bool Contains(Point point) override {
-	//		return point >= min && point < max;	// Left-close right-open
-	//	}
-	//};
-
-	//struct ScreenRect : MinMaxRange<ScreenCoord> {};
+	using ScreenRect = BoxRange<Vector2I>;
 
 	// Color
 

@@ -47,8 +47,23 @@ namespace Graphics {
 			return result;
 		}
 
-		bool operator==(Vector<Component, dimension> const &vector) {
+		bool operator==(Vector const &vector) const {
 			return Compare<Comparator<Component>::Equal, BooleanOperation::And>(*this, vector);
+		}
+		bool operator<(Vector const &vector) const {
+			return Compare<Comparator<Component>::Less, BooleanOperation::And>(*this, vector);
+		}
+		bool operator>(Vector const &vector) const {
+			return Compare<Comparator<Component>::Greater, BooleanOperation::And>(*this, vector);
+		}
+		bool operator!=(Vector const &vector) const {
+			return !operator==(vector);
+		}
+		bool operator<=(Vector const &vector) const {
+			return operator<(vector) || operator==(vector);
+		}
+		bool operator>=(Vector const &vector) const {
+			return operator>(vector) || operator==(vector);
 		}
 	};
 }

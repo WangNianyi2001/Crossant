@@ -12,8 +12,7 @@ namespace Graphics {
 	};
 
 	template<typename ...Types>
-	struct Tuple {
-	};
+	struct Tuple;
 
 	template<typename First, typename ...Rest>
 	struct Tuple<First, Rest ...> {
@@ -28,11 +27,19 @@ namespace Graphics {
 		}
 
 		template<unsigned i>
-		inline TupleType<i, First, Rest...>::Type &Value() {
+		inline TupleType<i, First, Rest...>::Type &Get() {
 			if constexpr(i == 0U)
 				return value;
 			else
-				return rest.Tuple<Rest ...>::Value<i - 1>();
+				return rest.Tuple<Rest ...>::Get<i - 1>();
+		}
+
+		template<unsigned i>
+		inline TupleType<i, First, Rest...>::Type Get() const {
+			if constexpr(i == 0U)
+				return value;
+			else
+				return rest.Tuple<Rest ...>::Get<i - 1>();
 		}
 	};
 

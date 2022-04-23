@@ -3,22 +3,21 @@
 #include "../graphicscontext.hpp"
 #include "../window.hpp"
 #include "../legacy/gdi.hpp"
-#include "../../common/color.hpp"
-#include "../../common/geometry.hpp"
+#include "../../common/types.hpp"
 
 namespace Graphics::Win32 {
 	class GDIContext : public GraphicsContext {
 	protected:
-		Legacy::PaintStruct paintStruct;
-		Legacy::DeviceContext *dc;
+		Legacy::DeviceContext *dc = nullptr;
+		Legacy::Bitmap *bitmap = nullptr;
 
 	public:
-		GDIContext(Window *window) : GraphicsContext(window) {}
+		GDIContext(Window *window);
 		virtual ~GDIContext() = default;
 
-		virtual void Begin() override;
-		virtual void End() override;
+		virtual void Render() override;
+		virtual void Resize(Vector2U size) override;
 
-		void Pixel(Point2F pos, Color3B color);
+		void Pixel(Vector2F pos, Color3B color);
 	};
 }

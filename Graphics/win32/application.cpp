@@ -21,7 +21,7 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
 Application::Application(Legacy::ModuleInstance *instance) :
 	instance(instance),
-	defaultWindowClass(new Legacy::WindowClass(
+	defaultWindowClass(new Legacy::Window::Class(
 		{
 			.process = &MsgProc,
 			.instance = instance,
@@ -35,7 +35,8 @@ Window *Application::CreateWindow() {
 	Legacy::Window::CreationArguments arguments{};
 	arguments.instance = instance;
 	arguments.windowClass = defaultWindowClass;
-	return new Window(arguments);
+	auto *legacy = new Legacy::Window(arguments);
+	return new Window(this, legacy);
 }
 #pragma pop_macro("CreateWindow")
 

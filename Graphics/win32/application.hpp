@@ -6,11 +6,13 @@
 
 namespace Graphics::Win32 {
 	class Application : public Graphics::Application {
+		friend class Window;
+
 	protected:
 		Legacy::ModuleInstance *const instance;
 
 	public:
-		Legacy::WindowClass *const defaultWindowClass;
+		Legacy::Window::Class *const defaultWindowClass;
 
 		Application(Legacy::ModuleInstance *instance);
 

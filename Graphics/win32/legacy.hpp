@@ -22,7 +22,7 @@ namespace Graphics::Win32::Legacy {
 		virtual ~HandledObject() = default;
 
 		template<typename H>
-		inline H GetHandle() {
+		inline H GetHandle() const {
 			if(this == nullptr)
 				return nullptr;
 			return reinterpret_cast<H>(handle);

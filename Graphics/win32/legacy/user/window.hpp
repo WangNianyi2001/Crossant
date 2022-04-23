@@ -1,6 +1,8 @@
 #pragma once
 
-#include "user.hpp"
+#include "../user.hpp"
+#include "../kernel.hpp"
+#include "../../../common/types.hpp"
 
 namespace Graphics::Win32::Legacy {
 	struct PaintStruct;
@@ -14,6 +16,46 @@ namespace Graphics::Win32::Legacy {
 			Message type;
 			W w = 0;
 			L l = 0;
+		};
+
+		struct Class : Destroyable {
+			enum struct Style : unsigned long {
+				VRedraw = 0x00000001,
+				HRedraw = 0x00000002,
+				Dblclks = 0x00000008,
+				OwnDC = 0x00000020,
+				ClassDC = 0x00000040,
+				ParentDC = 0x00000080,
+				NoClose = 0x00000200,
+				SaveBits = 0x00000800,
+				ByteAlignClient = 0x00001000,
+				ByteAlignWindow = 0x00002000,
+				GlobalClass = 0x00004000,
+				IME = 0x00010000,
+				DropShadow = 0x00020000,
+			};
+
+			struct Info {
+				Style style = Style::ClassDC;
+				void *process = nullptr;
+				ModuleInstance *instance = nullptr;
+				Icon *icon = nullptr;
+				Cursor *cursor = nullptr;
+				// Should be a brush
+				// Forward declaration doesn't really work here
+				HandledObject *brush = nullptr;
+				String menuName = String();
+				String className = String();
+				Icon *smallIcon = nullptr;
+			};
+
+			unsigned short const id;
+			Info const info;
+
+			Class(Info info);
+			virtual ~Class() = default;
+
+			virtual void Destroy() override;
 		};
 
 		static constexpr int useDefaultCoordinate = 0x80000000;
@@ -83,7 +125,7 @@ namespace Graphics::Win32::Legacy {
 		};
 		struct CreationArguments {
 			ExtendedStyle extendedStyle = ExtendedStyle::OverlappedWindow;
-			WindowClass *windowClass;
+			Class *windowClass;
 			String windowName = String(L"");
 			Style style = Style::OverlappedWindow;
 			int x = useDefaultCoordinate;
@@ -121,6 +163,18 @@ namespace Graphics::Win32::Legacy {
 			Max = 11,
 		};
 		void SetShowState(ShowState state);
+
+		struct Info {
+			ScreenRect windowRect{ { 0, 0 }, { 0, 0 } };
+			ScreenRect clientRect{ { 0, 0 }, { 0, 0 } };
+			Style style = (Style)0;
+			ExtendedStyle extendedStyle = (ExtendedStyle)0;
+			bool active = false;
+			Vector2U borderSize{ 0U, 0U };
+		};
+
+		Info info;
+		void UpdateInfo();
 
 		// Validation
 		void UpdateClient();

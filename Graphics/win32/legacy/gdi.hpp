@@ -1,23 +1,28 @@
 #pragma once
 
 #include "../../common/interface.hpp"
+#include "../../common/types.hpp"
 #include "../legacy.hpp"
 #include "user.hpp"
 
 namespace Graphics::Win32::Legacy {
-	struct GDIObject : HandledObject {
-		GDIObject(void *const handle) : HandledObject(handle) {}
-	};
-
 	using ColorRef = unsigned long;
 
-	struct DeviceContext : GDIObject, Destroyable {
-		DeviceContext(void *const handle) : GDIObject(handle) {}
+	struct GDIObject;
+
+	struct DeviceContext : HandledObject, Destroyable {
+		DeviceContext(void *const handle) : HandledObject(handle) {}
 		virtual ~DeviceContext() override = default;
 
 		virtual void Destroy() override;
 
+		void Select(GDIObject *object);
+
 		void SetPixel(int x, int y, ColorRef color);
+	};
+
+	struct GDIObject : HandledObject {
+		GDIObject(void *const handle) : HandledObject(handle) {}
 	};
 
 	struct PaintStruct {
@@ -29,3 +34,5 @@ namespace Graphics::Win32::Legacy {
 		DeviceContext *GetDC();
 	};
 }
+
+#include "gdi/bitmap.hpp"

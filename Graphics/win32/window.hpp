@@ -6,12 +6,15 @@
 #include <map>
 
 namespace Graphics::Win32 {
+	class Application;
+
 	class GDIContext;
 
 	class Window : public Graphics::Window {
 		friend class GDIContext;
 
 	protected:
+		Application *const application;
 		Legacy::Window *const legacy;
 		bool alive;
 
@@ -22,7 +25,7 @@ namespace Graphics::Win32 {
 			std::function<WindowEvent(Legacy::Window::Event)>
 		> eventConversion;
 
-		Window(Legacy::Window::CreationArguments arguments);
+		Window(Application *application, Legacy::Window *legacy);
 
 		virtual ~Window() override = default;
 

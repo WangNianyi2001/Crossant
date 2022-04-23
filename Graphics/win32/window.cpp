@@ -37,8 +37,9 @@ std::map<
 	{ WM_PAINT, &directEvent<Type::Paint> },
 };
 
-Window::Window(LegacyWindow::CreationArguments arguments) :
-	legacy(new LegacyWindow(arguments)) {
+Window::Window(Application *application, Legacy::Window *legacy) :
+	application(application),
+	legacy(legacy) {
 	windowMap[legacy->handle] = this;
 	alive = true;
 }

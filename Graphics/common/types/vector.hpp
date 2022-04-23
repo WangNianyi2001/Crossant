@@ -6,14 +6,26 @@
 #include <algorithm>
 
 namespace Graphics {
-	template<typename Component, int dimension>
+	template<typename Component, unsigned dimension>
 	struct Vector {
 	protected:
 		Component components[dimension];
 
 	public:
+		// Constructor
+
+		Vector() = default;
+		Vector(Vector const &vector) {
+			for(unsigned i = 0; i < dimension; ++i)
+				components[i] = vector[i];
+		}
+		template<typename _Component>
+		Vector(Vector<_Component, dimension> const &vector) {
+			for(unsigned i = 0; i < dimension; ++i)
+				components[i] = (Component)vector[i];
+		}
 		Vector(std::initializer_list<Component> list) {
-			size_t i = 0;
+			unsigned i = 0;
 			for(Component component : list) {
 				if(i == dimension)
 					break;
@@ -22,48 +34,68 @@ namespace Graphics {
 			}
 		}
 
+		// Component
+
 		inline Component &operator[](unsigned index) {
 			return components[index];
 		}
-
 		inline Component operator[](unsigned index) const {
 			return components[index];
 		}
 
-		using ComponentComparator = Comparator<Component>;
+		// Comparison
 
 		template<
-			std::derived_from<Comparator<Component>> _Comparator,
-			std::derived_from<BooleanOperation> _Folder
-		> static bool Compare(
-			Vector<Component, dimension> const &a,
-			Vector<Component, dimension> const &b
-		) {
-			_Comparator comp = _Comparator();
-			_Folder fold = _Folder();
+			std::derived_from<BinaryRelation<Component>> Comparator,
+			std::derived_from<Folder<bool, Component>> Folder
+				= And<bool, Component>
+		> static bool Compare(Vector const &a, Vector const &b) {
+			Comparator comp = Comparator();
+			Folder fold = Folder();
 			bool result = fold.unit;
 			for(unsigned index = 0; index < dimension; ++index)
 				result = fold(result, comp(a[index], b[index]));
 			return result;
 		}
 
-		bool operator==(Vector const &vector) const {
-			return Compare<Comparator<Component>::Equal, BooleanOperation::And>(*this, vector);
+		inline bool operator==(Vector const &vector) const {
+			return Compare<Equal<Component>>(*this, vector);
 		}
-		bool operator<(Vector const &vector) const {
-			return Compare<Comparator<Component>::Less, BooleanOperation::And>(*this, vector);
+		inline bool operator!=(Vector const &vector) const {
+			return Compare<
+				Inequal<Component>,
+				Or<bool, Component>
+			>(*this, vector);
 		}
-		bool operator>(Vector const &vector) const {
-			return Compare<Comparator<Component>::Greater, BooleanOperation::And>(*this, vector);
+		inline bool operator<(Vector const &vector) const {
+			return Compare<Less<Component>>(*this, vector);
 		}
-		bool operator!=(Vector const &vector) const {
-			return !operator==(vector);
+		inline bool operator>(Vector const &vector) const {
+			return Compare<Greater<Component>>(*this, vector);
 		}
-		bool operator<=(Vector const &vector) const {
-			return operator<(vector) || operator==(vector);
+		inline bool operator<=(Vector const &vector) const {
+			return Compare<LessEqual<Component>>(*this, vector);
 		}
-		bool operator>=(Vector const &vector) const {
-			return operator>(vector) || operator==(vector);
+		inline bool operator>=(Vector const &vector) const {
+			return Compare<GreaterEqual<Component>>(*this, vector);
+		}
+
+		// Arithmetic
+
+		template<std::derived_from<BinaryOperator<Component>> Operator>
+		static Vector Arithmetic(Vector const &a, Vector const &b) {
+			Operator op{};
+			Vector res;
+			for(unsigned i = 0; i < dimension; ++i)
+				res[i] = op(a[i], b[i]);
+			return res;
+		}
+
+		inline Vector operator+(Vector const &vector) const {
+			return Arithmetic<Plus<Component>>(*this, vector);
+		}
+		inline Vector operator-(Vector const &vector) const {
+			return Arithmetic<Minus<Component>>(*this, vector);
 		}
 	};
 }

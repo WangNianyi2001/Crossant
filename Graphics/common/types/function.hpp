@@ -9,58 +9,64 @@ namespace Graphics {
 	};
 
 	template<typename Type>
-	using BinaryOperation = Function<Type, Type, Type>;
+	using Transform = Function<Type, Type>;
 
-	struct BooleanOperation : BinaryOperation<bool> {
-		struct And;
-		struct Or;
-
-		bool const unit;
-
-		BooleanOperation(bool unit) : unit(unit) {}
-	};
-
-	struct BooleanOperation::And : BooleanOperation {
-		And() : BooleanOperation(true) {}
-
-		virtual constexpr bool operator()(bool const &a, bool const &b) const override {
-			return a && b;
-		}
-	};
-
-	struct BooleanOperation::Or : BooleanOperation {
-		Or() : BooleanOperation(false) {}
-
-		virtual constexpr bool operator()(bool const &a, bool const &b) const override {
-			return a || b;
-		}
-	};
-
+#pragma region BinaryOperator
 	template<typename Type>
-	struct Comparator : Function<bool, Type, Type> {
-		struct Equal;
-		struct Less;
-		struct Greater;
+	using BinaryOperator = Function<Type, Type, Type>;
+
+#define BINARY_OPERATOR(name, op)\
+	template<typename Type>\
+	struct name : BinaryOperator<Type> {\
+		virtual Type operator()(Type const &a, Type const &b) const{\
+			return a op b;\
+		}\
+	}
+	BINARY_OPERATOR(Plus, +);
+	BINARY_OPERATOR(Minus, -);
+	BINARY_OPERATOR(Multiply, *);
+	BINARY_OPERATOR(Divide, /);
+#undef BINARY_OPERATOR
+#pragma endregion
+
+#pragma region BinaryRelation
+	template<typename Type>
+	using BinaryRelation = Function<bool, Type, Type>;
+
+#define BINARY_RELATION(name, op)\
+	template<typename Type>\
+	struct name : BinaryRelation<Type> {\
+		virtual bool operator()(Type const &a, Type const &b) const{\
+			return a op b;\
+		}\
+	}
+	BINARY_RELATION(Equal, == );
+	BINARY_RELATION(Inequal, != );
+	BINARY_RELATION(Less, < );
+	BINARY_RELATION(Greater, > );
+	BINARY_RELATION(LessEqual, <= );
+	BINARY_RELATION(GreaterEqual, >= );
+#undef BINARY_RELATION
+#pragma endregion
+
+#pragma region Folder
+	template<typename Ret, typename Type = Ret>
+	struct Folder : Function<Ret, Type, Type> {
+		Ret const unit;
+
+		Folder(Ret unit) : unit(unit) {}
 	};
 
-	template<typename Type>
-	struct Comparator<Type>::Equal : Comparator<Type> {
-		virtual constexpr bool operator()(Type const &a, Type const &b) const override {
-			return a == b;
-		}
-	};
-
-	template<typename Type>
-	struct Comparator<Type>::Less : Comparator<Type> {
-		virtual constexpr bool operator()(Type const &a, Type const &b) const override {
-			return a < b;
-		}
-	};
-
-	template<typename Type>
-	struct Comparator<Type>::Greater : Comparator<Type> {
-		virtual constexpr bool operator()(Type const &a, Type const &b) const override {
-			return a > b;
-		}
-	};
+#define FOLDER(name, op, def)\
+	template<typename Ret, typename Type>\
+	struct name : Folder<Ret, Type> {\
+		name() : Folder<Ret, Type>(def) {}\
+		virtual Ret operator()(Type const &a, Type const &b) const{\
+			return a op b;\
+		}\
+	}
+	FOLDER(And, &&, true);
+	FOLDER(Or, || , false);
+#undef FOLDER
+#pragma endregion
 }

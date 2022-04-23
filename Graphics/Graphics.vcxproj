@@ -152,7 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="common\geometry.hpp" />
+    <ClInclude Include="common\types\function.hpp" />
+    <ClInclude Include="common\types\tuple.hpp" />
+    <ClInclude Include="common\types.hpp" />
+    <ClInclude Include="common\types\vector.hpp" />
     <ClInclude Include="feature\graphicscontext.hpp" />
     <ClInclude Include="feature\application.hpp" />
     <ClInclude Include="common\subscriber.hpp" />
@@ -162,11 +165,11 @@
     <ClInclude Include="win32\graphicscontext.hpp" />
     <ClInclude Include="common\interface.hpp" />
     <ClInclude Include="win32\legacy\gdi.hpp" />
-    <ClInclude Include="common\color.hpp" />
+    <ClInclude Include="win32\legacy\gdi\bitmap.hpp" />
     <ClInclude Include="win32\legacy\kernel.hpp" />
     <ClInclude Include="win32\legacy.hpp" />
     <ClInclude Include="win32\legacy\user.hpp" />
-    <ClInclude Include="win32\legacy\window.hpp" />
+    <ClInclude Include="win32\legacy\user\window.hpp" />
     <ClInclude Include="win32\window.hpp" />
     <ClInclude Include="feature\window.hpp" />
   </ItemGroup>
@@ -176,8 +179,8 @@
     <ClCompile Include="win32\graphicscontext\gdi.cpp" />
     <ClCompile Include="win32\legacy.cpp" />
     <ClCompile Include="win32\legacy\gdi.cpp" />
-    <ClCompile Include="win32\legacy\user.cpp" />
-    <ClCompile Include="win32\legacy\window.cpp" />
+    <ClCompile Include="win32\legacy\gdi\bitmap.cpp" />
+    <ClCompile Include="win32\legacy\user\window.cpp" />
     <ClCompile Include="win32\window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,22 +1,22 @@
 #pragma once
 
 #include "../common/subscriber.hpp"
+#include "../common/types.hpp"
 
 namespace Graphics {
 	template<typename Target>
-	class GraphicsContext : public ConfigurableSubscriber<> {
+	class GraphicsContext : protected ConfigurableSubscriber<> {
 	protected:
 		GraphicsContext() = default;
 
 	public:
 		virtual ~GraphicsContext() = default;
 
-		virtual void Begin() = 0;
-		void Draw() {
-			Begin();
-			Push();
-			End();
+		void Configure(std::function<void()> action) {
+			ConfigurableSubscriber<>::Configure(action);
 		}
-		virtual void End() = 0;
+
+		virtual void Render() = 0;
+		virtual void Resize(Vector2U size) = 0;
 	};
 }

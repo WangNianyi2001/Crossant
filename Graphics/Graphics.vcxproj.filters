@@ -41,7 +41,7 @@
     <ClInclude Include="feature\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\legacy\window.hpp">
+    <ClInclude Include="win32\legacy\user\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="win32\graphicscontext.hpp">
@@ -53,13 +53,22 @@
     <ClInclude Include="common\interface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\color.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\geometry.hpp">
+    <ClInclude Include="common\types.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\mouse.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\types\tuple.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\types\function.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\types\vector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="win32\legacy\gdi\bitmap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -73,19 +82,19 @@
     <ClCompile Include="win32\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="win32\legacy\user.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="win32\legacy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win32\application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="win32\legacy\window.cpp">
+    <ClCompile Include="win32\legacy\user\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win32\legacy\gdi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\legacy\gdi\bitmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

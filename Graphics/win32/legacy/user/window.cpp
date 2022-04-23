@@ -71,7 +71,7 @@ void Window::SetShowState(ShowState state) {
 }
 
 void Window::UpdateInfo() {
-	WINDOWINFO legacy;
+	WINDOWINFO legacy{};
 	GetWindowInfo(GetHandle<HWND>(), &legacy);
 	info.windowRect = {
 		{ legacy.rcWindow.left, legacy.rcWindow.top },
@@ -87,18 +87,15 @@ void Window::UpdateInfo() {
 	info.borderSize = Vector2U{ legacy.cxWindowBorders, legacy.cyWindowBorders };
 }
 
-void Window::UpdateClient() {
-	UpdateWindow(GetHandle<HWND>());
-}
-
-void Window::ValidateClient() {
-	ValidateRect(GetHandle<HWND>(), NULL);
-}
-
 void Window::BeginPaint(PaintStruct *paintStruct) {
 	::BeginPaint(GetHandle<HWND>(), (LPPAINTSTRUCT)paintStruct->ps);
 }
 
 void Window::EndPaint(PaintStruct *paintStruct) {
 	::EndPaint(GetHandle<HWND>(), (LPPAINTSTRUCT)paintStruct->ps);
+}
+
+void Window::UpdateClient() {
+	InvalidateRect(GetHandle<HWND>(), NULL, false);
+	//UpdateWindow(GetHandle<HWND>());
 }

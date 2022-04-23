@@ -6,24 +6,11 @@
 #include "user.hpp"
 
 namespace Graphics::Win32::Legacy {
-	using ColorRef = unsigned long;
-
-	struct GDIObject;
-
-	struct DeviceContext : HandledObject, Destroyable {
-		DeviceContext(void *const handle) : HandledObject(handle) {}
-		virtual ~DeviceContext() override = default;
-
-		virtual void Destroy() override;
-
-		void Select(GDIObject *object);
-
-		void SetPixel(int x, int y, ColorRef color);
-	};
-
 	struct GDIObject : HandledObject {
 		GDIObject(void *const handle) : HandledObject(handle) {}
 	};
+
+	struct DeviceContext;
 
 	struct PaintStruct {
 		void *const ps;
@@ -36,3 +23,4 @@ namespace Graphics::Win32::Legacy {
 }
 
 #include "gdi/bitmap.hpp"
+#include "gdi/devicecontext.hpp"

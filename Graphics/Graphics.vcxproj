@@ -166,6 +166,7 @@
     <ClInclude Include="common\interface.hpp" />
     <ClInclude Include="win32\legacy\gdi.hpp" />
     <ClInclude Include="win32\legacy\gdi\bitmap.hpp" />
+    <ClInclude Include="win32\legacy\gdi\devicecontext.hpp" />
     <ClInclude Include="win32\legacy\kernel.hpp" />
     <ClInclude Include="win32\legacy.hpp" />
     <ClInclude Include="win32\legacy\user.hpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="win32\legacy.cpp" />
     <ClCompile Include="win32\legacy\gdi.cpp" />
     <ClCompile Include="win32\legacy\gdi\bitmap.cpp" />
+    <ClCompile Include="win32\legacy\gdi\devicecontext.cpp" />
     <ClCompile Include="win32\legacy\user\window.cpp" />
     <ClCompile Include="win32\window.cpp" />
   </ItemGroup>

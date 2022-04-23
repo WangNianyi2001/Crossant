@@ -5,7 +5,7 @@
 
 namespace Graphics {
 	template<typename Target>
-	class GraphicsContext : protected ConfigurableSubscriber<> {
+	class GraphicsContext : public ConfigurableSubscriber<> {
 	protected:
 		GraphicsContext() = default;
 
@@ -16,7 +16,6 @@ namespace Graphics {
 			ConfigurableSubscriber<>::Configure(action);
 		}
 
-		virtual void Render() = 0;
 		virtual void Resize(Vector2U size) = 0;
 	};
 }

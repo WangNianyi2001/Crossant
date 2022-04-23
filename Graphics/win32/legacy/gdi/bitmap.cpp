@@ -36,9 +36,11 @@ HBITMAP CreateBitmap(Graphics::Vector2U size) {
 
 Bitmap::Bitmap(Vector2U size) :
 	GDIObject(CreateBitmap(size)),
-	size(size) {
+	size(size), dc(new DeviceContext(CreateCompatibleDC(NULL))) {
+	dc->Select(this);
 }
 
 Bitmap::~Bitmap() {
 	DeleteObject(GetHandle<HBITMAP>());
+	dc->Destroy();
 }

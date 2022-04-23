@@ -8,14 +8,23 @@ GDIContext::GDIContext(Window *window) : GraphicsContext(window) {
 	bitmap = new Legacy::Bitmap(
 		(Vector2U)window->legacy->info.clientRect.Diagonal()
 	);
+	Configure([this]() {
+		Legacy::PaintStruct paintStruct;
+		this->window->legacy->BeginPaint(&paintStruct);
+		BitBlt(
+			paintStruct.GetDC()->GetHandle<HDC>(),
+			0, 0,
+			this->bitmap->size[0], bitmap->size[1],
+			this->bitmap->dc->GetHandle<HDC>(),
+			0, 0,
+			SRCCOPY
+		);
+		this->window->legacy->EndPaint(&paintStruct);
+	});
 }
 
-void GDIContext::Render() {
-	Legacy::PaintStruct paintStruct;
-	window->legacy->BeginPaint(&paintStruct);
-	dc = paintStruct.GetDC();
-	Push();
-	window->legacy->EndPaint(&paintStruct);
+GDIContext::~GDIContext() {
+	delete bitmap;
 }
 
 void GDIContext::Resize(Vector2U size) {
@@ -23,5 +32,5 @@ void GDIContext::Resize(Vector2U size) {
 
 void GDIContext::Pixel(Vector2F pos, Color3B color) {
 	Legacy::ColorRef cr = RGB(color[0], color[1], color[2]);
-	dc->SetPixel((int)pos[0], (int)pos[1], cr);
+	bitmap->dc->SetPixel((int)pos[0], (int)pos[1], cr);
 }

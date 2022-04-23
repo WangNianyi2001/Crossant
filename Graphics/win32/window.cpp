@@ -66,3 +66,7 @@ void Window::Destroy() {
 void Window::Show() {
 	legacy->SetShowState(LegacyWindow::ShowState::Showdefault);
 }
+
+void Window::Repaint() {
+	legacy->UpdateClient();
+}

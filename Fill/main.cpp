@@ -10,22 +10,19 @@ int Application::Main() {
 	Window *window = app->CreateWindow();
 	Win32::GDIContext gdiContext((Win32::Window *)window);
 
-	gdiContext.Configure([&]() {
+	window->Listen(EventType::MouseDown, [&](WindowEvent event) {
 		for(int y = 0; y < 20; ++y) {
 			for(int x = 0; x < 20; ++x) {
 				gdiContext.Pixel(
-					Point2F{ (float)x, (float)y },
-					Color3B{ 0, 0, 0 }
+					Vector2F{ (float)x, (float)y },
+					Color3B{ 255, 0, 0 }
 				);
 			}
 		}
-	});
-
-	window->Listen(EventType::MouseUp, [&](WindowEvent event) {
-		//
+		window->Repaint();
 	});
 	window->Listen(EventType::Paint, [&](WindowEvent) {
-		gdiContext.Draw();
+		gdiContext.Push();
 	});
 	window->Listen(EventType::Close, [&](WindowEvent) {
 		window->Destroy();

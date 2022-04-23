@@ -71,6 +71,9 @@
     <ClInclude Include="win32\legacy\gdi\bitmap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="win32\legacy\gdi\devicecontext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\graphicscontext\gdi.cpp">
@@ -95,6 +98,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win32\legacy\gdi\bitmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\legacy\gdi\devicecontext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -176,12 +176,9 @@ namespace Graphics::Win32::Legacy {
 		Info info;
 		void UpdateInfo();
 
-		// Validation
-		void UpdateClient();
-		void ValidateClient();
-
 		// Visual
 		void BeginPaint(PaintStruct *paintStruct);
 		void EndPaint(PaintStruct *paintStruct);
+		void UpdateClient();
 	};
 }

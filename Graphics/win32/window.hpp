@@ -38,5 +38,8 @@ namespace Graphics::Win32 {
 
 		// Window state
 		virtual void Show() override;
+
+		// Visual
+		virtual void Repaint() override;
 	};
 }

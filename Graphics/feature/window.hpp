@@ -38,5 +38,8 @@ namespace Graphics {
 
 		// Window state
 		virtual void Show() = 0;
+
+		// Visual
+		virtual void Repaint() = 0;
 	};
 }

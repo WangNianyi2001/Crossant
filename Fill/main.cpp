@@ -1,5 +1,4 @@
-#include "Graphics/win32/application.hpp"
-#include "Graphics/win32/graphicscontext/gdi.hpp"
+#include "Graphics/graphics.hpp"
 
 using namespace Graphics;
 
@@ -8,12 +7,12 @@ int Application::Main() {
 
 	Application *app = Application::current;
 	Window *window = app->CreateWindow();
-	Win32::GDIContext gdiContext((Win32::Window *)window);
+	GraphicsContext2D *gdiContext = window->MakeGraphicsContext2D();
 
 	window->Listen(EventType::MouseDown, [&](WindowEvent event) {
 		for(int y = 0; y < 20; ++y) {
 			for(int x = 0; x < 20; ++x) {
-				gdiContext.Pixel(
+				gdiContext->Pixel(
 					Vector2F{ (float)x, (float)y },
 					Color3B{ 255, 0, 0 }
 				);
@@ -22,7 +21,7 @@ int Application::Main() {
 		window->Repaint();
 	});
 	window->Listen(EventType::Paint, [&](WindowEvent) {
-		gdiContext.Push();
+		gdiContext->Push();
 	});
 	window->Listen(EventType::Close, [&](WindowEvent) {
 		window->Destroy();

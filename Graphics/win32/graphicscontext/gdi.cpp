@@ -3,7 +3,7 @@
 
 using namespace Graphics::Win32;
 
-GDIContext::GDIContext(Window *window) : GraphicsContext(window) {
+GDIContext::GDIContext(Window *window) : window(window) {
 	window->legacy->UpdateInfo();
 	bitmap = new Legacy::Bitmap(
 		(Vector2U)window->legacy->info.clientRect.Diagonal()

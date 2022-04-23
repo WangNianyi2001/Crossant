@@ -160,9 +160,9 @@
     <ClInclude Include="feature\application.hpp" />
     <ClInclude Include="common\subscriber.hpp" />
     <ClInclude Include="feature\mouse.hpp" />
+    <ClInclude Include="graphics.hpp" />
     <ClInclude Include="win32\application.hpp" />
     <ClInclude Include="win32\graphicscontext\gdi.hpp" />
-    <ClInclude Include="win32\graphicscontext.hpp" />
     <ClInclude Include="common\interface.hpp" />
     <ClInclude Include="win32\legacy\gdi.hpp" />
     <ClInclude Include="win32\legacy\gdi\bitmap.hpp" />

@@ -40,6 +40,7 @@ namespace Graphics::Win32 {
 		virtual void Show() override;
 
 		// Visual
+		virtual GraphicsContext2D *MakeGraphicsContext2D() override;
 		virtual void Repaint() override;
 	};
 }

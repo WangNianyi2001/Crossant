@@ -1,4 +1,5 @@
 #include "window.hpp"
+#include "graphicscontext/gdi.hpp"
 #include <Windows.h>
 #include <windowsx.h>
 
@@ -65,6 +66,10 @@ void Window::Destroy() {
 
 void Window::Show() {
 	legacy->SetShowState(LegacyWindow::ShowState::Showdefault);
+}
+
+Graphics::GraphicsContext2D *Window::MakeGraphicsContext2D() {
+	return new GDIContext(this);
 }
 
 void Window::Repaint() {

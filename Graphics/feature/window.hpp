@@ -3,6 +3,7 @@
 #include "../common/interface.hpp"
 #include "../common/listener.hpp"
 #include "../feature/mouse.hpp"
+#include "graphicscontext.hpp"
 
 namespace Graphics {
 	struct WindowEvent {
@@ -40,6 +41,7 @@ namespace Graphics {
 		virtual void Show() = 0;
 
 		// Visual
+		virtual GraphicsContext2D *MakeGraphicsContext2D() = 0;
 		virtual void Repaint() = 0;
 	};
 }

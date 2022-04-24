@@ -9,6 +9,8 @@ namespace Graphics {
 
 		static int Main();
 
+		virtual ~Application() = default;
+
 		virtual Window *CreateWindow() = 0;
 	};
 }

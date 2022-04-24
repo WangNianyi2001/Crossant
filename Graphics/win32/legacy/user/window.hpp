@@ -2,7 +2,7 @@
 
 #include "../user.hpp"
 #include "../kernel.hpp"
-#include "../../../common/types.hpp"
+#include "../../../common/type.hpp"
 
 namespace Graphics::Win32::Legacy {
 	struct PaintStruct;
@@ -18,7 +18,7 @@ namespace Graphics::Win32::Legacy {
 			L l = 0;
 		};
 
-		struct Class : Destroyable {
+		struct Class {
 			enum struct Style : unsigned long {
 				VRedraw = 0x00000001,
 				HRedraw = 0x00000002,
@@ -53,9 +53,7 @@ namespace Graphics::Win32::Legacy {
 			Info const info;
 
 			Class(Info info);
-			virtual ~Class() = default;
-
-			virtual void Destroy() override;
+			virtual ~Class();
 		};
 
 		static constexpr int useDefaultCoordinate = 0x80000000;

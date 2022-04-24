@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../common/interface.hpp"
-#include "../common/listener.hpp"
+#include "../common/type.hpp"
+#include "../common/event/listener.hpp"
 #include "../feature/mouse.hpp"
 #include "graphicscontext.hpp"
 
@@ -13,6 +13,7 @@ namespace Graphics {
 			Close,
 
 			// Mouse
+			MouseMove,
 			MouseDown,
 			MouseUp,
 
@@ -24,9 +25,7 @@ namespace Graphics {
 		Mouse mouse;
 	};
 
-	class Window :
-		public Listener<WindowEvent::Type, WindowEvent>,
-		public Destroyable {
+	class Window : public Listener<WindowEvent::Type, WindowEvent> {
 	protected:
 		Window() = default;
 
@@ -36,6 +35,7 @@ namespace Graphics {
 		// Life cycle
 		virtual bool Alive() = 0;
 		virtual void Live() = 0;
+		virtual void Kill() = 0;
 
 		// Window state
 		virtual void Show() = 0;

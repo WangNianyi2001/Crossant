@@ -27,7 +27,7 @@ ATOM RegisterClass(Class::Info info) {
 
 Class::Class(Info info) : info(info), id(RegisterClass(info)) {}
 
-void Class::Destroy() {
+Window::Class::~Class() {
 	if(!UnregisterClass((LPCWSTR)id, info.instance->GetHandle<HINSTANCE>()))
 		TryThrowLastError();
 }

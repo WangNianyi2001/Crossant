@@ -44,25 +44,22 @@
     <ClInclude Include="win32\legacy\user\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\subscriber.hpp">
+    <ClInclude Include="common\event\subscriber.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\interface.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\types.hpp">
+    <ClInclude Include="common\type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\mouse.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\types\tuple.hpp">
+    <ClInclude Include="common\type\tuple.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\types\function.hpp">
+    <ClInclude Include="common\type\function.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\types\vector.hpp">
+    <ClInclude Include="common\type\vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="win32\legacy\gdi\bitmap.hpp">
@@ -74,12 +71,18 @@
     <ClInclude Include="graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="common\type\range.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\type\color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\graphicscontext\gdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="common\listener.hpp">
+    <ClCompile Include="common\event\listener.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="win32\window.cpp">

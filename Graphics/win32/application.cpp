@@ -29,6 +29,11 @@ Application::Application(Legacy::ModuleInstance *instance) :
 		})) {
 }
 
+Application::~Application() {
+	delete defaultWindowClass;
+	delete instance;
+}
+
 #pragma push_macro("CreateWindow")
 #undef CreateWindow
 Window *Application::CreateWindow() {

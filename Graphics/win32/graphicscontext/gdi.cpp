@@ -11,14 +11,16 @@ GDIContext::GDIContext(Window *window) : window(window) {
 	Configure([this]() {
 		Legacy::PaintStruct paintStruct;
 		this->window->legacy->BeginPaint(&paintStruct);
+		Legacy::DeviceContext *targetDC = paintStruct.GetDC();
 		BitBlt(
-			paintStruct.GetDC()->GetHandle<HDC>(),
+			targetDC->GetHandle<HDC>(),
 			0, 0,
 			this->bitmap->size[0], bitmap->size[1],
 			this->bitmap->dc->GetHandle<HDC>(),
 			0, 0,
 			SRCCOPY
 		);
+		delete targetDC;
 		this->window->legacy->EndPaint(&paintStruct);
 	});
 }
@@ -30,7 +32,6 @@ GDIContext::~GDIContext() {
 void GDIContext::Resize(Vector2U size) {
 }
 
-void GDIContext::Pixel(Vector2F pos, Color3B color) {
-	Legacy::ColorRef cr = RGB(color[0], color[1], color[2]);
-	bitmap->dc->SetPixel((int)pos[0], (int)pos[1], cr);
+void GDIContext::Pixel(Vector2F pos, Color color) {
+	bitmap->dc->SetPixel((int)pos[0], (int)pos[1], color.ToHex());
 }

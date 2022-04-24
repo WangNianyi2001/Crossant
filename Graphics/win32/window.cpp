@@ -33,8 +33,11 @@ std::map<
 	std::function<WindowEvent(Event)>
 > Window::eventConversion{
 	{ WM_CLOSE, &directEvent<Type::Close> },
+	{ WM_MOUSEMOVE, &mouseEvent<Type::MouseMove> },
 	{ WM_LBUTTONDOWN, &mouseEvent<Type::MouseDown> },
 	{ WM_LBUTTONUP, &mouseEvent<Type::MouseUp> },
+	{ WM_RBUTTONDOWN, &mouseEvent<Type::MouseDown> },
+	{ WM_RBUTTONUP, &mouseEvent<Type::MouseUp> },
 	{ WM_PAINT, &directEvent<Type::Paint> },
 };
 
@@ -58,7 +61,7 @@ void Window::Live() {
 	while(legacy->ProcessEvent());
 }
 
-void Window::Destroy() {
+void Window::Kill() {
 	windowMap.erase(windowMap.find(legacy->handle));
 	delete legacy;
 	alive = false;

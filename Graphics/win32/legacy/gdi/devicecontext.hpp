@@ -3,16 +3,12 @@
 #include "../gdi.hpp"
 
 namespace Graphics::Win32::Legacy {
-	using ColorRef = unsigned long;
-
-	struct DeviceContext : HandledObject, Destroyable {
+	struct DeviceContext : HandledObject {
 		DeviceContext(void *const handle) : HandledObject(handle) {}
-		virtual ~DeviceContext() override = default;
-
-		virtual void Destroy() override;
+		virtual ~DeviceContext() override;
 
 		void Select(GDIObject *object);
 
-		void SetPixel(int x, int y, ColorRef color);
+		void SetPixel(int x, int y, Color::Hex color);
 	};
 }

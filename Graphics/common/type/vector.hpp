@@ -34,6 +34,21 @@ namespace Graphics {
 			}
 		}
 
+		// Conversion
+
+		template<
+			typename Target,
+			std::derived_from<Function<Target, Component>> Converter
+				= TypeConverter<Target, Component>
+		>
+		Vector<Target, dimension> Convert() const {
+			Vector<Target, dimension> res;
+			Converter convert{};
+			for(unsigned i = 0; i < dimension; ++i)
+				res[i] = convert(operator[](i));
+			return res;
+		}
+
 		// Component
 
 		inline Component &operator[](unsigned index) {
@@ -90,12 +105,37 @@ namespace Graphics {
 				res[i] = op(a[i], b[i]);
 			return res;
 		}
+		template<
+			typename Scalor,
+			std::derived_from<BinaryOperator<Component, Scalor>> Operator
+		>
+		static Vector Arithmetic(Vector const &v, Scalor const &s) {
+			Operator op{};
+			Vector res;
+			for(unsigned i = 0; i < dimension; ++i)
+				res[i] = op(v[i], s);
+			return res;
+		}
 
 		inline Vector operator+(Vector const &vector) const {
 			return Arithmetic<Plus<Component>>(*this, vector);
 		}
 		inline Vector operator-(Vector const &vector) const {
 			return Arithmetic<Minus<Component>>(*this, vector);
+		}
+		template<typename Scalor>
+		inline Vector operator*(Scalor const &scalor) const {
+			return Arithmetic<Multiply<Component, Component, Scalor>>(*this, scalor);
+		}
+		template<typename Scalor>
+		inline Vector operator/(Scalor const &scalor) const {
+			return Arithmetic<Divide<Component, Component, Scalor>>(*this, scalor);
+		}
+		inline Vector Max(Vector const &vector) const {
+			return Arithmetic<Max<Component>>(*this, vector);
+		}
+		inline Vector Min(Vector const &vector) const {
+			return Arithmetic<Min<Component>>(*this, vector);
 		}
 	};
 }

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../common/types.hpp"
+#include "../common/type.hpp"
 
 namespace Graphics {
 	struct Mouse {
 		enum struct State : unsigned char {
 			// TODO
 		};
-		Vector2I position;
+		ScreenCoord position;
 	};
 }

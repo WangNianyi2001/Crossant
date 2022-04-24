@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../legacy.hpp"
-#include "../../common/listener.hpp"
-#include "../../common/interface.hpp"
+#include "../../common/event/listener.hpp"
+#include "../../common/type.hpp"
 
 namespace Graphics::Win32::Legacy {
 	struct UserObject : HandledObject {

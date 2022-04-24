@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../../common/interface.hpp"
-#include "../../common/types.hpp"
+#include "../../common/type.hpp"
 #include "../legacy.hpp"
 #include "user.hpp"
 

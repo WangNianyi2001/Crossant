@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../common/subscriber.hpp"
-#include "../common/types.hpp"
+#include "../common/event/subscriber.hpp"
+#include "../common/type.hpp"
 
 namespace Graphics {
 	class GraphicsContext : public ConfigurableSubscriber<> {
@@ -18,7 +18,7 @@ namespace Graphics {
 	public:
 		virtual ~GraphicsContext2D() override = default;
 
-		virtual void Pixel(Vector2F pos, Color3B color) = 0;
+		virtual void Pixel(Vector2F pos, Color color) = 0;
 	};
 
 	class GraphicsContext3D : public GraphicsContext {

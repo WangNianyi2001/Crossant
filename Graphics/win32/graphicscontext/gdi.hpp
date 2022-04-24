@@ -3,7 +3,7 @@
 #include "../../feature/graphicscontext.hpp"
 #include "../window.hpp"
 #include "../legacy/gdi.hpp"
-#include "../../common/types.hpp"
+#include "../../common/type.hpp"
 
 namespace Graphics::Win32 {
 	class GDIContext : public Graphics::GraphicsContext2D {
@@ -17,6 +17,6 @@ namespace Graphics::Win32 {
 
 		virtual void Resize(Vector2U size) override;
 
-		virtual void Pixel(Vector2F pos, Color3B color) override;
+		virtual void Pixel(Vector2F pos, Color color) override;
 	};
 }

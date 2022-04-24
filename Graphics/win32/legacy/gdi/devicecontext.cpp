@@ -7,7 +7,7 @@ DeviceContext *PaintStruct::GetDC() {
 	return new DeviceContext(((LPPAINTSTRUCT)ps)->hdc);
 }
 
-void DeviceContext::Destroy() {
+DeviceContext::~DeviceContext() {
 	DeleteDC(GetHandle<HDC>());
 }
 
@@ -15,6 +15,6 @@ void DeviceContext::Select(GDIObject *object) {
 	SelectObject(GetHandle<HDC>(), object->GetHandle<HGDIOBJ>());
 }
 
-void DeviceContext::SetPixel(int x, int y, ColorRef color) {
+void DeviceContext::SetPixel(int x, int y, Color::Hex color) {
 	::SetPixel(GetHandle<HDC>(), x, y, color);
 }

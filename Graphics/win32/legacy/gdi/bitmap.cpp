@@ -42,5 +42,5 @@ Bitmap::Bitmap(Vector2U size) :
 
 Bitmap::~Bitmap() {
 	DeleteObject(GetHandle<HBITMAP>());
-	dc->Destroy();
+	delete dc;
 }

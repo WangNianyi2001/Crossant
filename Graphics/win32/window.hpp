@@ -34,7 +34,7 @@ namespace Graphics::Win32 {
 		// Life cycle
 		virtual bool Alive() override;
 		virtual void Live() override;
-		virtual void Destroy() override;
+		virtual void Kill() override;
 
 		// Window state
 		virtual void Show() override;

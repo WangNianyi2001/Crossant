@@ -17,15 +17,26 @@ WindowEvent directEvent(Event) {
 }
 
 template<Type type>
-WindowEvent mouseEvent(Event legacyEvent) {
+WindowEvent mouseEvent(Event legacy) {
 	WindowEvent event{ type };
 	event.mouse = Graphics::Mouse{
 		.position = {
-			GET_X_LPARAM(legacyEvent.l),
-			GET_Y_LPARAM(legacyEvent.l),
+			GET_X_LPARAM(legacy.l),
+			GET_Y_LPARAM(legacy.l),
 	}
 	};
 	return event;
+}
+
+WindowEvent resizeEvent(Event legacy) {
+	Graphics::Vector2U size{
+		LOWORD(legacy.l),
+		HIWORD(legacy.l)
+	};
+	return WindowEvent{
+		.type = Type::Resize,
+		.clientSize = size
+	};
 }
 
 std::map<
@@ -33,12 +44,13 @@ std::map<
 	std::function<WindowEvent(Event)>
 > Window::eventConversion{
 	{ WM_CLOSE, &directEvent<Type::Close> },
+	{ WM_SIZE, &resizeEvent },
 	{ WM_MOUSEMOVE, &mouseEvent<Type::MouseMove> },
 	{ WM_LBUTTONDOWN, &mouseEvent<Type::MouseDown> },
 	{ WM_LBUTTONUP, &mouseEvent<Type::MouseUp> },
 	{ WM_RBUTTONDOWN, &mouseEvent<Type::MouseDown> },
 	{ WM_RBUTTONUP, &mouseEvent<Type::MouseUp> },
-	{ WM_PAINT, &directEvent<Type::Paint> },
+	{ WM_PAINT, &directEvent<Type::Graph> },
 };
 
 __int64 __stdcall Window::MsgProc(void *hWnd, unsigned int message, unsigned __int64 wParam, __int64 lParam) {

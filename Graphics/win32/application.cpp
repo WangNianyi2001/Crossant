@@ -28,8 +28,9 @@ Window *Application::CreateWindow() {
 #pragma warning(push)
 #pragma warning(disable: 28251)
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
-	auto *instance = new Legacy::ModuleInstance(hInst);
-	Application::current = new Application(instance);
+	Application::current = new Application(
+		new Legacy::ModuleInstance(hInst)
+	);
 	return Application::Main();
 }
 #pragma warning(pop)

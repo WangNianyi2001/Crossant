@@ -12,17 +12,21 @@ namespace Graphics {
 			Update,
 			Close,
 
+			// Window state
+			Resize,
+
 			// Mouse
 			MouseMove,
 			MouseDown,
 			MouseUp,
 
 			// Visual
-			Paint,
+			Graph,
 		};
 
 		Type type;
 		Mouse mouse;
+		Vector2U clientSize;
 	};
 
 	class Window : public Listener<WindowEvent::Type, WindowEvent> {

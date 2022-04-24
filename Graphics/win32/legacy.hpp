@@ -1,17 +1,6 @@
 #pragma once
 
-#include <xstring>
-
 namespace Graphics::Win32::Legacy {
-	using Char =
-#ifdef UNICODE
-		wchar_t
-#else
-		char
-#endif
-	;
-	using String = std::basic_string<Char>;
-
 	void TryThrowLastError();
 
 	struct HandledObject {

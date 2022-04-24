@@ -74,9 +74,6 @@
     <ClInclude Include="common\type\range.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\type\color.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\graphicscontext\gdi.cpp">

@@ -123,16 +123,16 @@ namespace Graphics::Win32::Legacy {
 		};
 		struct CreationArguments {
 			ExtendedStyle extendedStyle = ExtendedStyle::OverlappedWindow;
-			Class *windowClass;
+			Class const *windowClass;
 			String windowName = String(L"");
 			Style style = Style::OverlappedWindow;
 			int x = useDefaultCoordinate;
 			int y = useDefaultCoordinate;
 			int width = useDefaultCoordinate;
 			int height = useDefaultCoordinate;
-			Window *parent = nullptr;
-			Menu *menu = nullptr;
-			ModuleInstance *instance;
+			Window const *parent = nullptr;
+			Menu const *menu = nullptr;
+			ModuleInstance const *instance;
 		};
 		Window(CreationArguments arguments);
 

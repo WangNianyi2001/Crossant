@@ -3,45 +3,25 @@
 
 using namespace Graphics::Win32;
 
-LRESULT WINAPI MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	if(!Window::windowMap.contains(hWnd))
-		return DefWindowProc(hWnd, message, wParam, lParam);
-	Window *window = Window::windowMap[hWnd];
-	if(!Window::eventConversion.contains(message)) {
-		return window->ByPass(
-			Legacy::Window::Event(message, wParam, lParam)
-		);
-	}
-	Legacy::Window::Event legacyEvent{
-		message, wParam, lParam
-	};
-	window->Push(Window::eventConversion[message](legacyEvent));
-	return 0;
-}
-
 Application::Application(Legacy::ModuleInstance *instance) :
-	instance(instance),
-	defaultWindowClass(new Legacy::Window::Class(
-		{
-			.process = &MsgProc,
+	instance(instance) {
+	Window::defaultClass = new Legacy::Window::Class(
+		Legacy::Window::Class::Info{
+			.process = &Window::MsgProc,
 			.instance = instance,
-			.className = Legacy::String(L"Window"),
-		})) {
+			.className = Graphics::String(L"Window"),
+		}
+	);
 }
 
 Application::~Application() {
-	delete defaultWindowClass;
 	delete instance;
 }
 
 #pragma push_macro("CreateWindow")
 #undef CreateWindow
 Window *Application::CreateWindow() {
-	Legacy::Window::CreationArguments arguments{};
-	arguments.instance = instance;
-	arguments.windowClass = defaultWindowClass;
-	auto *legacy = new Legacy::Window(arguments);
-	return new Window(this, legacy);
+	return new Window(this);
 }
 #pragma pop_macro("CreateWindow")
 

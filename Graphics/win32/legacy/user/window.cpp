@@ -97,5 +97,4 @@ void Window::EndPaint(PaintStruct *paintStruct) {
 
 void Window::UpdateClient() {
 	InvalidateRect(GetHandle<HWND>(), NULL, false);
-	//UpdateWindow(GetHandle<HWND>());
 }

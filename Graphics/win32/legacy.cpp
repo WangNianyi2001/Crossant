@@ -1,4 +1,5 @@
 #include "legacy.hpp"
+#include "../common/type.hpp"
 #include <Windows.h>
 
 using namespace Graphics::Win32::Legacy;

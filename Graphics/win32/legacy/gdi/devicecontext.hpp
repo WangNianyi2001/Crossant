@@ -9,6 +9,6 @@ namespace Graphics::Win32::Legacy {
 
 		void Select(GDIObject *object);
 
-		void SetPixel(int x, int y, Color::Hex color);
+		void SetPixel(int x, int y, ColorRef color);
 	};
 }

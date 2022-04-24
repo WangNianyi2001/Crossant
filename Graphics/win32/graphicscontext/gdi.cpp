@@ -4,10 +4,7 @@
 using namespace Graphics::Win32;
 
 GDIContext::GDIContext(Window *window) : window(window) {
-	window->legacy->UpdateInfo();
-	bitmap = new Legacy::Bitmap(
-		(Vector2U)window->legacy->info.clientRect.Diagonal()
-	);
+	Resize((Vector2U)window->ClientRect().Diagonal());
 	Configure([this]() {
 		Legacy::PaintStruct paintStruct;
 		this->window->legacy->BeginPaint(&paintStruct);
@@ -26,12 +23,17 @@ GDIContext::GDIContext(Window *window) : window(window) {
 }
 
 GDIContext::~GDIContext() {
-	delete bitmap;
+	if(bitmap != nullptr)
+		delete bitmap;
+	bitmap = nullptr;
 }
 
 void GDIContext::Resize(Vector2U size) {
+	if(bitmap != nullptr)
+		delete bitmap;
+	bitmap = new Legacy::Bitmap(size);
 }
 
 void GDIContext::Pixel(Vector2F pos, Color color) {
-	bitmap->dc->SetPixel((int)pos[0], (int)pos[1], color.ToHex());
+	bitmap->dc->SetPixel((int)pos[0], (int)pos[1], Legacy::ColorRef(color));
 }

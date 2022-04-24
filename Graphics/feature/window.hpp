@@ -41,6 +41,7 @@ namespace Graphics {
 		virtual void Show() = 0;
 
 		// Visual
+		virtual ScreenRect ClientRect() = 0;
 		virtual GraphicsContext2D *MakeGraphicsContext2D() = 0;
 		virtual void Repaint() = 0;
 	};

@@ -23,7 +23,7 @@ WindowEvent mouseEvent(Event legacyEvent) {
 		.position = {
 			GET_X_LPARAM(legacyEvent.l),
 			GET_Y_LPARAM(legacyEvent.l),
-		}
+	}
 	};
 	return event;
 }
@@ -41,11 +41,31 @@ std::map<
 	{ WM_PAINT, &directEvent<Type::Paint> },
 };
 
-Window::Window(Application *application, Legacy::Window *legacy) :
-	application(application),
-	legacy(legacy) {
+__int64 __stdcall Window::MsgProc(void *hWnd, unsigned int message, unsigned __int64 wParam, __int64 lParam) {
+	if(!windowMap.contains(hWnd))
+		return DefWindowProc((HWND)hWnd, message, wParam, lParam);
+	Window *window = windowMap[hWnd];
+	if(!eventConversion.contains(message)) {
+		return window->ByPass(
+			Legacy::Window::Event(message, wParam, lParam)
+		);
+	}
+	Legacy::Window::Event legacyEvent{
+		message, wParam, lParam
+	};
+	window->Push(eventConversion[message](legacyEvent));
+	return 0;
+}
+
+Window::Window(Legacy::Window *legacy) : legacy(legacy) {
 	windowMap[legacy->handle] = this;
 	alive = true;
+}
+
+Window::Window(Application *application) : Window(new Legacy::Window(Legacy::Window::CreationArguments{
+	.windowClass = defaultClass,
+	.instance = defaultClass->info.instance,
+	})) {
 }
 
 __int64 Window::ByPass(Event event) {
@@ -73,6 +93,11 @@ void Window::Show() {
 
 Graphics::GraphicsContext2D *Window::MakeGraphicsContext2D() {
 	return new GDIContext(this);
+}
+
+Graphics::ScreenRect Window::ClientRect() {
+	legacy->UpdateInfo();
+	return legacy->info.clientRect;
 }
 
 void Window::Repaint() {

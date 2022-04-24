@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Graphics\Graphics.vcxproj", "{5B48F86C-9EA0-4F28-914F-40A6C7F77944}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fill", "Fill\Fill.vcxproj", "{B57BF63C-2163-4410-AA30-6FFFC8553924}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClipLine", "ClipLine\ClipLine.vcxproj", "{B57BF63C-2163-4410-AA30-6FFFC8553924}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5B48F86C-9EA0-4F28-914F-40A6C7F77944} = {5B48F86C-9EA0-4F28-914F-40A6C7F77944}
 	EndProjectSection

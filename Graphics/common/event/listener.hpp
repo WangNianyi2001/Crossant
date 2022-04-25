@@ -14,16 +14,15 @@ namespace Graphics {
 		map<Type, set<Handler>> handlers;
 
 	public:
-		virtual bool Push(Event event) override {
+		virtual void Push(Event event) override {
 			Type type = event.type;	// TODO
 			if(!handlers.contains(type))
-				return false;
+				return;
 			set<Handler> listenersOfType = handlers[type];
 			if(listenersOfType.size() <= 0)
-				return false;
+				return;
 			for(Handler listener : listenersOfType)
 				listener->Push(event);
-			return true;
 		}
 
 		void Listen(Type type, Handler listener) {

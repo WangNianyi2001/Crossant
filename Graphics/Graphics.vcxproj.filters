@@ -11,37 +11,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="feature\graphicscontext.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\graphicscontext\gdi.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\legacy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\legacy\gdi.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\legacy\user.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\legacy\kernel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\application.hpp">
+    <ClInclude Include="feature\graphics\graphicscontext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\application.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\legacy\user\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common\event\subscriber.hpp">
@@ -62,45 +38,18 @@
     <ClInclude Include="common\type\vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32\legacy\gdi\bitmap.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="win32\legacy\gdi\devicecontext.hpp">
+    <ClInclude Include="common\type\range.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common\type\range.hpp">
+    <ClInclude Include="feature\graphics\brush.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="win32\graphicscontext\gdi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="common\event\listener.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\legacy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\legacy\user\window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\legacy\gdi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\legacy\gdi\bitmap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\legacy\gdi\devicecontext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

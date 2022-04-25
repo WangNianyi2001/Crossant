@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Graphics::Win32::Legacy {
+namespace Graphics::Legacy {
 	void TryThrowLastError();
 
 	struct HandledObject {
@@ -18,3 +18,5 @@ namespace Graphics::Win32::Legacy {
 		}
 	};
 }
+
+#include "legacy/gdi.hpp"

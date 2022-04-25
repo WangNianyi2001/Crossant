@@ -1,10 +1,10 @@
 #include "legacy.hpp"
-#include "../common/type.hpp"
+#include "Graphics/common/type.hpp"
 #include <Windows.h>
 
-using namespace Graphics::Win32::Legacy;
+using namespace Graphics::Legacy;
 
-void Graphics::Win32::Legacy::TryThrowLastError() {
+void Graphics::Legacy::TryThrowLastError() {
 	int code = GetLastError();
 	if(code == 0)
 		return;

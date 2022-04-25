@@ -2,7 +2,7 @@
 
 #include "../legacy.hpp"
 
-namespace Graphics::Win32::Legacy {
+namespace Graphics::Legacy {
 	struct KernelObject : HandledObject {
 		KernelObject() : HandledObject(nullptr) {}
 		KernelObject(void *const handle) : HandledObject(handle) {}

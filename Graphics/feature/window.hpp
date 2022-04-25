@@ -2,8 +2,8 @@
 
 #include "../common/type.hpp"
 #include "../common/event/listener.hpp"
-#include "../feature/mouse.hpp"
-#include "graphicscontext.hpp"
+#include "mouse.hpp"
+#include "graphics/graphicscontext.hpp"
 
 namespace Graphics {
 	struct WindowEvent {
@@ -29,24 +29,28 @@ namespace Graphics {
 		Vector2U clientSize;
 	};
 
-	class Window : public Listener<WindowEvent::Type, WindowEvent> {
-	protected:
-		Window() = default;
+	class Application;
 
+	class Window : public Listener<WindowEvent::Type, WindowEvent> {
 	public:
-		virtual ~Window() = default;
+		struct Impl;
+		Impl *impl;
+
+		GraphicsContext2D *gc2 = nullptr;
+
+		Window(Application *application);
+		virtual ~Window();
 
 		// Life cycle
-		virtual bool Alive() = 0;
-		virtual void Live() = 0;
-		virtual void Kill() = 0;
+		virtual bool Alive();
+		virtual void Live();
+		virtual void Kill();
 
 		// Window state
-		virtual void Show() = 0;
+		virtual void Show();
 
 		// Visual
-		virtual ScreenRect ClientRect() = 0;
-		virtual GraphicsContext2D *MakeGraphicsContext2D() = 0;
-		virtual void Repaint() = 0;
+		virtual ScreenRect ClientRect();
+		virtual void Repaint();
 	};
 }

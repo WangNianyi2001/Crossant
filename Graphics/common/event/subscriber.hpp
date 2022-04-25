@@ -5,8 +5,7 @@
 namespace Graphics {
 	template<typename ...Args>
 	struct Subscriber {
-		virtual bool Push(Args ...arguments) = 0;
-		virtual ~Subscriber() = default;
+		virtual void Push(Args ...arguments) = 0;
 	};
 
 	template<typename ...Args>
@@ -20,11 +19,10 @@ namespace Graphics {
 		}
 		ConfigurableSubscriber() : ConfigurableSubscriber(nullptr) {}
 
-		virtual bool Push(Args ...arguments) override {
+		virtual void Push(Args ...arguments) override {
 			if(!action)
-				return false;
+				return;
 			action(arguments...);
-			return true;
 		}
 
 		void Configure(std::function<void(Args ...)> action) {

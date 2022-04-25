@@ -4,7 +4,7 @@ using namespace Graphics;
 
 int Application::Main() {
 	Window *window = current->CreateWindow();
-	GraphicsContext2D *gc = window->MakeGraphicsContext2D();
+	GraphicsContext2D *gc = window->gc2;
 
 	using EventType = WindowEvent::Type;
 

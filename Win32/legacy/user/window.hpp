@@ -2,9 +2,9 @@
 
 #include "../user.hpp"
 #include "../kernel.hpp"
-#include "../../../common/type.hpp"
+#include "Graphics/common/type.hpp"
 
-namespace Graphics::Win32::Legacy {
+namespace Graphics::Legacy {
 	struct PaintStruct;
 
 	struct Window : UserObject {

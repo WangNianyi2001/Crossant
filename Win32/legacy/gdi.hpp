@@ -1,10 +1,9 @@
 #pragma once
 
-#include "../../common/type.hpp"
-#include "../legacy.hpp"
+#include "Graphics/common/type.hpp"
 #include "user.hpp"
 
-namespace Graphics::Win32::Legacy {
+namespace Graphics::Legacy {
 	struct ColorRef {
 		using Hex = unsigned long;
 
@@ -41,3 +40,4 @@ namespace Graphics::Win32::Legacy {
 
 #include "gdi/bitmap.hpp"
 #include "gdi/devicecontext.hpp"
+#include "gdi/brush.hpp"

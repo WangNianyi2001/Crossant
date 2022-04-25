@@ -1,7 +1,7 @@
 #include "gdi.hpp"
 #include <Windows.h>
 
-using namespace Graphics::Win32::Legacy;
+using namespace Graphics::Legacy;
 
 PaintStruct::PaintStruct() : ps(new PAINTSTRUCT) {}
 

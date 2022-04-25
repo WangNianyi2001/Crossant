@@ -1,7 +1,7 @@
 #include "bitmap.hpp"
 #include <Windows.h>
 
-using namespace Graphics::Win32::Legacy;
+using namespace Graphics::Legacy;
 
 HBITMAP CreateBitmap(Graphics::Vector2U size) {
 	BITMAPINFOHEADER header{

@@ -1,5 +1,6 @@
 #pragma once
 
-#ifdef _WINDOWS
-#include "win32/application.hpp"
-#endif
+#include "feature/application.hpp"
+#include "feature/window.hpp"
+#include "feature/graphics/graphicscontext.hpp"
+#include "feature/mouse.hpp"

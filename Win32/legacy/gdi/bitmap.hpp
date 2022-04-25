@@ -3,7 +3,7 @@
 #include "../gdi.hpp"
 #include "devicecontext.hpp"
 
-namespace Graphics::Win32::Legacy {
+namespace Graphics::Legacy {
 	struct Bitmap : GDIObject {
 		Vector2U const size;
 		DeviceContext *const dc;

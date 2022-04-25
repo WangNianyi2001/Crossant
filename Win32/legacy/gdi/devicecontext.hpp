@@ -2,7 +2,7 @@
 
 #include "../gdi.hpp"
 
-namespace Graphics::Win32::Legacy {
+namespace Graphics::Legacy {
 	struct DeviceContext : HandledObject {
 		DeviceContext(void *const handle) : HandledObject(handle) {}
 		virtual ~DeviceContext() override;

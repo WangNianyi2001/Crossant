@@ -1,5 +1,6 @@
 #include "../../win32.hpp"
 #include "graphicscontext2d.hpp"
+#include "brush.hpp"
 
 using namespace Graphics;
 
@@ -27,6 +28,6 @@ void GraphicsContext2D::Pixel(Vector2F pos, Color color) {
 #pragma push_macro("SelectBrush")
 #undef SelectBrush
 void GraphicsContext2D::SelectBrush(Brush *brush) {
-	// TODO
+	impl->bitmap->dc->Select(brush->impl->brush);
 }
 #pragma pop_macro("SelectBrush")

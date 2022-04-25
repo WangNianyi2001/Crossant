@@ -80,5 +80,8 @@
     <ClInclude Include="feature\application.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="feature\graphics\brush.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

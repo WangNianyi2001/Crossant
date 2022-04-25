@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="feature\application.hpp" />
+    <ClInclude Include="feature\graphics\brush.hpp" />
     <ClInclude Include="feature\graphics\graphicscontext2d.hpp" />
     <ClInclude Include="win32.hpp" />
     <ClInclude Include="legacy.hpp" />

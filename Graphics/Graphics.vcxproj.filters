@@ -11,7 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="feature\graphics\graphicscontext.hpp">
+    <ClInclude Include="feature\graphics\context.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\application.hpp">
@@ -51,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature\graphics\context2d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

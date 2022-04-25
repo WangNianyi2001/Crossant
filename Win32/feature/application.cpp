@@ -1,4 +1,3 @@
-#include "../win32.hpp"
 #include "application.hpp"
 
 using namespace Graphics;

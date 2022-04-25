@@ -1,7 +1,5 @@
 #pragma once
 
-#include "tuple.hpp"
-
 namespace Graphics {
 	template<typename Ret, typename ...Args>
 	struct Function {

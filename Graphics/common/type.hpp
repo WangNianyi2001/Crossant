@@ -1,5 +1,6 @@
 #pragma once
 
+#include "type/tuple.hpp"
 #include "type/vector.hpp"
 #include "type/range.hpp"
 #include <xstring>
@@ -21,7 +22,7 @@ namespace Graphics {
 
 	using Color = Vector<float, 3>;
 
-	// Screen coordinate
+	// Screen geometries
 
 	using ScreenCoord = Vector2I;
 	using ScreenRect = BoxRange<ScreenCoord>;

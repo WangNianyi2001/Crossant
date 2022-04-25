@@ -158,6 +158,8 @@
     <ClInclude Include="common\type\tuple.hpp" />
     <ClInclude Include="common\type.hpp" />
     <ClInclude Include="common\type\vector.hpp" />
+    <ClInclude Include="feature\graphics.hpp" />
+    <ClInclude Include="feature\graphics\pen.hpp" />
     <ClInclude Include="graphics.hpp" />
     <ClInclude Include="feature\graphics\brush.hpp" />
     <ClInclude Include="feature\graphics\graphicscontext.hpp" />

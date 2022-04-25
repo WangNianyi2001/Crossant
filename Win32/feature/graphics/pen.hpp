@@ -4,7 +4,7 @@
 #include "../../legacy.hpp"
 
 namespace Graphics {
-	struct Brush::Impl {
-		Legacy::Brush *brush;
+	struct Pen::Impl {
+		Legacy::Pen *pen;
 	};
 }

@@ -42,6 +42,15 @@
     <ClCompile Include="feature\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="feature\graphics\pen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="feature\graphics\brush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="legacy\gdi\pen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="feature\graphics\graphicscontext2d.hpp">
@@ -81,6 +90,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics\brush.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature\graphics\pen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="legacy\gdi\pen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature\graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

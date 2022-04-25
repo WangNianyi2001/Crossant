@@ -2,7 +2,7 @@
 
 #include "../../common/event/subscriber.hpp"
 #include "../../common/type.hpp"
-#include "brush.hpp"
+#include "../graphics.hpp"
 
 namespace Graphics {
 	class GraphicsContext : public ConfigurableSubscriber<> {
@@ -24,6 +24,7 @@ namespace Graphics {
 
 		virtual void Pixel(Vector2F pos, Color color);
 		virtual void SelectBrush(Brush *brush);
+		virtual void SelectPen(Pen *pen);
 	};
 
 	class GraphicsContext3D : public GraphicsContext {

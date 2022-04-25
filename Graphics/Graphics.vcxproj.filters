@@ -47,6 +47,12 @@
     <ClInclude Include="feature\graphics\brush.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="feature\graphics\pen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature\graphics.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\event\listener.hpp">

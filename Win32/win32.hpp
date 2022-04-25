@@ -6,4 +6,4 @@
 #include "legacy.hpp"
 
 #include "feature/window.hpp"
-#include "feature/graphics/graphicscontext2d.hpp"
+#include "feature/graphics.hpp"

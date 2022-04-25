@@ -41,3 +41,4 @@ namespace Graphics::Legacy {
 #include "gdi/bitmap.hpp"
 #include "gdi/devicecontext.hpp"
 #include "gdi/brush.hpp"
+#include "gdi/pen.hpp"

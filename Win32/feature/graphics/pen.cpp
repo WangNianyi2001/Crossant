@@ -43,6 +43,10 @@ SimplePen::SimplePen(Color color, Style style) : style(style) {
 	impl->pen = new Legacy::Pen(hPen);
 }
 
+SimplePen::~SimplePen() {
+	delete impl->pen;
+}
+
 SolidPen::SolidPen(
 	Color color, int width,
 	Style style, Cap cap, Join join

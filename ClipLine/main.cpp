@@ -18,15 +18,13 @@ int Application::Main() {
 	window->Listen(EventType::Graph, [=](WindowEvent) {
 		gc->Push();
 	});
-	window->Listen(EventType::Resize, [=](WindowEvent event) {
-		gc->SelectPen(new SimplePen(Color{1, 0, 0}));
-		gc->SelectBrush(new SolidBrush(Color{ 1, 1, 0 }));
-	});
 	window->Listen(EventType::Close, [=](WindowEvent) {
 		window->Kill();
 	});
 
 	window->Show();
+	delete gc->PushPen(new SimplePen(Color{1, 0, 0}));
+	delete gc->PushBrush(new SolidBrush(Color{ 1, 1, 0 }));
 	for(; window->Alive(); window->Live());
 	return 0;
 }

@@ -63,19 +63,20 @@ Window::Window(Application *application) {
 	gc2 = new GraphicsContext2D(ClientRect().Diagonal());
 	Listen(WindowEvent::Type::Resize, [this](WindowEvent event) {
 		gc2->Resize(event.clientSize);
+		Repaint();
 	});
 	Listen(WindowEvent::Type::Graph, [this](WindowEvent) {
 		Legacy::PaintStruct paintStruct;
 		impl->legacy->BeginPaint(&paintStruct);
 		Legacy::DeviceContext *targetDC = paintStruct.GetDC();
 		Legacy::Bitmap *bitmap = gc2->impl->bitmap;
-		BitBlt(
-			targetDC->GetHandle<HDC>(),
-			0, 0,
-			bitmap->size[0], bitmap->size[1],
-			bitmap->dc->GetHandle<HDC>(),
-			0, 0,
-			SRCCOPY
+		bitmap->dc->PutTo(
+			targetDC,
+			ScreenRect{
+				ScreenCoord{ 0, 0 },
+				bitmap->size
+			},
+			ScreenCoord{ 0, 0 }
 		);
 		delete targetDC;
 		impl->legacy->EndPaint(&paintStruct);

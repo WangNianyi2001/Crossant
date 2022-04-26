@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="common\type\doublebuffer.hpp" />
     <ClInclude Include="common\type\function.hpp" />
     <ClInclude Include="common\type\range.hpp" />
     <ClInclude Include="common\type\tuple.hpp" />

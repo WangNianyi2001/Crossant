@@ -3,6 +3,7 @@
 #include "type/tuple.hpp"
 #include "type/vector.hpp"
 #include "type/range.hpp"
+#include "type/doublebuffer.hpp"
 #include <xstring>
 
 namespace Graphics {

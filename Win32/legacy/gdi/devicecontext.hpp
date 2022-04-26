@@ -4,9 +4,18 @@
 
 namespace Graphics::Legacy {
 	struct DeviceContext : HandledObject {
-		DeviceContext(void *const handle) : HandledObject(handle) {}
+		bool const isPrivate;
+
+		DeviceContext(
+			void *const handle,
+			bool isPrivate = true
+		) : HandledObject(handle), isPrivate(isPrivate) {}
 		virtual ~DeviceContext() override;
 
+		void PutTo(DeviceContext *dest,
+			ScreenRect const &clip,
+			ScreenCoord const &offset
+		);
 		void Select(GDIObject *object);
 
 		void SetPixel(int x, int y, ColorRef color);

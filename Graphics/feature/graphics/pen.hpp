@@ -35,6 +35,7 @@ namespace Graphics {
 		Style style;
 
 		SimplePen(Color color, Style style = Style::Solid);
+		virtual ~SimplePen() override;
 	};
 
 	struct SolidPen : Pen {

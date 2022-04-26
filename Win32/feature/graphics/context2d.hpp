@@ -8,35 +8,41 @@ namespace Graphics {
 		Legacy::Bitmap *bitmap = nullptr;
 	};
 
-	struct BrushBuffer : SingleBuffer<Brush *> {
-	};
-
-	struct BrushDoubleBuffer : DoubleBuffer<Brush *> {
+	template<
+		typename T,
+		std::derived_from<Function<Legacy::GDIObject *, T>> Getter
+	> struct GraphicsObjectBuffer : DoubleBuffer<T> {
 		GraphicsContext2D *const gc;
 
-		BrushDoubleBuffer(GraphicsContext2D *gc) : gc(gc) {}
+		GraphicsObjectBuffer(GraphicsContext2D *gc) : gc(gc) {}
 
 		void Select() {
-			if(!HasValue())
-				return;	// Should select null brush here
+			if(!DoubleBuffer<T>::HasValue())
+				return;
 			if(gc->impl->bitmap == nullptr)
 				return;
 			gc->impl->bitmap->dc->Select(
-				Get().value()->impl->brush
+				Getter{}(DoubleBuffer<T>::Get().value())
 			);
 		}
 
 		virtual void Swap() override {
-			DoubleBuffer::Swap();
+			DoubleBuffer<T>::Swap();
 			Select();
 		}
 
-		virtual std::optional<Brush *> Push(
-			Brush *const &newValue
+		virtual std::optional<T> Push(
+			T const &newValue
 		) override {
-			auto ret = DoubleBuffer::Push(newValue);
+			auto ret = DoubleBuffer<T>::Push(newValue);
 			Select();
 			return ret;
 		}
 	};
+
+	using BrushBuffer = GraphicsObjectBuffer<Brush *,
+		Brush::Impl::Getter>;
+
+	using PenBuffer = GraphicsObjectBuffer<Pen *,
+		Pen::Impl::Getter>;
 }

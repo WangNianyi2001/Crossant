@@ -23,7 +23,8 @@ int Application::Main() {
 	});
 
 	window->Show();
-	gc->brush->Push(new SolidBrush(Color{ 1, 1, 0 }));
+	delete gc->brush->Push(new SolidBrush(Color{ 1, 1, 0 })).value_or(nullptr);
+	delete gc->pen->Push(new SolidPen(Color{ 1, 0, 0 }, 4)).value_or(nullptr);
 	for(; window->Alive(); window->Live());
 	return 0;
 }

@@ -9,9 +9,10 @@ using namespace Graphics;
 
 GraphicsContext2D::GraphicsContext2D(Vector2U size) {
 	impl = new Impl{};
-	brush = new BrushDoubleBuffer(this);
+	brush = new BrushBuffer(this);
 	brush->Push(new NullBrush());
-	//pen->Push(new NullPen());
+	pen = new PenBuffer(this);
+	pen->Push(new NullPen());
 	Resize(size);
 }
 
@@ -25,11 +26,10 @@ void GraphicsContext2D::Resize(Vector2U size) {
 	Legacy::Bitmap
 		*oldBm = impl->bitmap,
 		*newBm = new Legacy::Bitmap(size);
-	if(oldBm != nullptr)
-		delete oldBm;
+	delete oldBm;
 	impl->bitmap = newBm;
-	((BrushDoubleBuffer *)brush)->Select();
-	//SelectPen(GetPen());
+	((BrushBuffer *)brush)->Select();
+	((PenBuffer *)pen)->Select();
 }
 
 void GraphicsContext2D::Pixel(Vector2F pos, Color color) {

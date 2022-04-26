@@ -42,15 +42,15 @@ namespace Graphics {
 		virtual ~Window();
 
 		// Life cycle
-		virtual bool Alive();
-		virtual void Live();
-		virtual void Kill();
+		bool Alive();
+		void Live();
+		void Kill();
 
 		// Window state
-		virtual void Show();
+		void Show();
 
 		// Visual
-		virtual ScreenRect ClientRect();
-		virtual void Repaint();
+		ScreenRect ClientRect();
+		void Repaint();
 	};
 }

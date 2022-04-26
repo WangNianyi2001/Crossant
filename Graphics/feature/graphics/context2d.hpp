@@ -3,6 +3,10 @@
 #include "context.hpp"
 
 namespace Graphics {
+	class Brush;
+
+	class Pen;
+
 	class GraphicsContext2D : public GraphicsContext {
 	public:
 		struct Impl;
@@ -13,8 +17,10 @@ namespace Graphics {
 
 		virtual void Resize(Vector2U size) override;
 
-		virtual void Pixel(Vector2F pos, Color color);
 		virtual void SelectBrush(Brush *brush);
 		virtual void SelectPen(Pen *pen);
+
+		virtual void Pixel(Vector2F pos, Color color);
+		virtual void Rectangle(ScreenRect const &rect);
 	};
 }

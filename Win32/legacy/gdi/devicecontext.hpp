@@ -10,5 +10,6 @@ namespace Graphics::Legacy {
 		void Select(GDIObject *object);
 
 		void SetPixel(int x, int y, ColorRef color);
+		void Rect(int left, int top, int right, int bottom);
 	};
 }

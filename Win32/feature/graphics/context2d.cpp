@@ -1,3 +1,4 @@
+#include "..\..\..\Graphics\feature\graphics\context2d.hpp"
 #include "context2d.hpp"
 
 using namespace Graphics;
@@ -21,6 +22,10 @@ void GraphicsContext2D::Resize(Vector2U size) {
 
 void GraphicsContext2D::Pixel(Vector2F pos, Color color) {
 	impl->bitmap->dc->SetPixel((int)pos[0], (int)pos[1], Legacy::ColorRef(color));
+}
+
+void GraphicsContext2D::Rectangle(ScreenRect const &rect) {
+	impl->bitmap->dc->Rect(rect.min[0], rect.min[1], rect.max[0], rect.max[1]);
 }
 
 #pragma push_macro("SelectBrush")

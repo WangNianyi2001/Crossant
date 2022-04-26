@@ -18,3 +18,7 @@ void DeviceContext::Select(GDIObject *object) {
 void DeviceContext::SetPixel(int x, int y, ColorRef color) {
 	::SetPixel(GetHandle<HDC>(), x, y, color.value);
 }
+
+void DeviceContext::Rect(int left, int top, int right, int bottom) {
+	Rectangle(GetHandle<HDC>(), left, top, right, bottom);
+}

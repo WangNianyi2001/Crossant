@@ -3,7 +3,7 @@
 #include "subscriber.hpp"
 #include <concepts>
 #include <map>
-#include <set>
+#include <vector>
 
 namespace Graphics {
 	using namespace std;
@@ -11,24 +11,24 @@ namespace Graphics {
 	template<typename Type, typename Event>
 	class Listener : public Subscriber<Event> {
 		using Handler = Subscriber<Event> *;
-		map<Type, set<Handler>> handlers;
+		map<Type, vector<Handler>> handlers;
 
 	public:
 		virtual void Push(Event event) override {
 			Type type = event.type;	// TODO
 			if(!handlers.contains(type))
 				return;
-			set<Handler> listenersOfType = handlers[type];
+			auto &listenersOfType = handlers[type];
 			if(listenersOfType.size() <= 0)
 				return;
-			for(Handler listener : listenersOfType)
+			for(auto &listener : listenersOfType)
 				listener->Push(event);
 		}
 
 		void Listen(Type type, Handler listener) {
 			if(!handlers.contains(type))
-				handlers[type] = set<Handler>();
-			handlers[type].insert(listener);
+				handlers[type] = vector<Handler>();
+			handlers[type].push_back(listener);
 		}
 
 		void Listen(Type type, function<void(Event)> listener) {

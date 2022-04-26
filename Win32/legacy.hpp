@@ -3,10 +3,10 @@
 namespace Graphics::Legacy {
 	void TryThrowLastError();
 
-	struct HandledObject {
+	struct HandledObject  {
 		void *const handle;
 
-		HandledObject(void *const handle) : handle(handle) {}
+		HandledObject(void *handle) : handle(handle) {}
 
 		virtual ~HandledObject() = default;
 

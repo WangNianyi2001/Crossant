@@ -9,7 +9,8 @@ namespace Graphics {
 	using namespace std;
 
 	template<typename Type, typename Event>
-	class Listener : public Subscriber<Event> {
+	struct Listener : Subscriber<Event> {
+	protected:
 		using Handler = Subscriber<Event> *;
 		map<Type, vector<Handler>> handlers;
 

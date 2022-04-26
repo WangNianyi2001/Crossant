@@ -5,8 +5,7 @@
 #include "../graphics.hpp"
 
 namespace Graphics {
-	class GraphicsContext : public ConfigurableSubscriber<> {
-	public:
+	struct GraphicsContext : ConfigurableSubscriber<> {
 		virtual ~GraphicsContext() = default;
 
 		virtual void Resize(Vector2U size) = 0;

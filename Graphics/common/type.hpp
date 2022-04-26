@@ -1,5 +1,6 @@
 #pragma once
 
+#include "type/just.hpp"
 #include "type/tuple.hpp"
 #include "type/vector.hpp"
 #include "type/range.hpp"

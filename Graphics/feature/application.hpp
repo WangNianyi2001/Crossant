@@ -1,10 +1,10 @@
 #pragma once
 
+#include "../common/type.hpp"
 #include "window.hpp"
 
 namespace Graphics {
-	class Application {
-	public:
+	struct Application {
 		static inline Application *current = nullptr;
 
 		static int Main();

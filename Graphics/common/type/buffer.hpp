@@ -9,29 +9,26 @@ template<typename T>
 	protected:
 		std::optional<T> data;
 
-		virtual void Set(T &value) {}
-
-		virtual void Remove(T &value) {}
-
 	public:
-
-		SingleBuffer() : data(false) {}
+		SingleBuffer() : data() {}
 		SingleBuffer(T const &value) : data(value) {}
 
-		std::optional<T> Get() {
+		bool HasValue() {
+			return data.has_value();
+		}
+
+		std::optional<T> &Get() {
 			return data;
 		}
 
 		std::optional<T> Empty() {
-			if(data.has_value())
-				Remove(data.value());
+			auto old = data;
 			data = std::optional<T>();
+			return old;
 		}
 
 		std::optional<T> Replace(std::optional<T> const &newData) {
 			auto old = Empty();
-			if(newData.has_value())
-				Set(newData.value());
 			data = newData;
 			return old;
 		}
@@ -41,21 +38,29 @@ template<typename T>
 		}
 	};
 
-	template<typename T, std::derived_from<SingleBuffer<T>> Buffer = SingleBuffer<T>>
+	template<typename T>
 	struct DoubleBuffer {
-		Buffer front, back;
+		SingleBuffer<T> front, back;
 
 		DoubleBuffer() = default;
 		DoubleBuffer(T const &front, T const &back = T{}) :
 			front(front), back(back) {}
 
-		void Swap() {
+		bool HasValue() {
+			return front.HasValue();
+		}
+
+		std::optional<T> &Get() {
+			return front.Get();
+		}
+
+		virtual void Swap() {
 			auto temp = back.Get();
 			back.Replace(front.Get());
 			front.Replace(temp);
 		}
 
-		T Push(T const &newValue) {
+		virtual std::optional<T> Push(T const &newValue) {
 			auto old = back.Replace(front.Get());
 			front.Replace(newValue);
 			return old;

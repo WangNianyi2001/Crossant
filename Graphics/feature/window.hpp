@@ -29,10 +29,9 @@ namespace Graphics {
 		Vector2U clientSize;
 	};
 
-	class Application;
+	struct Application;
 
-	class Window : public Listener<WindowEvent::Type, WindowEvent> {
-	public:
+	struct Window : Listener<WindowEvent::Type, WindowEvent> {
 		struct Impl;
 		Impl *impl;
 

@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Graphics/graphics.hpp"
-#include "../../legacy.hpp"
+#include "../../win32.hpp"
 #include <map>
 
 namespace Graphics {

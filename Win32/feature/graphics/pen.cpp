@@ -1,4 +1,3 @@
-#include "..\..\..\Graphics\feature\graphics\pen.hpp"
 #include "pen.hpp"
 #include <Windows.h>
 
@@ -28,21 +27,35 @@ Pen::Pen() {
 	impl = new Impl{};
 }
 
-Pen::Pen(int width, Color color,
-	Style style, Cap cap, Join join)
-	: Pen() {
-	LOGBRUSH log{ BS_SOLID, Legacy::ColorRef(color).value };
-	HPEN hPen = ExtCreatePen(
-		PS_GEOMETRIC,
-		width,
-		&log,
-		impl->styleMap[style],
-		NULL
+Pen::~Pen() {
+	delete impl;
+}
+
+NullPen::NullPen() {
+	impl->pen = new Legacy::Pen(GetStockObject(NULL_PEN));
+}
+
+SimplePen::SimplePen(Color color, Style style) : style(style) {
+	HPEN hPen = CreatePen(
+		impl->styleMap[style], 1,
+		Legacy::ColorRef(color).value
 	);
 	impl->pen = new Legacy::Pen(hPen);
 }
 
-Pen::~Pen() {
+SolidPen::SolidPen(
+	Color color, int width,
+	Style style, Cap cap, Join join
+) : style(style), cap(cap), join(join) {
+	LOGBRUSH log{ BS_SOLID, Legacy::ColorRef(color).value };
+	HPEN hPen = ExtCreatePen(
+		PS_GEOMETRIC |
+		impl->styleMap[style] | impl->capMap[cap] | impl->joinMap[join],
+		width, &log, 0, NULL
+	);
+	impl->pen = new Legacy::Pen(hPen);
+}
+
+SolidPen::~SolidPen() {
 	delete impl->pen;
-	delete impl;
 }

@@ -21,9 +21,6 @@
     <ClCompile Include="legacy\gdi\bitmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="legacy\gdi\brush.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="legacy\gdi\devicecontext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,18 +45,12 @@
     <ClCompile Include="feature\graphics\brush.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="legacy\gdi\pen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="feature\graphics\context2d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="legacy\gdi\bitmap.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\gdi\brush.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="legacy\gdi\devicecontext.hpp">
@@ -93,9 +84,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics\pen.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\gdi\pen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics.hpp">

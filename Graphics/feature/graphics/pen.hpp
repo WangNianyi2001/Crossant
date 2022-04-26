@@ -3,11 +3,7 @@
 #include "../../common/type.hpp"
 
 namespace Graphics {
-	class Pen {
-	protected:
-		Pen();
-
-	public:
+	struct Pen {
 		struct Impl;
 		Impl *impl;
 
@@ -18,23 +14,40 @@ namespace Graphics {
 			DashDot,
 			DashDotDot,
 		};
-		Style style;
 
 		enum struct Cap {
 			Round, Square, Flat
 		};
-		Cap cap;
 
 		enum struct Join {
 			Bevel, Miter, Round
 		};
+
+		Pen();
+		virtual ~Pen();
+	};
+
+	struct NullPen : Pen {
+		NullPen();
+	};
+
+	struct SimplePen : Pen {
+		Style style;
+
+		SimplePen(Color color, Style style = Style::Solid);
+	};
+
+	struct SolidPen : Pen {
+		Style style;
+		Cap cap;
 		Join join;
 
-		Pen(int width,
-			Color color,
+		SolidPen(
+			Color color, int width = 1,
 			Style style = Style::Solid,
 			Cap cap = Cap::Flat,
-			Join join = Join::Miter);
-		virtual ~Pen();
+			Join join = Join::Miter
+		);
+		virtual ~SolidPen() override;
 	};
 }

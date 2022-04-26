@@ -3,10 +3,6 @@
 #include "context.hpp"
 
 namespace Graphics {
-	class Brush;
-
-	class Pen;
-
 	class GraphicsContext2D : public GraphicsContext {
 	public:
 		struct Impl;

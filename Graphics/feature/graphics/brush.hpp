@@ -3,8 +3,7 @@
 #include "../../common/type.hpp"
 
 namespace Graphics {
-	class Brush {
-	public:
+	struct Brush {
 		struct Impl;
 		Impl *impl;
 
@@ -12,8 +11,11 @@ namespace Graphics {
 		virtual ~Brush();
 	};
 
-	class SolidBrush : public Brush {
-	public:
+	struct NullBrush : Brush {
+		NullBrush();
+	};
+
+	struct SolidBrush : Brush {
 		SolidBrush(Color color);
 		virtual ~SolidBrush() override;
 	};

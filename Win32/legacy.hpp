@@ -19,4 +19,6 @@ namespace Graphics::Legacy {
 	};
 }
 
+#include "legacy/kernel.hpp"
+#include "legacy/user.hpp"
 #include "legacy/gdi.hpp"

@@ -1,4 +1,3 @@
-#include "..\..\..\Graphics\feature\graphics\context2d.hpp"
 #include "context2d.hpp"
 
 using namespace Graphics;

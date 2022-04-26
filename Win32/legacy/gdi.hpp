@@ -36,9 +36,15 @@ namespace Graphics::Legacy {
 
 		DeviceContext *GetDC();
 	};
+
+	struct Brush : GDIObject {
+		Brush(void *handle) : GDIObject(handle) {}
+	};
+
+	struct Pen : GDIObject {
+		Pen(void *handle) : GDIObject(handle) {}
+	};
 }
 
 #include "gdi/bitmap.hpp"
 #include "gdi/devicecontext.hpp"
-#include "gdi/brush.hpp"
-#include "gdi/pen.hpp"

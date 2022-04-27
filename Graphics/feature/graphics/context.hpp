@@ -2,7 +2,7 @@
 
 #include "../../common/event/subscriber.hpp"
 #include "../../common/type.hpp"
-#include "../graphics.hpp"
+#include "target.hpp"
 
 namespace Graphics {
 	struct GraphicsContext : ConfigurableSubscriber<> {

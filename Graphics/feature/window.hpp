@@ -3,7 +3,7 @@
 #include "../common/type.hpp"
 #include "../common/event/listener.hpp"
 #include "mouse.hpp"
-#include "graphics.hpp"
+#include "graphics/context.hpp"
 
 namespace Graphics {
 	struct WindowEvent {

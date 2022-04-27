@@ -45,6 +45,9 @@
     <ClCompile Include="feature\graphics\brush.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="feature\graphics\context3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="feature\graphics\context2d.hpp">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature\graphics\context3d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

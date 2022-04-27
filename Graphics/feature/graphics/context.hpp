@@ -13,3 +13,4 @@ namespace Graphics {
 }
 
 #include "context2d.hpp"
+#include "context3d.hpp"

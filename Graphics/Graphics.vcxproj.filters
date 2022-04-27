@@ -65,6 +65,9 @@
     <ClInclude Include="common\type\just.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="feature\graphics\context3d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\event\listener.hpp">

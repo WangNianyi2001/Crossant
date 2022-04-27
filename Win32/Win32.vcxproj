@@ -148,6 +148,7 @@
     <ClCompile Include="feature\application.cpp" />
     <ClCompile Include="feature\graphics\brush.cpp" />
     <ClCompile Include="feature\graphics\context2d.cpp" />
+    <ClCompile Include="feature\graphics\context3d.cpp" />
     <ClCompile Include="feature\graphics\pen.cpp" />
     <ClCompile Include="legacy.cpp" />
     <ClCompile Include="legacy\gdi.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="feature\graphics.hpp" />
     <ClInclude Include="feature\graphics\brush.hpp" />
     <ClInclude Include="feature\graphics\context2d.hpp" />
+    <ClInclude Include="feature\graphics\context3d.hpp" />
     <ClInclude Include="feature\graphics\pen.hpp" />
     <ClInclude Include="win32.hpp" />
     <ClInclude Include="legacy.hpp" />

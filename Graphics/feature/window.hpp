@@ -36,6 +36,7 @@ namespace Graphics {
 		Impl *impl;
 
 		GraphicsContext2D *gc2 = nullptr;
+		GraphicsContext3D *gc3 = nullptr;
 
 		Window(Application *application);
 		virtual ~Window();

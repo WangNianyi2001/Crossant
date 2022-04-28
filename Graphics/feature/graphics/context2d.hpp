@@ -1,12 +1,12 @@
 #pragma once
 
+#include "target.hpp"
 #include "brush.hpp"
 #include "pen.hpp"
 
 namespace Graphics {
 	struct GraphicsContext2D : GraphicsContext {
-		struct Impl;
-		Impl *impl;
+		GraphicsTarget *target;
 
 		DoubleBuffer<Brush *> *brush;
 		DoubleBuffer<Pen *> *pen;

@@ -35,8 +35,7 @@ namespace Graphics {
 		struct Impl;
 		Impl *impl;
 
-		GraphicsContext2D *gc2 = nullptr;
-		GraphicsContext3D *gc3 = nullptr;
+		GraphicsTarget *graphicsTarget;
 
 		Window(Application *application);
 		virtual ~Window();

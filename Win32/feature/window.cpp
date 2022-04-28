@@ -61,17 +61,17 @@ Window::Window(Application *application) {
 	};
 	Impl::map[impl->legacy->handle] = this;
 
-	// Init GC2
-	gc2 = new GraphicsContext2D(ClientRect().Diagonal());
+	// Init graphics target
+	graphicsTarget = new GraphicsTarget(ClientRect().Diagonal());
 	Listen(WindowEvent::Type::Resize, [this](WindowEvent event) {
-		gc2->Resize(event.clientSize);
+		graphicsTarget->Resize(event.clientSize);
 		Repaint();
 	});
 	Listen(WindowEvent::Type::Graph, [this](WindowEvent) {
 		Legacy::PaintStruct paintStruct;
 		impl->legacy->BeginPaint(&paintStruct);
 		Legacy::DeviceContext *targetDC = paintStruct.GetDC();
-		Legacy::Bitmap *bitmap = gc2->impl->bitmap;
+		Legacy::Bitmap *bitmap = graphicsTarget->impl->bitmap;
 		bitmap->dc->PutTo(
 			targetDC,
 			ScreenRect{
@@ -83,9 +83,6 @@ Window::Window(Application *application) {
 		delete targetDC;
 		impl->legacy->EndPaint(&paintStruct);
 	});
-
-	// Init GC3
-	gc3 = new GraphicsContext3D(ClientRect().Diagonal());
 }
 
 Window::~Window() {

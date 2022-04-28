@@ -150,6 +150,7 @@
     <ClCompile Include="feature\graphics\context2d.cpp" />
     <ClCompile Include="feature\graphics\context3d.cpp" />
     <ClCompile Include="feature\graphics\pen.cpp" />
+    <ClCompile Include="feature\graphics\target.cpp" />
     <ClCompile Include="legacy.cpp" />
     <ClCompile Include="legacy\gdi.cpp" />
     <ClCompile Include="legacy\gdi\bitmap.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="feature\graphics\context2d.hpp" />
     <ClInclude Include="feature\graphics\context3d.hpp" />
     <ClInclude Include="feature\graphics\pen.hpp" />
+    <ClInclude Include="feature\graphics\target.hpp" />
     <ClInclude Include="win32.hpp" />
     <ClInclude Include="legacy.hpp" />
     <ClInclude Include="legacy\gdi.hpp" />

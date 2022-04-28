@@ -1,13 +1,9 @@
 #pragma once
 
 #include "../../win32.hpp"
+#include "target.hpp"
 
 namespace Graphics {
-	struct GraphicsContext2D::Impl {
-		Window *window = nullptr;
-		Legacy::Bitmap *bitmap = nullptr;
-	};
-
 	template<
 		typename T,
 		std::derived_from<Function<Legacy::GDIObject *, T>> Getter
@@ -19,9 +15,9 @@ namespace Graphics {
 		void Select() {
 			if(!DoubleBuffer<T>::HasValue())
 				return;
-			if(gc->impl->bitmap == nullptr)
+			if(gc->target->impl->bitmap == nullptr)
 				return;
-			gc->impl->bitmap->dc->Select(
+			gc->target->impl->bitmap->dc->Select(
 				Getter{}(DoubleBuffer<T>::Get().value())
 			);
 		}

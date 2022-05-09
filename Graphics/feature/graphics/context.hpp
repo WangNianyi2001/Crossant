@@ -11,6 +11,7 @@ namespace Graphics {
 		GraphicsContext(GraphicsTarget &target);
 		virtual ~GraphicsContext() = default;
 
+		virtual void MakeCurrent() const = 0;
 		virtual void Resize(Vector2U size) = 0;
 	};
 }

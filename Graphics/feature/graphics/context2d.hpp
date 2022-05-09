@@ -12,6 +12,7 @@ namespace Graphics {
 		GraphicsContext2D(GraphicsTarget &target);
 		virtual ~GraphicsContext2D() override;
 
+		virtual void MakeCurrent() const override;
 		void Resize(Vector2U size) override;
 
 		void Pixel(Vector2F pos, Color color) const;

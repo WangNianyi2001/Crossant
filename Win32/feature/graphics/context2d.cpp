@@ -1,4 +1,5 @@
 #include "context2d.hpp"
+#include "context2d.hpp"
 
 #pragma push_macro("SelectBrush")
 #undef SelectBrush
@@ -17,6 +18,8 @@ GraphicsContext2D::GraphicsContext2D(GraphicsTarget &target) : GraphicsContext(t
 }
 
 GraphicsContext2D::~GraphicsContext2D() = default;
+
+void GraphicsContext2D::MakeCurrent() const {}
 
 void GraphicsContext2D::Resize(Vector2U size) {
 	target.Resize(size);

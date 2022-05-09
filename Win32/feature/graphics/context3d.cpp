@@ -1,4 +1,5 @@
 #include "context3d.hpp"
+#include "context3d.hpp"
 
 using namespace Graphics;
 
@@ -15,30 +16,30 @@ GraphicsContext3D::GraphicsContext3D(GraphicsTarget &target) : GraphicsContext(t
 	descriptor.cDepthBits = 32;
 	descriptor.iLayerType = PFD_MAIN_PLANE;
 
-	HDC hDC = target.impl->dc.GetHandle<HDC>();
-	int format = ChoosePixelFormat(hDC, &descriptor);
+	impl->hDC = target.impl->dc.GetHandle<HDC>();
+	int format = ChoosePixelFormat(impl->hDC, &descriptor);
 	if(format == 0)
 		Legacy::TryThrowLastError();
-	SetPixelFormat(hDC, format, &descriptor);
+	SetPixelFormat(impl->hDC, format, &descriptor);
 }
 
 GraphicsContext3D::~GraphicsContext3D() {
 	delete impl;
 }
 
+void GraphicsContext3D::MakeCurrent() const {
+	wglMakeCurrent(impl->hDC, impl->hRC);
+}
+
 void GraphicsContext3D::Resize(Vector2U size) {
-	HDC hDC = target.impl->dc.GetHandle<HDC>();
-	impl->hRC = wglCreateContext(hDC);
-	wglMakeCurrent(hDC, impl->hRC);
+	impl->hRC = wglCreateContext(impl->hDC);
 	glViewport(0, 0, size[0], size[1]);
 }
 
 void GraphicsContext3D::SetPerspective(float perspective) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	GLdouble aspect = (GLdouble)(
-		target.impl->size[0] / target.impl->size[1]
-	);
+	GLdouble aspect = (GLdouble)target.impl->size[0] / target.impl->size[1];
 	gluPerspective(perspective, aspect, .1, 1e2);
 	glMatrixMode(GL_MODELVIEW);
 }

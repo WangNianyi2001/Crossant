@@ -10,7 +10,9 @@ namespace Graphics {
 		GraphicsContext3D(GraphicsTarget &target);
 		virtual ~GraphicsContext3D() override;
 
+		virtual void MakeCurrent() const override;
 		void Resize(Vector2U size) override;
+
 		void SetPerspective(float perspective);
 	};
 }

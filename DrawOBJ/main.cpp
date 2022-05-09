@@ -7,13 +7,14 @@ int Application::Main() {
 
 	using EventType = WindowEvent::Type;
 
-	auto gc = GraphicsContext2D(window->graphicsTarget);
+	auto gc = GraphicsContext3D(window->graphicsTarget);
 
-	window->Listen(EventType::Graph, [=](WindowEvent) {
-		gc.brush->Push(new SolidBrush(Color{ 1, 0, 0 }));
-		gc.Rectangle({ {10, 10}, {40, 40} });
+	window->Listen(EventType::Graph, [&](WindowEvent) {
+		gc.MakeCurrent();
+		//
+		
 	});
-	window->Listen(EventType::Close, [=](WindowEvent) {
+	window->Listen(EventType::Close, [&](WindowEvent) {
 		window->Kill();
 	});
 

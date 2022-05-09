@@ -15,9 +15,9 @@ namespace Graphics {
 		void Select() {
 			if(!DoubleBuffer<T>::HasValue())
 				return;
-			if(gc->target->impl->bitmap == nullptr)
+			if(gc->target.impl == nullptr)
 				return;
-			gc->target->impl->bitmap->dc->Select(
+			gc->target.impl->dc->Select(
 				Getter{}(DoubleBuffer<T>::Get().value())
 			);
 		}

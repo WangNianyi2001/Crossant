@@ -6,7 +6,7 @@
 
 namespace Graphics {
 	struct GraphicsContext2D : GraphicsContext {
-		GraphicsTarget *target;
+		GraphicsTarget target;
 
 		DoubleBuffer<Brush *> *brush;
 		DoubleBuffer<Pen *> *pen;

@@ -71,7 +71,7 @@ Window::Window(Application *application) {
 		Legacy::PaintStruct paintStruct;
 		impl->legacy->BeginPaint(&paintStruct);
 		Legacy::DeviceContext *targetDC = paintStruct.GetDC();
-		Legacy::Bitmap *bitmap = graphicsTarget->impl->bitmap;
+		Legacy::Bitmap *bitmap = graphicsTarget->impl;
 		bitmap->dc->PutTo(
 			targetDC,
 			ScreenRect{

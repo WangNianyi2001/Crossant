@@ -2,20 +2,17 @@
 
 using namespace Graphics;
 
-GraphicsTarget::GraphicsTarget(Vector2U size) {
-	impl = new Impl{};
-}
+GraphicsTarget::GraphicsTarget(Vector2U size) : impl(new Impl(size)) {}
 
 GraphicsTarget::~GraphicsTarget() {
-	delete impl->bitmap;
 	delete impl;
 }
 
 Vector2U GraphicsTarget::GetSize() const {
-	return impl->bitmap->size;
+	return impl->size;
 }
 
 void GraphicsTarget::Resize(Vector2U size) {
-	delete impl->bitmap;
-	impl->bitmap = new Legacy::Bitmap(size);
+	delete impl;
+	impl = new Impl(size);
 }

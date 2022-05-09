@@ -26,7 +26,7 @@ namespace Graphics {
 
 		Type type;
 		Mouse mouse;
-		Vector2U clientSize;
+		Size2D clientSize;
 	};
 
 	struct Application;
@@ -49,7 +49,7 @@ namespace Graphics {
 		void Show();
 
 		// Visual
-		ScreenRect ClientRect();
+		RectRange ClientRect();
 		void Repaint();
 	};
 }

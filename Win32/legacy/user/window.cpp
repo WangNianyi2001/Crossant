@@ -70,21 +70,23 @@ void Window::SetShowState(ShowState state) {
 	ShowWindow(GetHandle<HWND>(), (int)state);
 }
 
+inline Graphics::RectRange ParseRect(RECT rect) {
+	using Graphics::Float;
+	return {
+		{ (Float)rect.left, (Float)rect.top },
+		{ (Float)rect.right, (Float)rect.bottom }
+	};
+}
+
 void Window::UpdateInfo() {
 	WINDOWINFO legacy{};
 	GetWindowInfo(GetHandle<HWND>(), &legacy);
-	info.windowRect = {
-		{ legacy.rcWindow.left, legacy.rcWindow.top },
-		{ legacy.rcWindow.right, legacy.rcWindow.bottom },
-	};
-	info.clientRect = {
-		{ legacy.rcClient.left, legacy.rcClient.top },
-		{ legacy.rcClient.right, legacy.rcClient.bottom },
-	};
+	info.windowRect = ParseRect(legacy.rcWindow);
+	info.clientRect = ParseRect(legacy.rcClient);
 	info.style = (Style)legacy.dwStyle;
 	info.extendedStyle = (ExtendedStyle)legacy.dwExStyle;
 	info.active = (bool)legacy.dwWindowStatus;
-	info.borderSize = Vector2U{ legacy.cxWindowBorders, legacy.cyWindowBorders };
+	info.borderSize = Size2D{ legacy.cxWindowBorders, legacy.cyWindowBorders };
 }
 
 void Window::BeginPaint(PaintStruct *paintStruct) {

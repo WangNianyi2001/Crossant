@@ -14,16 +14,16 @@ DeviceContext::~DeviceContext() {
 
 void DeviceContext::PutTo(
 	DeviceContext *dest,
-	ScreenRect const &clip,
-	ScreenCoord const &offset
+	RectRange const &clip,
+	Coord2D const &offset
 ) {
-	ScreenCoord diag = clip.Diagonal();
+	Coord2D diag = clip.Diagonal();
 	BitBlt(
 		dest->GetHandle<HDC>(),
-		clip.min[0], clip.min[1],
-		diag[0], diag[1],
+		(int)clip.min[0], (int)clip.min[1],
+		(int)diag[0], (int)diag[1],
 		GetHandle<HDC>(),
-		offset[0], offset[1],
+		(int)offset[0], (int)offset[1],
 		SRCCOPY
 	);
 }
@@ -36,6 +36,6 @@ void DeviceContext::SetPixel(int x, int y, ColorRef color) {
 	::SetPixel(GetHandle<HDC>(), x, y, color.value);
 }
 
-void DeviceContext::Rect(int left, int top, int right, int bottom) {
-	Rectangle(GetHandle<HDC>(), left, top, right, bottom);
+void DeviceContext::Rectangle(int left, int top, int right, int bottom) {
+	::Rectangle(GetHandle<HDC>(), left, top, right, bottom);
 }

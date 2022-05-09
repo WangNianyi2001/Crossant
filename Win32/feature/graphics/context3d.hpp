@@ -4,8 +4,8 @@
 #pragma comment(lib, "GlU32.Lib")
 
 #include "../../win32.hpp"
-#include "GL/gl.h"
-#include "GL/glu.h"
+#include "gl/gl.h"
+#include "gl/glu.h"
 
 namespace Graphics {
 	struct GraphicsContext3D::Impl {

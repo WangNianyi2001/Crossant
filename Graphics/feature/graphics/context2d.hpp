@@ -13,9 +13,10 @@ namespace Graphics {
 		virtual ~GraphicsContext2D() override;
 
 		virtual void MakeCurrent() const override;
-		void Resize(Vector2U size) override;
+		void Resize(Size2D size) override;
 
-		void Pixel(Vector2F pos, Color color) const;
-		void Rectangle(ScreenRect const &rect) const;
+		// Drawings
+		void Pixel(Coord2D pos, Color color) const;
+		void Rectangle(RectRange const &rect) const;
 	};
 }

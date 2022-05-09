@@ -11,7 +11,7 @@ int Application::Main() {
 
 	window->Listen(EventType::Graph, [&](WindowEvent) {
 		gc.MakeCurrent();
-		//
+		gc.LoadIdentity();
 		
 	});
 	window->Listen(EventType::Close, [&](WindowEvent) {

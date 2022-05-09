@@ -163,12 +163,12 @@ namespace Graphics::Legacy {
 		void SetShowState(ShowState state);
 
 		struct Info {
-			ScreenRect windowRect{ { 0, 0 }, { 0, 0 } };
-			ScreenRect clientRect{ { 0, 0 }, { 0, 0 } };
+			RectRange windowRect{ { 0, 0 }, { 0, 0 } };
+			RectRange clientRect{ { 0, 0 }, { 0, 0 } };
 			Style style = (Style)0;
 			ExtendedStyle extendedStyle = (ExtendedStyle)0;
 			bool active = false;
-			Vector2U borderSize{ 0U, 0U };
+			Size2D borderSize{ 0U, 0U };
 		};
 
 		Info info;

@@ -5,10 +5,10 @@
 
 namespace Graphics::Legacy {
 	struct Bitmap : GDIObject {
-		Vector2U const size;
+		Size2D const size;
 		DeviceContext &dc;
 
-		Bitmap(Vector2U size);
+		Bitmap(Size2D size);
 		Bitmap(DeviceContext &dc);
 		virtual ~Bitmap() override;
 	};

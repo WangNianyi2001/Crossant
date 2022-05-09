@@ -12,7 +12,7 @@ namespace Graphics {
 		virtual ~GraphicsContext() = default;
 
 		virtual void MakeCurrent() const = 0;
-		virtual void Resize(Vector2U size) = 0;
+		virtual void Resize(Size2D size) = 0;
 	};
 }
 

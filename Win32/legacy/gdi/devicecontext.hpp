@@ -13,12 +13,12 @@ namespace Graphics::Legacy {
 		virtual ~DeviceContext() override;
 
 		void PutTo(DeviceContext *dest,
-			ScreenRect const &clip,
-			ScreenCoord const &offset
+			RectRange const &clip,
+			Coord2D const &offset
 		);
 		void Select(GDIObject *object);
 
 		void SetPixel(int x, int y, ColorRef color);
-		void Rect(int left, int top, int right, int bottom);
+		void Rectangle(int left, int top, int right, int bottom);
 	};
 }

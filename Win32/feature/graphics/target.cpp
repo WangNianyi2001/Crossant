@@ -3,17 +3,17 @@
 using namespace Graphics;
 
 GraphicsTarget::GraphicsTarget(Impl *impl) : impl(impl) {}
-GraphicsTarget::GraphicsTarget(Vector2U size) : impl(new Impl(size)) {}
+GraphicsTarget::GraphicsTarget(Size2D size) : impl(new Impl(size)) {}
 
 GraphicsTarget::~GraphicsTarget() {
 	delete impl;
 }
 
-Vector2U GraphicsTarget::GetSize() const {
+Size2D GraphicsTarget::GetSize() const {
 	return impl->size;
 }
 
-void GraphicsTarget::Resize(Vector2U size) {
+void GraphicsTarget::Resize(Size2D size) {
 	delete impl;
 	impl = new Impl(size);
 }

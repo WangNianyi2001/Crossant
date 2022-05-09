@@ -3,7 +3,7 @@
 
 using namespace Graphics::Legacy;
 
-HBITMAP CreateBitmap(Graphics::Vector2U size) {
+HBITMAP CreateBitmap(Graphics::Size2D size) {
 	BITMAPINFOHEADER header{
 		.biSize = sizeof(BITMAPINFOHEADER),
 		.biWidth = (long)size[0],
@@ -41,14 +41,14 @@ HBITMAP CreateBitmap(DeviceContext &dc) {
 	return hBm;
 }
 
-Graphics::Vector2U GetBmSize(HBITMAP hBm) {
+Graphics::Size2D GetBmSize(HBITMAP hBm) {
 	BITMAP bm;
 	memset(&bm, 0, sizeof(BITMAP));
 	GetObject(hBm, sizeof(BITMAP), &bm);
 	return { (unsigned)bm.bmWidth, (unsigned)bm.bmHeight };
 }
 
-Bitmap::Bitmap(Vector2U size) :
+Bitmap::Bitmap(Size2D size) :
 	GDIObject(CreateBitmap(size)),
 	size(size), dc(*new DeviceContext(CreateCompatibleDC(NULL))) {
 	dc.Select(this);

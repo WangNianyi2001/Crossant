@@ -8,10 +8,10 @@ namespace Graphics {
 		Impl *impl;
 
 		GraphicsTarget(Impl *impl);
-		GraphicsTarget(Vector2U size);
+		GraphicsTarget(Size2D size);
 		~GraphicsTarget();
 
-		Vector2U GetSize() const;
-		void Resize(Vector2U size);
+		Size2D GetSize() const;
+		void Resize(Size2D size);
 	};
 }

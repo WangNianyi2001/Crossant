@@ -7,6 +7,6 @@ namespace Graphics {
 		enum struct State : unsigned char {
 			// TODO
 		};
-		ScreenCoord position;
+		Coord2D position;
 	};
 }

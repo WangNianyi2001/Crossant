@@ -11,6 +11,7 @@ namespace Graphics {
 		Point min, max;
 
 		BoxRange(Point const &min, Point const &max) : min(min), max(max) {}
+#pragma warning(suppress: 26495)
 		BoxRange(std::initializer_list<Point const> list) {
 			if(list.size() == 0)
 				return;

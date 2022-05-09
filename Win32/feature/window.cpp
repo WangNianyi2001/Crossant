@@ -14,15 +14,15 @@ WindowEvent mouseEvent(Event legacy) {
 	WindowEvent event{ type };
 	event.mouse = Graphics::Mouse{
 		.position = {
-			GET_X_LPARAM(legacy.l),
-			GET_Y_LPARAM(legacy.l),
-	}
+			(Float)GET_X_LPARAM(legacy.l),
+			(Float)GET_Y_LPARAM(legacy.l),
+		}
 	};
 	return event;
 }
 
 WindowEvent resizeEvent(Event legacy) {
-	Graphics::Vector2U size{
+	Graphics::Size2D size{
 		LOWORD(legacy.l),
 		HIWORD(legacy.l)
 	};
@@ -50,12 +50,10 @@ std::map<
 
 Window::Window(Application *application) :
 	impl(new Impl{
-		.legacy = new Legacy::Window(
-			Legacy::Window::CreationArguments{
-				.windowClass = application->impl->windowClass,
-				.instance = application->impl->windowClass->info.instance,
-			}
-		),
+		.legacy = new Legacy::Window({
+			.windowClass = application->impl->windowClass,
+			.instance = application->impl->windowClass->info.instance,
+		}),
 		.alive = true
 	}),
 	graphicsTarget{ new GraphicsTarget::Impl {
@@ -87,7 +85,7 @@ void Window::Show() {
 	impl->legacy->SetShowState(Legacy::Window::ShowState::Showdefault);
 }
 
-ScreenRect Window::ClientRect() {
+RectRange Window::ClientRect() {
 	impl->legacy->UpdateInfo();
 	return impl->legacy->info.clientRect;
 }

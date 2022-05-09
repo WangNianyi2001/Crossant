@@ -24,6 +24,7 @@ namespace Graphics {
 			for(unsigned i = 0; i < dimension; ++i)
 				components[i] = (Component)vector[i];
 		}
+#pragma warning(suppress: 26495)
 		Vector(std::initializer_list<Component> list) {
 			unsigned i = 0;
 			for(Component component : list) {

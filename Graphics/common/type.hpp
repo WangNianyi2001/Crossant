@@ -8,6 +8,10 @@
 #include <xstring>
 
 namespace Graphics {
+	// Basic types
+	using Byte = unsigned __int8;
+	using Float = float;
+
 	// Text
 #ifdef UNICODE
 	using Char = wchar_t;
@@ -16,16 +20,15 @@ namespace Graphics {
 #endif
 	using String = std::basic_string<Char>;
 
-	// Vector
-
-	using Vector2U = Vector<unsigned, 2>;
-	using Vector2I = Vector<int, 2>;
-	using Vector2F = Vector<float, 2>;
-
-	using Color = Vector<float, 3>;
+	// Vectors
+	using Size2D = Vector<unsigned, 2>;
+	using Color = Vector<Float, 3>;
 
 	// Screen geometries
 
-	using ScreenCoord = Vector2I;
-	using ScreenRect = BoxRange<ScreenCoord>;
+	using Coord2D = Vector<Float, 2>;
+	using RectRange = BoxRange<Coord2D>;
+
+	// Space geometries
+	using Coord3D = Vector<Float, 3>;
 }

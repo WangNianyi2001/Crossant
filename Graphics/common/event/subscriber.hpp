@@ -5,7 +5,7 @@
 namespace Graphics {
 	template<typename ...Args>
 	struct Subscriber {
-		virtual void Push(Args ...arguments) = 0;
+		virtual void Push(Args ...arguments) const = 0;
 	};
 
 	template<typename ...Args>
@@ -19,7 +19,7 @@ namespace Graphics {
 		}
 		ConfigurableSubscriber() : ConfigurableSubscriber(nullptr) {}
 
-		virtual void Push(Args ...arguments) override {
+		virtual void Push(Args ...arguments) const override {
 			if(!action)
 				return;
 			action(arguments...);

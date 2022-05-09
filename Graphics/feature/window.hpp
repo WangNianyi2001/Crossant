@@ -35,7 +35,7 @@ namespace Graphics {
 		struct Impl;
 		Impl *impl;
 
-		GraphicsTarget *graphicsTarget;
+		GraphicsTarget graphicsTarget;
 
 		Window(Application *application);
 		virtual ~Window();

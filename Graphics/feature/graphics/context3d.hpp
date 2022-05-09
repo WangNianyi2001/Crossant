@@ -7,7 +7,7 @@ namespace Graphics {
 		struct Impl;
 		Impl *impl;
 
-		GraphicsContext3D(Vector2U size);
+		GraphicsContext3D(GraphicsTarget &target);
 		virtual ~GraphicsContext3D() override;
 
 		void Resize(Vector2U size) override;

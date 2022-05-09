@@ -48,41 +48,20 @@ std::map<
 	{ WM_PAINT, &directEvent<Type::Graph> },
 };
 
-Window::Window(Application *application) {
-	auto windowClass = application->impl->windowClass;
-	impl = new Impl{
+Window::Window(Application *application) :
+	impl(new Impl{
 		.legacy = new Legacy::Window(
 			Legacy::Window::CreationArguments{
-				.windowClass = windowClass,
-				.instance = windowClass->info.instance,
+				.windowClass = application->impl->windowClass,
+				.instance = application->impl->windowClass->info.instance,
 			}
 		),
 		.alive = true
-	};
+	}),
+	graphicsTarget{ new GraphicsTarget::Impl {
+		*new Legacy::DeviceContext(GetDC(impl->legacy->GetHandle<HWND>()))
+	} } {
 	Impl::map[impl->legacy->handle] = this;
-
-	// Init graphics target
-	graphicsTarget = new GraphicsTarget(ClientRect().Diagonal());
-	Listen(WindowEvent::Type::Resize, [this](WindowEvent event) {
-		graphicsTarget->Resize(event.clientSize);
-		Repaint();
-	});
-	Listen(WindowEvent::Type::Graph, [this](WindowEvent) {
-		Legacy::PaintStruct paintStruct;
-		impl->legacy->BeginPaint(&paintStruct);
-		Legacy::DeviceContext *targetDC = paintStruct.GetDC();
-		Legacy::Bitmap *bitmap = graphicsTarget->impl;
-		bitmap->dc->PutTo(
-			targetDC,
-			ScreenRect{
-				ScreenCoord{ 0, 0 },
-				bitmap->size
-			},
-			ScreenCoord{ 0, 0 }
-		);
-		delete targetDC;
-		impl->legacy->EndPaint(&paintStruct);
-	});
 }
 
 Window::~Window() {

@@ -2,6 +2,7 @@
 
 using namespace Graphics;
 
+GraphicsTarget::GraphicsTarget(Impl *impl) : impl(impl) {}
 GraphicsTarget::GraphicsTarget(Vector2U size) : impl(new Impl(size)) {}
 
 GraphicsTarget::~GraphicsTarget() {

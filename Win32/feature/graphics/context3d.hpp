@@ -9,7 +9,6 @@
 
 namespace Graphics {
 	struct GraphicsContext3D::Impl {
-		Legacy::Bitmap *bitmap;
 		HGLRC hRC;
 	};
 }

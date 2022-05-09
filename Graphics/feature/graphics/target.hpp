@@ -7,6 +7,7 @@ namespace Graphics {
 		struct Impl;
 		Impl *impl;
 
+		GraphicsTarget(Impl *impl);
 		GraphicsTarget(Vector2U size);
 		~GraphicsTarget();
 

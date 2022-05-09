@@ -8,16 +8,17 @@ namespace Graphics {
 		typename T,
 		std::derived_from<Function<Legacy::GDIObject *, T>> Getter
 	> struct GraphicsObjectBuffer : DoubleBuffer<T> {
-		GraphicsContext2D *const gc;
+		GraphicsContext2D &gc;
 
-		GraphicsObjectBuffer(GraphicsContext2D *gc) : gc(gc) {}
+		GraphicsObjectBuffer(GraphicsContext2D &gc) : gc(gc) {}
 
 		void Select() {
 			if(!DoubleBuffer<T>::HasValue())
 				return;
-			if(gc->target.impl == nullptr)
+			if(gc.target.impl == nullptr)
 				return;
-			gc->target.impl->dc->Select(
+			auto a = DoubleBuffer<T>::Get().value();
+			gc.target.impl->dc.Select(
 				Getter{}(DoubleBuffer<T>::Get().value())
 			);
 		}

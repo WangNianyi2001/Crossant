@@ -6,6 +6,9 @@
 
 namespace Graphics {
 	struct GraphicsContext : ConfigurableSubscriber<> {
+		GraphicsTarget &target;
+
+		GraphicsContext(GraphicsTarget &target);
 		virtual ~GraphicsContext() = default;
 
 		virtual void Resize(Vector2U size) = 0;

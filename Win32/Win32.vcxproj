@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="feature\application.cpp" />
     <ClCompile Include="feature\graphics\brush.cpp" />
+    <ClCompile Include="feature\graphics\context.cpp" />
     <ClCompile Include="feature\graphics\context2d.cpp" />
     <ClCompile Include="feature\graphics\context3d.cpp" />
     <ClCompile Include="feature\graphics\pen.cpp" />

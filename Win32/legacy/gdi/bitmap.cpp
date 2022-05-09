@@ -34,13 +34,33 @@ HBITMAP CreateBitmap(Graphics::Vector2U size) {
 	return hBm;
 }
 
+HBITMAP CreateBitmap(DeviceContext &dc) {
+	BITMAP bm;
+	memset(&bm, 0, sizeof(BITMAP));
+	HBITMAP hBm = (HBITMAP)GetCurrentObject(dc.GetHandle<HDC>(), OBJ_BITMAP);
+	return hBm;
+}
+
+Graphics::Vector2U GetBmSize(HBITMAP hBm) {
+	BITMAP bm;
+	memset(&bm, 0, sizeof(BITMAP));
+	GetObject(hBm, sizeof(BITMAP), &bm);
+	return { (unsigned)bm.bmWidth, (unsigned)bm.bmHeight };
+}
+
 Bitmap::Bitmap(Vector2U size) :
 	GDIObject(CreateBitmap(size)),
-	size(size), dc(new DeviceContext(CreateCompatibleDC(NULL))) {
-	dc->Select(this);
+	size(size), dc(*new DeviceContext(CreateCompatibleDC(NULL))) {
+	dc.Select(this);
+}
+
+Bitmap::Bitmap(DeviceContext &dc) :
+	GDIObject(CreateBitmap(dc)),
+	size(GetBmSize(GetHandle<HBITMAP>())),
+	dc(dc) {
 }
 
 Bitmap::~Bitmap() {
 	DeleteObject(GetHandle<HBITMAP>());
-	delete dc;
+	delete &dc;
 }

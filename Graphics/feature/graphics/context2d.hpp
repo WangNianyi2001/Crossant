@@ -6,17 +6,15 @@
 
 namespace Graphics {
 	struct GraphicsContext2D : GraphicsContext {
-		GraphicsTarget target;
-
 		DoubleBuffer<Brush *> *brush;
 		DoubleBuffer<Pen *> *pen;
 
-		GraphicsContext2D(Vector2U size);
+		GraphicsContext2D(GraphicsTarget &target);
 		virtual ~GraphicsContext2D() override;
 
 		void Resize(Vector2U size) override;
 
-		void Pixel(Vector2F pos, Color color);
-		void Rectangle(ScreenRect const &rect);
+		void Pixel(Vector2F pos, Color color) const;
+		void Rectangle(ScreenRect const &rect) const;
 	};
 }

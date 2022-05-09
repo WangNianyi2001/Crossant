@@ -15,11 +15,10 @@ namespace Graphics {
 		map<Type, vector<Handler>> handlers;
 
 	public:
-		virtual void Push(Event event) override {
-			Type type = event.type;	// TODO
-			if(!handlers.contains(type))
+		virtual void Push(Event event) const override {
+			if(!handlers.contains(event.type))
 				return;
-			auto &listenersOfType = handlers[type];
+			auto &listenersOfType = handlers.at(event.type);
 			if(listenersOfType.size() <= 0)
 				return;
 			for(auto &listener : listenersOfType)

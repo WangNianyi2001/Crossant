@@ -19,7 +19,6 @@ namespace Graphics {
 				return;
 			if(gc.target.impl == nullptr)
 				return;
-			auto a = DoubleBuffer<T>::Get().value();
 			gc.target.impl->dc.Select(
 				Getter{}(DoubleBuffer<T>::Get().value())
 			);

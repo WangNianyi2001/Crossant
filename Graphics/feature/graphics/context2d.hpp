@@ -14,7 +14,7 @@ namespace Graphics {
 		virtual ~GraphicsContext2D() override;
 
 		virtual void MakeCurrent() const override;
-		void Resize(Size2D size) override;
+		void OnResize() override;
 
 		// Drawings
 		void Pixel(Coord2D pos, Color color) const;

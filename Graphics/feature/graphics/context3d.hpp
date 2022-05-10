@@ -12,7 +12,7 @@ namespace Graphics {
 		virtual ~GraphicsContext3D() override;
 
 		virtual void MakeCurrent() const override;
-		void Resize(Size2D size) override;
+		void OnResize() override;
 
 		// Basic
 		void Finish();

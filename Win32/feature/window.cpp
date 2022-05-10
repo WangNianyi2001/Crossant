@@ -48,6 +48,13 @@ std::map<
 	{ WM_PAINT, &directEvent<Type::Paint> },
 };
 
+static GraphicsTarget::Impl *makeTargetImpl(Window &window) {
+	auto hdc = GetDC(window.impl->legacy->GetHandle<HWND>());
+	auto dc = new Legacy::DeviceContext(hdc);
+	auto size = (Size2D)window.ClientRect().Diagonal();
+	return new GraphicsTarget::Impl(*dc, size);
+}
+
 Window::Window(Application *application) :
 	impl(new Impl{
 		.legacy = new Legacy::Window({
@@ -56,10 +63,8 @@ Window::Window(Application *application) :
 		}),
 		.alive = true
 	}),
-	graphicsTarget{ new GraphicsTarget::Impl(
-		*new Legacy::DeviceContext(GetDC(impl->legacy->GetHandle<HWND>())),
-		(Size2D)ClientRect().Diagonal()
-	) } {
+	graphicsTarget{ makeTargetImpl(*this) } {
+	Legacy::TryThrowLastError();
 	Impl::map[impl->legacy->handle] = this;
 	Listen(WindowEvent::Type::Paint, [&](WindowEvent) {
 		impl->legacy->Validate();

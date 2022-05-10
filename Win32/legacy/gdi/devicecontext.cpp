@@ -13,13 +13,13 @@ DeviceContext::~DeviceContext() {
 }
 
 void DeviceContext::PutTo(
-	DeviceContext *dest,
+	DeviceContext &dest,
 	RectRange const &clip,
 	Coord2D const &offset
-) {
+) const {
 	Coord2D diag = clip.Diagonal();
 	BitBlt(
-		dest->GetHandle<HDC>(),
+		dest.GetHandle<HDC>(),
 		(int)clip.min[0], (int)clip.min[1],
 		(int)diag[0], (int)diag[1],
 		GetHandle<HDC>(),

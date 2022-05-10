@@ -11,5 +11,7 @@ namespace Graphics::Legacy {
 		Bitmap(Size2D size);
 		Bitmap(DeviceContext &dc, Size2D size);
 		virtual ~Bitmap() override;
+
+		RectRange Range() const;
 	};
 }

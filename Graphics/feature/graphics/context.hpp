@@ -9,10 +9,10 @@ namespace Graphics {
 		GraphicsTarget &target;
 
 		GraphicsContext(GraphicsTarget &target);
-		virtual ~GraphicsContext() = default;
+		virtual ~GraphicsContext();
 
 		virtual void MakeCurrent() const = 0;
-		virtual void Resize(Size2D size) = 0;
+		virtual void OnResize() = 0;
 	};
 }
 

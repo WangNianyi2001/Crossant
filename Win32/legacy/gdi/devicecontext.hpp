@@ -9,13 +9,15 @@ namespace Graphics::Legacy {
 		DeviceContext(
 			void *const handle,
 			bool isPrivate = true
-		) : HandledObject(handle), isPrivate(isPrivate) {}
+		) : HandledObject(handle), isPrivate(isPrivate) {
+			Legacy::TryThrowLastError();
+		}
 		virtual ~DeviceContext() override;
 
-		void PutTo(DeviceContext *dest,
+		void PutTo(DeviceContext &dest,
 			RectRange const &clip,
 			Coord2D const &offset
-		);
+		) const;
 		void Select(GDIObject *object);
 
 		void SetPixel(int x, int y, ColorRef color);

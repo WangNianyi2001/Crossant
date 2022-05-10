@@ -12,16 +12,14 @@ GraphicsContext2D::GraphicsContext2D(GraphicsTarget &target) : GraphicsContext(t
 	brush->Push(new NullBrush());
 	pen = new PenBuffer(*this);
 	pen->Push(new NullPen());
-	((BrushBuffer *)brush)->Select();
-	((PenBuffer *)pen)->Select();
+	OnResize();
 }
 
 GraphicsContext2D::~GraphicsContext2D() = default;
 
 void GraphicsContext2D::MakeCurrent() const {}
 
-void GraphicsContext2D::Resize(Size2D size) {
-	target.Resize(size);
+void GraphicsContext2D::OnResize() {
 	((BrushBuffer *)brush)->Select();
 	((PenBuffer *)pen)->Select();
 }

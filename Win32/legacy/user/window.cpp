@@ -45,8 +45,7 @@ Window::Window(CreationArguments arguments) : Window(CreateWindowEx(
 	arguments.menu->GetHandle<HMENU>(),
 	arguments.instance->GetHandle<HINSTANCE>(),
 	NULL
-)) {
-}
+)) {}
 
 Window::~Window() {
 	if(DestroyWindow(GetHandle<HWND>()))
@@ -79,7 +78,9 @@ inline Graphics::RectRange ParseRect(RECT rect) {
 }
 
 void Window::UpdateInfo() {
-	WINDOWINFO legacy{};
+	WINDOWINFO legacy{
+		.cbSize = sizeof(WINDOWINFO)
+	};
 	GetWindowInfo(GetHandle<HWND>(), &legacy);
 	info.windowRect = ParseRect(legacy.rcWindow);
 	info.clientRect = ParseRect(legacy.rcClient);

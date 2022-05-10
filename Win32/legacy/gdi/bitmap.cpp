@@ -54,3 +54,7 @@ Bitmap::~Bitmap() {
 	DeleteObject(GetHandle<HBITMAP>());
 	delete &dc;
 }
+
+Graphics::RectRange Bitmap::Range() const {
+	return { Coord2D{ 0, 0 }, (Coord2D)size };
+}

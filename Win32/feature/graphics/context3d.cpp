@@ -44,7 +44,7 @@ GraphicsContext3D::GraphicsContext3D(GraphicsTarget &target) : GraphicsContext(t
 	impl->hRC = wglCreateContext(impl->hDC);
 	if(!impl->hRC)
 		Legacy::TryThrowLastError();
-	glViewport(0, 0, target.impl->size[0], target.impl->size[1]);
+	OnResize();
 }
 
 GraphicsContext3D::~GraphicsContext3D() {
@@ -55,10 +55,11 @@ void GraphicsContext3D::MakeCurrent() const {
 	wglMakeCurrent(impl->hDC, impl->hRC);
 }
 
-void GraphicsContext3D::Resize(Size2D size) {
-	target.Resize(size);
+void GraphicsContext3D::OnResize() {
 	impl->hRC = wglCreateContext(impl->hDC);
+	auto size = target.Size();
 	glViewport(0, 0, size[0], size[1]);
+	SetPerspective(impl->perspective);
 }
 
 using MM = GraphicsContext3D::MatrixMode;
@@ -123,9 +124,11 @@ void GraphicsContext3D::Scale(Coord3D scalor) {
 }
 
 void GraphicsContext3D::SetPerspective(Float perspective) {
+	impl->perspective = perspective;
 	SetMatrixMode(MM::Projection);
 	LoadIdentity();
-	GLdouble aspect = (GLdouble)target.impl->size[0] / target.impl->size[1];
+	auto &size = target.impl->size;
+	GLdouble aspect = (GLdouble)size[0] / size[1];
 	gluPerspective(perspective, aspect, .1, 1e2);
 	SetMatrixMode(MM::Space);
 }

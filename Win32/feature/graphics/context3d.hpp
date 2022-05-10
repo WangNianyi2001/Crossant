@@ -10,8 +10,8 @@
 
 namespace Graphics {
 	struct GraphicsContext3D::Impl {
-		HDC hDC;
-		HGLRC hRC;
+		HDC hDC = NULL;
+		HGLRC hRC = NULL;
 		float perspective = 1;
 	};
 }

@@ -7,7 +7,7 @@ HBITMAP CreateBitmap(Graphics::Size2D size) {
 	BITMAPINFOHEADER header{
 		.biSize = sizeof(BITMAPINFOHEADER),
 		.biWidth = (long)size[0],
-		.biHeight = -(long)size[1],
+		.biHeight = (long)size[1],
 		.biPlanes = 1,
 		.biBitCount = 32,
 		.biCompression = BI_RGB,

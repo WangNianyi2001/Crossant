@@ -34,16 +34,6 @@ PIXELFORMATDESCRIPTOR descriptorTemplate{
 
 GraphicsContext3D::GraphicsContext3D(GraphicsTarget &target) : GraphicsContext(target) {
 	impl = new Impl{};
-
-	PIXELFORMATDESCRIPTOR descriptor = descriptorTemplate;
-	impl->hDC = target.impl->dc.GetHandle<HDC>();
-	int format = ChoosePixelFormat(impl->hDC, &descriptor);
-	if(format == 0)
-		Legacy::TryThrowLastError();
-	SetPixelFormat(impl->hDC, format, &descriptor);
-	impl->hRC = wglCreateContext(impl->hDC);
-	if(!impl->hRC)
-		Legacy::TryThrowLastError();
 	OnResize();
 }
 
@@ -56,7 +46,21 @@ void GraphicsContext3D::MakeCurrent() const {
 }
 
 void GraphicsContext3D::OnResize() {
+	if(impl->hRC) {
+		wglMakeCurrent(NULL, NULL);
+		wglDeleteContext(impl->hRC);
+	}
+	PIXELFORMATDESCRIPTOR descriptor = descriptorTemplate;
+	impl->hDC = target.impl->dc.GetHandle<HDC>();
+	int format = ChoosePixelFormat(impl->hDC, &descriptor);
+	if(format == 0)
+		Legacy::TryThrowLastError();
+	SetPixelFormat(impl->hDC, format, &descriptor);
 	impl->hRC = wglCreateContext(impl->hDC);
+	if(!impl->hRC)
+		Legacy::TryThrowLastError();
+	impl->hRC = wglCreateContext(impl->hDC);
+	MakeCurrent();
 	auto size = target.Size();
 	glViewport(0, 0, size[0], size[1]);
 	SetPerspective(impl->perspective);

@@ -1,4 +1,9 @@
 #include "Graphics/graphics.hpp"
+#define WIN32_CLEAN_AND_MEAN
+#include <Windows.h>
+#undef CreateWindow
+#include <gl/gl.h>
+#include <gl/glu.h>
 
 using namespace Graphics;
 
@@ -11,23 +16,21 @@ int Application::Main() {
 	auto gc = GC3(window->graphicsTarget);
 	gc.MakeCurrent();
 	gc.SetPerspective(45);
-	gc.SetMatrixMode(GC3::MatrixMode::Space);
 
-	window->Listen(EventType::Graph, [&](WindowEvent) {
+	window->Listen(EventType::Paint, [&](WindowEvent) {
 		gc.Clear({ GC3::AttributeMask::ColorBuffer, GC3::AttributeMask::DepthBuffer });
 		gc.LoadIdentity();
-		gc.Translate({ 0, 0, 10 });
+		gc.Translate({ 0, 0, -4 });
 		gc.Begin(GC3::GeometryType::Triangles);
+		gc.Color({ 1, 1, 1 });
 		gc.Vertex({ 0, 0, 0 });
-		gc.Vertex({ 4, 0, 0 });
-		gc.Vertex({ 4, 4, 0 });
-		gc.Color({ .5f, 0, .5f });
+		gc.Vertex({ 1, 0, 0 });
+		gc.Vertex({ 1, 1, 0 });
 		gc.End();
 		gc.Finish();
-		window->Validate();
 	});
-	window->Listen(EventType::Graph, [&](WindowEvent) {
-		//window->Invalidate();
+	window->Listen(EventType::Paint, [&](WindowEvent) {
+		window->Repaint();
 	});
 	window->Listen(EventType::Close, [&](WindowEvent) {
 		window->Kill();

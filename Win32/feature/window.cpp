@@ -45,7 +45,7 @@ std::map<
 	{ WM_LBUTTONUP, &mouseEvent<Type::MouseUp> },
 	{ WM_RBUTTONDOWN, &mouseEvent<Type::MouseDown> },
 	{ WM_RBUTTONUP, &mouseEvent<Type::MouseUp> },
-	{ WM_PAINT, &directEvent<Type::Graph> },
+	{ WM_PAINT, &directEvent<Type::Paint> },
 };
 
 Window::Window(Application *application) :
@@ -56,10 +56,14 @@ Window::Window(Application *application) :
 		}),
 		.alive = true
 	}),
-	graphicsTarget{ new GraphicsTarget::Impl {
-		*new Legacy::DeviceContext(GetDC(impl->legacy->GetHandle<HWND>()))
-	} } {
+	graphicsTarget{ new GraphicsTarget::Impl(
+		*new Legacy::DeviceContext(GetDC(impl->legacy->GetHandle<HWND>())),
+		(Size2D)ClientRect().Diagonal()
+	) } {
 	Impl::map[impl->legacy->handle] = this;
+	Listen(WindowEvent::Type::Paint, [&](WindowEvent) {
+		impl->legacy->Validate();
+	});
 }
 
 Window::~Window() {
@@ -90,10 +94,6 @@ RectRange Window::ClientRect() {
 	return impl->legacy->info.clientRect;
 }
 
-void Window::Invalidate() {
+void Window::Repaint() {
 	impl->legacy->Invalidate();
-}
-
-void Window::Validate() {
-	impl->legacy->Validate();
 }

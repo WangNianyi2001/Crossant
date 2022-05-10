@@ -9,7 +9,7 @@ namespace Graphics::Legacy {
 		DeviceContext &dc;
 
 		Bitmap(Size2D size);
-		Bitmap(DeviceContext &dc);
+		Bitmap(DeviceContext &dc, Size2D size);
 		virtual ~Bitmap() override;
 	};
 }

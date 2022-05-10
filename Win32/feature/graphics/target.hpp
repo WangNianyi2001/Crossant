@@ -6,6 +6,6 @@
 namespace Graphics {
 	struct GraphicsTarget::Impl : Legacy::Bitmap {
 		Impl(Size2D size) : Legacy::Bitmap(size) {}
-		Impl(Legacy::DeviceContext &dc) : Legacy::Bitmap(dc) {}
+		Impl(Legacy::DeviceContext &dc, Size2D size) : Legacy::Bitmap(dc, size) {}
 	};
 }

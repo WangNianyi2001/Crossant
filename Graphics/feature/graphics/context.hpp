@@ -5,7 +5,7 @@
 #include "target.hpp"
 
 namespace Graphics {
-	struct GraphicsContext : ConfigurableSubscriber<> {
+	struct GraphicsContext {
 		GraphicsTarget &target;
 
 		GraphicsContext(GraphicsTarget &target);

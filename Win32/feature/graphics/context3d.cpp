@@ -7,7 +7,7 @@ using namespace Graphics;
 PIXELFORMATDESCRIPTOR descriptorTemplate{
 	.nSize = sizeof(PIXELFORMATDESCRIPTOR),
 	.nVersion = 1,
-	.dwFlags = PFD_DRAW_TO_BITMAP | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
+	.dwFlags = PFD_DRAW_TO_WINDOW | PFD_DRAW_TO_BITMAP | PFD_SUPPORT_OPENGL,
 	.iPixelType = PFD_TYPE_RGBA,
 	.cColorBits = 24,
 	.cRedBits = 0,
@@ -70,7 +70,6 @@ std::map<MM, int> matrixModeMap{
 
 void GraphicsContext3D::Finish() {
 	glFinish();
-	SwapBuffers(impl->hDC);
 }
 
 using AM = GraphicsContext3D::AttributeMask;
@@ -129,7 +128,6 @@ void GraphicsContext3D::SetPerspective(Float perspective) {
 	GLdouble aspect = (GLdouble)target.impl->size[0] / target.impl->size[1];
 	gluPerspective(perspective, aspect, .1, 1e2);
 	SetMatrixMode(MM::Space);
-	glViewport(0, 0, target.impl->size[0], target.impl->size[1]);
 }
 
 using GT = GraphicsContext3D::GeometryType;

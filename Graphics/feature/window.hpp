@@ -21,7 +21,7 @@ namespace Graphics {
 			MouseUp,
 
 			// Visual
-			Graph,
+			Paint,
 		};
 
 		Type type;
@@ -50,7 +50,6 @@ namespace Graphics {
 
 		// Visual
 		RectRange ClientRect();
-		void Invalidate();
-		void Validate();
+		void Repaint();
 	};
 }

@@ -34,18 +34,8 @@ HBITMAP CreateBitmap(Graphics::Size2D size) {
 	return hBm;
 }
 
-HBITMAP CreateBitmap(DeviceContext &dc) {
-	BITMAP bm;
-	memset(&bm, 0, sizeof(BITMAP));
-	HBITMAP hBm = (HBITMAP)GetCurrentObject(dc.GetHandle<HDC>(), OBJ_BITMAP);
-	return hBm;
-}
-
-Graphics::Size2D GetBmSize(HBITMAP hBm) {
-	BITMAP bm;
-	memset(&bm, 0, sizeof(BITMAP));
-	GetObject(hBm, sizeof(BITMAP), &bm);
-	return { (unsigned)bm.bmWidth, (unsigned)bm.bmHeight };
+inline HBITMAP CreateBitmap(DeviceContext &dc) {
+	return (HBITMAP)GetCurrentObject(dc.GetHandle<HDC>(), OBJ_BITMAP);
 }
 
 Bitmap::Bitmap(Size2D size) :
@@ -54,9 +44,9 @@ Bitmap::Bitmap(Size2D size) :
 	dc.Select(this);
 }
 
-Bitmap::Bitmap(DeviceContext &dc) :
+Bitmap::Bitmap(DeviceContext &dc, Size2D size) :
 	GDIObject(CreateBitmap(dc)),
-	size(GetBmSize(GetHandle<HBITMAP>())),
+	size(size),
 	dc(dc) {
 }
 

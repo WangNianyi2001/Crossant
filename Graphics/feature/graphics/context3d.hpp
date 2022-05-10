@@ -13,7 +13,34 @@ namespace Graphics {
 		virtual void MakeCurrent() const override;
 		void Resize(Size2D size) override;
 
-		// Basic matrix
+		// Basic
+		void Flush();
+		void SwapBuffer();
+		enum struct AttributeMask : Byte {
+			Current,
+			Point,
+			Line,
+			Polygon,
+			PolygonStipple,
+			PixelMode,
+			Lighting,
+			Fog,
+			DepthBuffer,
+			AccumBuffer,
+			StencilBuffer,
+			Viewport,
+			Transform,
+			Enable,
+			ColorBuffer,
+			Hint,
+			Eval,
+			List,
+			Texture,
+			Scissor
+		};
+		void Clear(AttributeMask attributes);
+
+		// Matrix
 		enum struct MatrixMode : Byte {
 			Projection,
 			Space,
@@ -29,5 +56,19 @@ namespace Graphics {
 
 		// Projection
 		void SetPerspective(Float perspective);
+
+		// Geometry
+		enum struct GeometryType : Byte {
+			Points,
+			Lines, LineStrip, LineLoop,
+			Triangles, TriangleStrip, TriangleFan,
+			Quads, QuadStrip, Polygon
+		};
+		void Begin(GeometryType type);
+		void End();
+		void Vertex(Coord3D coordinate);
+
+		// Appearance
+		void Color(Color color);
 	};
 }

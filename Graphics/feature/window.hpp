@@ -37,7 +37,7 @@ namespace Graphics {
 
 		GraphicsTarget graphicsTarget;
 
-		Window(Application *application);
+		Window(Application &application);
 		virtual ~Window();
 
 		// Life cycle

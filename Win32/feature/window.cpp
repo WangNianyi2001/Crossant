@@ -48,6 +48,18 @@ std::map<
 	{ WM_PAINT, &directEvent<Type::Paint> },
 };
 
+
+static Window::Impl *makeImpl(Application &application) {
+	auto windowClass = application.impl->windowClass;
+	return new Window::Impl{
+		.legacy = new Legacy::Window({
+			.windowClass = windowClass,
+			.instance = windowClass->info.instance,
+		}),
+		.alive = true
+	};
+}
+
 static GraphicsTarget::Impl *makeTargetImpl(Window &window) {
 	auto hdc = GetDC(window.impl->legacy->GetHandle<HWND>());
 	auto dc = new Legacy::DeviceContext(hdc);
@@ -55,18 +67,11 @@ static GraphicsTarget::Impl *makeTargetImpl(Window &window) {
 	return new GraphicsTarget::Impl(*dc, size);
 }
 
-Window::Window(Application *application) :
-	impl(new Impl{
-		.legacy = new Legacy::Window({
-			.windowClass = application->impl->windowClass,
-			.instance = application->impl->windowClass->info.instance,
-		}),
-		.alive = true
-	}),
+Window::Window(Application &application) :
+	impl(makeImpl(application)),
 	graphicsTarget{ makeTargetImpl(*this) } {
-	Legacy::TryThrowLastError();
 	Impl::map[impl->legacy->handle] = this;
-	Listen(WindowEvent::Type::Paint, [&](WindowEvent) {
+	Listen(Type::Paint, [&](WindowEvent) {
 		impl->legacy->Validate();
 	});
 }
@@ -91,7 +96,7 @@ void Window::Kill() {
 }
 
 void Window::Show() {
-	impl->legacy->SetShowState(Legacy::Window::ShowState::Showdefault);
+	impl->legacy->SetShowState(Legacy::Window::ShowState::Default);
 }
 
 RectRange Window::ClientRect() {

@@ -144,21 +144,12 @@ namespace Graphics::Legacy {
 
 		// Window state
 		enum struct ShowState : char {
-			Hide = 0,
-			Shownormal = 1,
-			Normal = 1,
-			Showminimized = 2,
-			Showmaximized = 3,
-			Maximize = 3,
-			Shownoactivate = 4,
-			SetShowState = 5,
-			Minimize = 6,
-			Showminnoactive = 7,
-			Showna = 8,
-			Restore = 9,
-			Showdefault = 10,
-			Forceminimize = 11,
-			Max = 11,
+			Hidden,
+			Normal,
+			Minimized,
+			Maximized,
+			Restore,
+			Default,
 		};
 		void SetShowState(ShowState state);
 

@@ -29,8 +29,6 @@ HBITMAP CreateBitmap(Graphics::Size2D size) {
 		&out,
 		NULL, 0
 	);
-	if(hBm == NULL)
-		TryThrowLastError();
 	return hBm;
 }
 
@@ -38,16 +36,19 @@ inline HBITMAP CreateBitmap(DeviceContext &dc) {
 	return (HBITMAP)GetCurrentObject(dc.GetHandle<HDC>(), OBJ_BITMAP);
 }
 
+#undef CreateDC
+inline DeviceContext *CreateDC() {
+	return new DeviceContext(CreateCompatibleDC(NULL));
+}
+
 Bitmap::Bitmap(Size2D size) :
 	GDIObject(CreateBitmap(size)),
-	size(size), dc(*new DeviceContext(CreateCompatibleDC(NULL))) {
+	size(size), dc(*CreateDC()) {
 	dc.Select(this);
 }
 
 Bitmap::Bitmap(DeviceContext &dc, Size2D size) :
-	GDIObject(CreateBitmap(dc)),
-	size(size),
-	dc(dc) {
+	GDIObject(CreateBitmap(dc)), size(size), dc(dc) {
 }
 
 Bitmap::~Bitmap() {

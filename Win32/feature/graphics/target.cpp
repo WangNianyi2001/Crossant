@@ -23,5 +23,5 @@ void GraphicsTarget::Resize(Size2D size) {
 }
 
 void GraphicsTarget::DrawOn(GraphicsTarget &target) {
-	impl->dc.PutTo(target.impl->dc, impl->Range(), { 0, 0 });
+	impl->dc.PutTo(target.impl->dc, target.impl->Range(), { 0, 0 });
 }

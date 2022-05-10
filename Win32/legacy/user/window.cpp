@@ -65,8 +65,17 @@ Window::L Window::DefProc(Event event) {
 	return DefWindowProc(GetHandle<HWND>(), event.type, event.w, event.l);
 }
 
+using WS = Window::ShowState;
+std::map<WS, int> showStateMap{
+	{ WS::Hidden, SW_HIDE },
+	{ WS::Normal, SW_NORMAL },
+	{ WS::Minimized, SW_MINIMIZE },
+	{ WS::Maximized, SW_MAXIMIZE },
+	{ WS::Restore, SW_RESTORE },
+	{ WS::Default, SW_SHOWDEFAULT },
+};
 void Window::SetShowState(ShowState state) {
-	ShowWindow(GetHandle<HWND>(), (int)state);
+	ShowWindow(GetHandle<HWND>(), showStateMap[state]);
 }
 
 inline Graphics::RectRange ParseRect(RECT rect) {

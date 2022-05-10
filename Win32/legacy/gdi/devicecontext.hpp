@@ -9,9 +9,7 @@ namespace Graphics::Legacy {
 		DeviceContext(
 			void *const handle,
 			bool isPrivate = true
-		) : HandledObject(handle), isPrivate(isPrivate) {
-			Legacy::TryThrowLastError();
-		}
+		) : HandledObject(handle), isPrivate(isPrivate) {}
 		virtual ~DeviceContext() override;
 
 		void PutTo(DeviceContext &dest,

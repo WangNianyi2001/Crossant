@@ -15,9 +15,9 @@ Application::~Application() {
 #pragma push_macro("CreateWindow")
 #undef CreateWindow
 Window *Application::CreateWindow() {
-	Window *window = new Window(this);
-	Window::Impl::map[window->impl->legacy->GetHandle<HWND>()] = window;
-	return window;
+	Window *window = new Window(*this);
+	HWND hWnd = window->impl->legacy->GetHandle<HWND>();
+	return Window::Impl::map[hWnd] = window;
 }
 #pragma pop_macro("CreateWindow")
 

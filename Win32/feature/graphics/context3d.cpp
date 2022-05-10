@@ -55,11 +55,12 @@ void GraphicsContext3D::OnResize() {
 	int format = ChoosePixelFormat(impl->hDC, &descriptor);
 	if(format == 0)
 		Legacy::TryThrowLastError();
+	else
+		Legacy::ResolveLastError();
 	SetPixelFormat(impl->hDC, format, &descriptor);
 	impl->hRC = wglCreateContext(impl->hDC);
 	if(!impl->hRC)
 		Legacy::TryThrowLastError();
-	impl->hRC = wglCreateContext(impl->hDC);
 	MakeCurrent();
 	auto size = target.Size();
 	glViewport(0, 0, size[0], size[1]);

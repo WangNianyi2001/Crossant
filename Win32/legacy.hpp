@@ -2,6 +2,7 @@
 
 namespace Graphics::Legacy {
 	void TryThrowLastError();
+	void ResolveLastError();
 
 	struct HandledObject  {
 		void *const handle;

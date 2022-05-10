@@ -1,6 +1,6 @@
-#include "../win32.hpp"
 #include "window.hpp"
 #include "application.hpp"
+#include "graphics/target.hpp"
 
 using namespace Graphics;
 
@@ -90,6 +90,10 @@ RectRange Window::ClientRect() {
 	return impl->legacy->info.clientRect;
 }
 
-void Window::Repaint() {
-	impl->legacy->UpdateClient();
+void Window::Invalidate() {
+	impl->legacy->Invalidate();
+}
+
+void Window::Validate() {
+	impl->legacy->Validate();
 }

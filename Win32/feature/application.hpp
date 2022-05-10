@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../win32.hpp"
+#include "Graphics/feature/application.hpp"
+#include "Win32/legacy.hpp"
 
 namespace Graphics {
 	struct Application::Impl {

@@ -39,10 +39,10 @@
     <ClCompile Include="feature\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="feature\graphics\pen.cpp">
+    <ClCompile Include="feature\graphics\context2d\pen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="feature\graphics\brush.cpp">
+    <ClCompile Include="feature\graphics\context2d\brush.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="feature\graphics\context3d.cpp">
@@ -80,22 +80,16 @@
     <ClInclude Include="legacy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="win32.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="feature\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\application.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\brush.hpp">
+    <ClInclude Include="feature\graphics\context2d\brush.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\pen.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature\graphics.hpp">
+    <ClInclude Include="feature\graphics\context2d\pen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics\context3d.hpp">

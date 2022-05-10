@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../common/type.hpp"
+#include "Graphics/common/type.hpp"
 #include "window.hpp"
 
 namespace Graphics {

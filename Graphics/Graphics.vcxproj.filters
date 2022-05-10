@@ -44,10 +44,10 @@
     <ClInclude Include="graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\brush.hpp">
+    <ClInclude Include="feature\graphics\context2d\brush.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\pen.hpp">
+    <ClInclude Include="feature\graphics\context2d\pen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics\context2d.hpp">

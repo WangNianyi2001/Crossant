@@ -1,8 +1,9 @@
 #pragma once
 
+#include "context.hpp"
 #include "target.hpp"
-#include "brush.hpp"
-#include "pen.hpp"
+#include "context2d/brush.hpp"
+#include "context2d/pen.hpp"
 
 namespace Graphics {
 	struct GraphicsContext2D : GraphicsContext {

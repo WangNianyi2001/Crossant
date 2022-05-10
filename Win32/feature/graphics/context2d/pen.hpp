@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Graphics/graphics.hpp"
-#include "../../legacy.hpp"
+#include "Graphics/feature/graphics/context2d/pen.hpp"
+#include "Win32/legacy.hpp"
 #include <map>
 
 namespace Graphics {

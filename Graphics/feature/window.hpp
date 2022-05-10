@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../common/type.hpp"
-#include "../common/event/listener.hpp"
+#include "Graphics/common/type.hpp"
+#include "Graphics/common/event/listener.hpp"
 #include "mouse.hpp"
 #include "graphics/context.hpp"
 
@@ -50,6 +50,7 @@ namespace Graphics {
 
 		// Visual
 		RectRange ClientRect();
-		void Repaint();
+		void Invalidate();
+		void Validate();
 	};
 }

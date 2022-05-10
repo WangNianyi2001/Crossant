@@ -1,5 +1,4 @@
 #include "context2d.hpp"
-#include "context2d.hpp"
 
 #pragma push_macro("SelectBrush")
 #undef SelectBrush

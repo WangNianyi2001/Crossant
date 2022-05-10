@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../../win32.hpp"
+#include "Graphics/feature/graphics/context2d.hpp"
 #include "target.hpp"
+#include "context2d/brush.hpp"
+#include "context2d/pen.hpp"
 
 namespace Graphics {
 	template<

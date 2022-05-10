@@ -1,10 +1,10 @@
 #pragma once
 
-#include <map>
 #include "Graphics/graphics.hpp"
-#include "../legacy.hpp"
+#include "Win32/legacy.hpp"
 #include <Windows.h>
 #include <windowsx.h>
+#include <map>
 
 namespace Graphics {
 	using Event = Legacy::Window::Event;

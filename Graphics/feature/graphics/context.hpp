@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../common/event/subscriber.hpp"
-#include "../../common/type.hpp"
+#include "Graphics/common/event/subscriber.hpp"
+#include "Graphics/common/type.hpp"
 #include "target.hpp"
 
 namespace Graphics {

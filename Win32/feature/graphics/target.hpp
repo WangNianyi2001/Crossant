@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../../win32.hpp"
+#include "Graphics/feature/graphics/target.hpp"
+#include "Win32/legacy.hpp"
 
 namespace Graphics {
 	struct GraphicsTarget::Impl : Legacy::Bitmap {

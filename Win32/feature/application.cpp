@@ -1,4 +1,5 @@
 #include "application.hpp"
+#include "window.hpp"
 
 using namespace Graphics;
 

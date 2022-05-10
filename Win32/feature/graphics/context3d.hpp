@@ -3,7 +3,8 @@
 #pragma comment(lib, "OpenGL32.Lib")
 #pragma comment(lib, "GlU32.Lib")
 
-#include "../../win32.hpp"
+#include "Graphics/feature/graphics/context3d.hpp"
+#include <Windows.h>
 #include "gl/gl.h"
 #include "gl/glu.h"
 

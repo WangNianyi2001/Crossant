@@ -1,4 +1,6 @@
 #include "context3d.hpp"
+#include "target.hpp"
+#include "Win32/legacy.hpp"
 
 using namespace Graphics;
 
@@ -42,6 +44,7 @@ GraphicsContext3D::GraphicsContext3D(GraphicsTarget &target) : GraphicsContext(t
 	impl->hRC = wglCreateContext(impl->hDC);
 	if(!impl->hRC)
 		Legacy::TryThrowLastError();
+	glViewport(0, 0, target.impl->size[0], target.impl->size[1]);
 }
 
 GraphicsContext3D::~GraphicsContext3D() {
@@ -65,11 +68,8 @@ std::map<MM, int> matrixModeMap{
 	{ MM::Texture, GL_TEXTURE },
 };
 
-void GraphicsContext3D::Flush() {
-	glFlush();
-}
-
-void GraphicsContext3D::SwapBuffer() {
+void GraphicsContext3D::Finish() {
+	glFinish();
 	SwapBuffers(impl->hDC);
 }
 
@@ -96,8 +96,11 @@ std::map<AM, int> attributeMaskMap{
 	{ AM::Texture, GL_TEXTURE_BIT },
 	{ AM::Scissor, GL_SCISSOR_BIT }
 };
-void GraphicsContext3D::Clear(AM attributes) {
-	glClear(attributeMaskMap[attributes]);
+void GraphicsContext3D::Clear(std::initializer_list<AM> attributes) {
+	int mask = 0;
+	for(AM attribute : attributes)
+		mask |= attributeMaskMap[attribute];
+	glClear(mask);
 }
 
 void GraphicsContext3D::SetMatrixMode(MatrixMode mode) {

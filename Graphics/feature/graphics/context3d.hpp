@@ -1,6 +1,7 @@
 #pragma once
 
 #include "context.hpp"
+#include <initializer_list>
 
 namespace Graphics {
 	struct GraphicsContext3D : GraphicsContext {
@@ -14,8 +15,7 @@ namespace Graphics {
 		void Resize(Size2D size) override;
 
 		// Basic
-		void Flush();
-		void SwapBuffer();
+		void Finish();
 		enum struct AttributeMask : Byte {
 			Current,
 			Point,
@@ -38,7 +38,7 @@ namespace Graphics {
 			Texture,
 			Scissor
 		};
-		void Clear(AttributeMask attributes);
+		void Clear(std::initializer_list<AttributeMask> attributes);
 
 		// Matrix
 		enum struct MatrixMode : Byte {

@@ -177,6 +177,7 @@ namespace Graphics::Legacy {
 		// Visual
 		void BeginPaint(PaintStruct *paintStruct);
 		void EndPaint(PaintStruct *paintStruct);
-		void UpdateClient();
+		void Invalidate();
+		void Validate();
 	};
 }

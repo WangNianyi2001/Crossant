@@ -97,6 +97,10 @@ void Window::EndPaint(PaintStruct *paintStruct) {
 	::EndPaint(GetHandle<HWND>(), (LPPAINTSTRUCT)paintStruct->ps);
 }
 
-void Window::UpdateClient() {
+void Window::Invalidate() {
 	InvalidateRect(GetHandle<HWND>(), NULL, false);
+}
+
+void Window::Validate() {
+	ValidateRect(GetHandle<HWND>(), NULL);
 }

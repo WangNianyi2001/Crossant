@@ -127,6 +127,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -144,6 +145,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,10 +165,10 @@
     <ClInclude Include="common\type\vector.hpp" />
     <ClInclude Include="feature\graphics\context2d.hpp" />
     <ClInclude Include="feature\graphics\context3d.hpp" />
-    <ClInclude Include="feature\graphics\pen.hpp" />
+    <ClInclude Include="feature\graphics\context2d\pen.hpp" />
     <ClInclude Include="feature\graphics\target.hpp" />
     <ClInclude Include="graphics.hpp" />
-    <ClInclude Include="feature\graphics\brush.hpp" />
+    <ClInclude Include="feature\graphics\context2d\brush.hpp" />
     <ClInclude Include="feature\graphics\context.hpp" />
     <ClInclude Include="feature\application.hpp" />
     <ClInclude Include="common\event\subscriber.hpp" />

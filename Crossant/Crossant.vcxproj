@@ -164,10 +164,12 @@
     <ClInclude Include="common\type.hpp" />
     <ClInclude Include="common\type\vector.hpp" />
     <ClInclude Include="feature\graphics\2d\context.hpp" />
+    <ClInclude Include="3d.hpp" />
     <ClInclude Include="feature\graphics\3d\context.hpp" />
     <ClInclude Include="feature\graphics\2d\pen.hpp" />
     <ClInclude Include="feature\graphics\3d\drawable.hpp" />
-    <ClInclude Include="feature\graphics\3d\vertex.hpp" />
+    <ClInclude Include="feature\graphics\3d\staticmesh.hpp" />
+    <ClInclude Include="feature\graphics\3d\geometry.hpp" />
     <ClInclude Include="feature\graphics\target.hpp" />
     <ClInclude Include="crossant.hpp" />
     <ClInclude Include="feature\graphics\2d\brush.hpp" />

@@ -83,5 +83,12 @@ namespace Crossant::Graphics::Graphics3D {
 			Quads, QuadStrip, Polygon
 		};
 		void DrawElements(GeometryType type, int count, unsigned const *indices = nullptr, DatumType datumType = DatumType::UnsignedInt);
+		enum struct FaceType : Byte {
+			Front, Back, Both
+		};
+		enum struct FaceMode : Byte {
+			Point, Line, Fill
+		};
+		void PolygonMode(FaceType type, FaceMode mode);
 	};
 }

@@ -68,10 +68,16 @@
     <ClInclude Include="feature\graphics\target.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\vertex.hpp">
+    <ClInclude Include="feature\graphics\3d\geometry.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics\3d\drawable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature\graphics\3d\staticmesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

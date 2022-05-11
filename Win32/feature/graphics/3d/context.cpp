@@ -209,3 +209,22 @@ std::map<GT, int> geometryTypeMap{
 void Context::DrawElements(GT type, int count, unsigned const *indices, DUT datumType) {
 	glDrawElements(geometryTypeMap[type], count, datumTypeMap[datumType], indices);
 }
+
+using FT = Context::FaceType;
+using FM = Context::FaceMode;
+
+std::map<FT, int> faceTypeMap{
+	{ FT::Front, GL_FRONT },
+	{ FT::Back, GL_BACK },
+	{ FT::Both, GL_FRONT_AND_BACK },
+};
+
+std::map<FM, int> faceModeMap{
+	{ FM::Point, GL_POINT },
+	{ FM::Line, GL_LINE },
+	{ FM::Fill, GL_FILL },
+};
+
+void Context::PolygonMode(FaceType type, FaceMode mode) {
+	glPolygonMode(faceTypeMap[type], faceModeMap[mode]);
+}

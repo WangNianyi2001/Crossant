@@ -3,7 +3,7 @@
 #include "Crossant/feature/graphics/2d/brush.hpp"
 #include "Win32/legacy.hpp"
 
-namespace Crossant::Graphics2D {
+namespace Crossant::Graphics::Graphics2D {
 	struct Brush::Impl {
 		Legacy::Brush *brush;
 

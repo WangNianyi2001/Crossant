@@ -13,7 +13,7 @@
 #undef CreateWindow
 #endif
 
-namespace Crossant::Graphics3D {
+namespace Crossant::Graphics::Graphics3D {
 	struct Context::Impl {
 		HDC hDC = NULL;
 		HGLRC hRC = NULL;

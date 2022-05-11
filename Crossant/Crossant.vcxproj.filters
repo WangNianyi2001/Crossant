@@ -71,6 +71,9 @@
     <ClInclude Include="feature\graphics\3d\vertex.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="feature\graphics\3d\drawable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\event\listener.hpp">

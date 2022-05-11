@@ -1,7 +1,7 @@
 #include "pen.hpp"
 #include <Windows.h>
 
-using namespace Crossant::Graphics2D;
+using namespace Crossant::Graphics::Graphics2D;
 
 std::map<Pen::Style, int> Pen::Impl::styleMap{
 	{ Style::Solid, PS_SOLID },

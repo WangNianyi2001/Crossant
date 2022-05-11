@@ -2,7 +2,7 @@
 
 #include "Crossant/common/type.hpp"
 
-namespace Crossant::Graphics2D {
+namespace Crossant::Graphics::Graphics2D {
 	struct Pen {
 		struct Impl;
 		Impl *impl;

@@ -1,4 +1,5 @@
 #include "Crossant/crossant.hpp"
+#include "Crossant/feature/graphics/3d/context.hpp"
 
 using namespace Crossant;
 
@@ -7,7 +8,7 @@ int Crossant::Main() {
 
 	using EventType = WindowEvent::Type;
 
-	using GC3 = Graphics3D::Context;
+	using GC3 = Graphics::Graphics3D::Context;
 	Graphics::Target target({ 1, 1 });
 	auto gc3 = GC3(target);
 	gc3.MakeCurrent();

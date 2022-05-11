@@ -2,7 +2,7 @@
 
 #include "Crossant/common/type.hpp"
 
-namespace Crossant::Graphics3D {
+namespace Crossant::Graphics::Graphics3D {
 	struct Vertex {
 		Coord3D position;
 		Color color;

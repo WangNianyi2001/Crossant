@@ -4,7 +4,7 @@
 #include "Win32/legacy.hpp"
 #include <map>
 
-namespace Crossant::Graphics2D {
+namespace Crossant::Graphics::Graphics2D {
 	struct Pen::Impl {
 		Legacy::Pen *pen = nullptr;
 

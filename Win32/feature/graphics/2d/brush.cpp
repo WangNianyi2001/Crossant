@@ -1,7 +1,7 @@
 #include "brush.hpp"
 #include <Windows.h>
 
-using namespace Crossant::Graphics2D;
+using namespace Crossant::Graphics::Graphics2D;
 
 Brush::Brush() {
 	impl = new Impl{};

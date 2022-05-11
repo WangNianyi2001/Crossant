@@ -3,7 +3,7 @@
 #include "../context.hpp"
 #include <initializer_list>
 
-namespace Crossant::Graphics3D {
+namespace Crossant::Graphics::Graphics3D {
 	struct Context : Graphics::Context {
 		struct Impl;
 		Impl *impl;

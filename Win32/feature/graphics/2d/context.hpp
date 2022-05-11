@@ -5,7 +5,7 @@
 #include "brush.hpp"
 #include "pen.hpp"
 
-namespace Crossant::Graphics2D {
+namespace Crossant::Graphics::Graphics2D {
 	template<
 		typename T,
 		std::derived_from<Function<Legacy::GDIObject *, T>> Getter

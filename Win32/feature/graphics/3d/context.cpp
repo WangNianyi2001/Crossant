@@ -2,7 +2,7 @@
 #include "../target.hpp"
 #include "Win32/legacy.hpp"
 
-using namespace Crossant::Graphics3D;
+using namespace Crossant::Graphics::Graphics3D;
 
 PIXELFORMATDESCRIPTOR descriptorTemplate{
 	.nSize = sizeof(PIXELFORMATDESCRIPTOR),

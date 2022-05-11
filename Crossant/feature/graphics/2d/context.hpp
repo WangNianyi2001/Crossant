@@ -5,7 +5,7 @@
 #include "brush.hpp"
 #include "pen.hpp"
 
-namespace Crossant::Graphics2D {
+namespace Crossant::Graphics::Graphics2D {
 	struct Context : Graphics::Context {
 		DoubleBuffer<Brush *> *brush;
 		DoubleBuffer<Pen *> *pen;

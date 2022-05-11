@@ -5,7 +5,7 @@
 #pragma push_macro("SelectPen")
 #undef SelectPen
 
-using namespace Crossant::Graphics2D;
+using namespace Crossant::Graphics::Graphics2D;
 
 Context::Context(Graphics::Target &target) : Graphics::Context(target) {
 	brush = new BrushBuffer(*this);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Crossant/crossant.hpp"
 #include "Crossant/feature/application.hpp"
 #include "Win32/legacy.hpp"
 

@@ -50,6 +50,6 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 			.className = String(L"Window"),
 		}
 	);
-	return Application::Main();
+	return Main();
 }
 #pragma warning(pop)

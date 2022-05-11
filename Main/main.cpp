@@ -2,8 +2,8 @@
 
 using namespace Crossant;
 
-int Application::Main() {
-	Window *window = current->CreateWindow();
+int Crossant::Main() {
+	Window *window = Application::current->CreateWindow();
 
 	using EventType = WindowEvent::Type;
 

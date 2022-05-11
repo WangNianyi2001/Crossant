@@ -7,8 +7,6 @@ namespace Crossant {
 	struct Application {
 		static inline Application *current = nullptr;
 
-		static int Main();
-
 		struct Impl;
 		Impl *impl;
 

@@ -1,10 +1,10 @@
 #pragma once
 
 #include "../legacy.hpp"
-#include "Graphics/common/event/listener.hpp"
-#include "Graphics/common/type.hpp"
+#include "Crossant/common/event/listener.hpp"
+#include "Crossant/common/type.hpp"
 
-namespace Graphics::Legacy {
+namespace Crossant::Legacy {
 	struct UserObject : HandledObject {
 		UserObject(void *const handle) : HandledObject(handle) {}
 

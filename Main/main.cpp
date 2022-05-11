@@ -1,14 +1,14 @@
-#include "Graphics/graphics.hpp"
+#include "Crossant/crossant.hpp"
 
-using namespace Graphics;
+using namespace Crossant;
 
 int Application::Main() {
 	Window *window = current->CreateWindow();
 
 	using EventType = WindowEvent::Type;
 
-	using GC3 = GraphicsContext3D;
-	GraphicsTarget target({ 1, 1 });
+	using GC3 = Graphics3D::Context;
+	Graphics::Target target({ 1, 1 });
 	auto gc3 = GC3(target);
 	gc3.MakeCurrent();
 	gc3.SetPerspective(45);
@@ -16,7 +16,7 @@ int Application::Main() {
 	window->Listen(EventType::Resize, [&](WindowEvent event) {
 		target.Resize(event.clientSize);
 	});
-	window->Listen(EventType::Paint, [&](WindowEvent) {
+	window->Listen(EventType::Draw, [&](WindowEvent) {
 		gc3.Clear({ GC3::AttributeMask::ColorBuffer, GC3::AttributeMask::DepthBuffer });
 		gc3.LoadIdentity();
 		gc3.Translate({ 0, 0, -4 });

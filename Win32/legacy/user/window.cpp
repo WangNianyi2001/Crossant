@@ -2,7 +2,7 @@
 #include "../gdi.hpp"
 #include <Windows.h>
 
-using namespace Graphics::Legacy;
+using namespace Crossant::Legacy;
 using Class = Window::Class;
 
 ATOM RegisterClass(Class::Info info) {
@@ -78,8 +78,8 @@ void Window::SetShowState(ShowState state) {
 	ShowWindow(GetHandle<HWND>(), showStateMap[state]);
 }
 
-inline Graphics::RectRange ParseRect(RECT rect) {
-	using Graphics::Float;
+inline Crossant::RectRange ParseRect(RECT rect) {
+	using Crossant::Float;
 	return {
 		{ (Float)rect.left, (Float)rect.top },
 		{ (Float)rect.right, (Float)rect.bottom }

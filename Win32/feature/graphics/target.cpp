@@ -1,27 +1,27 @@
 #include "target.hpp"
-#include "Graphics/feature/graphics/context.hpp"
+#include "Crossant/feature/graphics/context.hpp"
 #include <Windows.h>
 
-using namespace Graphics;
+using namespace Crossant::Graphics;
 
-GraphicsTarget::GraphicsTarget(Impl *impl) : impl(impl) {}
-GraphicsTarget::GraphicsTarget(Size2D size) : impl(new Impl(size)) {}
+Target::Target(Impl *impl) : impl(impl) {}
+Target::Target(Size2D size) : impl(new Impl(size)) {}
 
-GraphicsTarget::~GraphicsTarget() {
+Target::~Target() {
 	delete impl;
 }
 
-Size2D GraphicsTarget::Size() const {
+Crossant::Size2D Target::Size() const {
 	return impl->size;
 }
 
-void GraphicsTarget::Resize(Size2D size) {
+void Target::Resize(Size2D size) {
 	delete impl;
 	impl = new Impl(size);
 	for(auto context : contexts)
 		context->OnResize();
 }
 
-void GraphicsTarget::DrawOn(GraphicsTarget &target) {
+void Target::DrawOn(Target &target) {
 	impl->dc.PutTo(target.impl->dc, target.impl->Range(), { 0, 0 });
 }

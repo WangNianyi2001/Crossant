@@ -1,7 +1,7 @@
 #include "application.hpp"
 #include "window.hpp"
 
-using namespace Graphics;
+using namespace Crossant;
 
 Application::Application() {
 	impl = new Impl();
@@ -12,16 +12,13 @@ Application::~Application() {
 	delete impl;
 }
 
-#pragma push_macro("CreateWindow")
-#undef CreateWindow
 Window *Application::CreateWindow() {
 	Window *window = new Window(*this);
 	HWND hWnd = window->impl->legacy->GetHandle<HWND>();
 	return Window::Impl::map[hWnd] = window;
 }
-#pragma pop_macro("CreateWindow")
 
-__int64 __stdcall Graphics::MsgProc(
+__int64 __stdcall Crossant::MsgProc(
 	void *hWnd, unsigned int message,
 	unsigned __int64 wParam, __int64 lParam
 ) {
@@ -50,7 +47,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 		Legacy::Window::Class::Info{
 			.process = &MsgProc,
 			.instance = impl->instance,
-			.className = Graphics::String(L"Window"),
+			.className = String(L"Window"),
 		}
 	);
 	return Application::Main();

@@ -2,9 +2,9 @@
 
 #include "../user.hpp"
 #include "../kernel.hpp"
-#include "Graphics/common/type.hpp"
+#include "Crossant/common/type.hpp"
 
-namespace Graphics::Legacy {
+namespace Crossant::Legacy {
 	struct PaintStruct;
 
 	struct Window : UserObject {

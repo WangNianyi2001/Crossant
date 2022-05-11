@@ -1,7 +1,7 @@
 #include "devicecontext.hpp"
 #include <Windows.h>
 
-using namespace Graphics::Legacy;
+using namespace Crossant::Legacy;
 
 DeviceContext *PaintStruct::GetDC() {
 	return new DeviceContext(((LPPAINTSTRUCT)ps)->hdc, false);

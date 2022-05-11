@@ -1,12 +1,12 @@
-#include "Graphics/feature/graphics/context.hpp"
+#include "Crossant/feature/graphics/context.hpp"
 
-using namespace Graphics;
+using namespace Crossant::Graphics;
 
-GraphicsContext::GraphicsContext(GraphicsTarget &target) : target(target) {
+Context::Context(Target &target) : target(target) {
 	target.contexts.insert(this);
 }
 
-GraphicsContext::~GraphicsContext() {
+Context::~Context() {
 	auto &set = target.contexts;
 	auto it = set.find(this);
 	if(it != set.end())

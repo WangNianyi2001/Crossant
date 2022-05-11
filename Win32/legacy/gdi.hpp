@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Graphics/common/type.hpp"
+#include "Crossant/common/type.hpp"
 #include "user.hpp"
 
-namespace Graphics::Legacy {
+namespace Crossant::Legacy {
 	struct ColorRef {
 		using Hex = unsigned long;
 

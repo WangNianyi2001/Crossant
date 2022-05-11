@@ -3,7 +3,7 @@
 #include "../gdi.hpp"
 #include "devicecontext.hpp"
 
-namespace Graphics::Legacy {
+namespace Crossant::Legacy {
 	struct Bitmap : GDIObject {
 		Size2D const size;
 		DeviceContext &dc;

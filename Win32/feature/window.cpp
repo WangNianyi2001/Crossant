@@ -2,7 +2,7 @@
 #include "application.hpp"
 #include "graphics/target.hpp"
 
-using namespace Graphics;
+using namespace Crossant;
 
 template<Type type>
 WindowEvent directEvent(Event) {
@@ -12,7 +12,7 @@ WindowEvent directEvent(Event) {
 template<Type type>
 WindowEvent mouseEvent(Event legacy) {
 	WindowEvent event{ type };
-	event.mouse = Graphics::Mouse{
+	event.mouse = Mouse{
 		.position = {
 			(Float)GET_X_LPARAM(legacy.l),
 			(Float)GET_Y_LPARAM(legacy.l),
@@ -22,7 +22,7 @@ WindowEvent mouseEvent(Event legacy) {
 }
 
 WindowEvent resizeEvent(Event legacy) {
-	Graphics::Size2D size{
+	Size2D size{
 		LOWORD(legacy.l),
 		HIWORD(legacy.l)
 	};
@@ -45,7 +45,7 @@ std::map<
 	{ WM_LBUTTONUP, &mouseEvent<Type::MouseUp> },
 	{ WM_RBUTTONDOWN, &mouseEvent<Type::MouseDown> },
 	{ WM_RBUTTONUP, &mouseEvent<Type::MouseUp> },
-	{ WM_PAINT, &directEvent<Type::Paint> },
+	{ WM_PAINT, &directEvent<Type::Draw> },
 };
 
 
@@ -60,18 +60,18 @@ static Window::Impl *makeImpl(Application &application) {
 	};
 }
 
-static GraphicsTarget::Impl *makeTargetImpl(Window &window) {
+static Graphics::Target::Impl *makeTargetImpl(Window &window) {
 	auto hdc = GetDC(window.impl->legacy->GetHandle<HWND>());
 	auto dc = new Legacy::DeviceContext(hdc);
 	auto size = (Size2D)window.ClientRect().Diagonal();
-	return new GraphicsTarget::Impl(*dc, size);
+	return new Graphics::Target::Impl(*dc, size);
 }
 
 Window::Window(Application &application) :
 	impl(makeImpl(application)),
 	graphicsTarget{ makeTargetImpl(*this) } {
 	Impl::map[impl->legacy->handle] = this;
-	Listen(Type::Paint, [&](WindowEvent) {
+	Listen(Type::Draw, [&](WindowEvent) {
 		impl->legacy->Validate();
 	});
 }

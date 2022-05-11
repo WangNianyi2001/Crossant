@@ -2,7 +2,7 @@
 
 #include "../legacy.hpp"
 
-namespace Graphics::Legacy {
+namespace Crossant::Legacy {
 	struct KernelObject : HandledObject {
 		KernelObject() : HandledObject(nullptr) {}
 		KernelObject(void *const handle) : HandledObject(handle) {}

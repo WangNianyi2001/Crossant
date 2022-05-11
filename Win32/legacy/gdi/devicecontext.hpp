@@ -2,7 +2,7 @@
 
 #include "../gdi.hpp"
 
-namespace Graphics::Legacy {
+namespace Crossant::Legacy {
 	struct DeviceContext : HandledObject {
 		bool const isPrivate;
 

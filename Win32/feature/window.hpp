@@ -1,12 +1,17 @@
 #pragma once
 
-#include "Graphics/graphics.hpp"
+#include "Crossant/feature/window.hpp"
 #include "Win32/legacy.hpp"
 #include <Windows.h>
 #include <windowsx.h>
 #include <map>
 
-namespace Graphics {
+#ifdef CreateWindow
+#pragma push_macro("CreateWindow")
+#undef CreateWindow
+#endif
+
+namespace Crossant {
 	using Event = Legacy::Window::Event;
 	using Type = WindowEvent::Type;
 

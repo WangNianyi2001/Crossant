@@ -1,9 +1,9 @@
 #include "bitmap.hpp"
 #include <Windows.h>
 
-using namespace Graphics::Legacy;
+using namespace Crossant::Legacy;
 
-HBITMAP CreateBitmap(Graphics::Size2D size) {
+HBITMAP CreateBitmap(Crossant::Size2D size) {
 	BITMAPINFOHEADER header{
 		.biSize = sizeof(BITMAPINFOHEADER),
 		.biWidth = (long)size[0],
@@ -56,6 +56,6 @@ Bitmap::~Bitmap() {
 	delete &dc;
 }
 
-Graphics::RectRange Bitmap::Range() const {
+Crossant::RectRange Bitmap::Range() const {
 	return { Coord2D{ 0, 0 }, (Coord2D)size };
 }

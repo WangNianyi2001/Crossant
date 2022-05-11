@@ -1,16 +1,16 @@
 #include "legacy.hpp"
-#include "Graphics/common/type.hpp"
+#include "Crossant/common/type.hpp"
 #include <Windows.h>
 
-using namespace Graphics::Legacy;
+using namespace Crossant::Legacy;
 
-void Graphics::Legacy::TryThrowLastError() {
+void Crossant::Legacy::TryThrowLastError() {
 	int code = GetLastError();
 	if(code == 0)
 		return;
 	throw code;
 }
 
-void Graphics::Legacy::ResolveLastError() {
+void Crossant::Legacy::ResolveLastError() {
 	SetLastError(0);
 }

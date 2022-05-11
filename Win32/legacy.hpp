@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Graphics::Legacy {
+namespace Crossant::Legacy {
 	void TryThrowLastError();
 	void ResolveLastError();
 

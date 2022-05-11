@@ -101,6 +101,7 @@ std::map<AM, int> attributeMaskMap{
 	{ AM::Texture, GL_TEXTURE_BIT },
 	{ AM::Scissor, GL_SCISSOR_BIT }
 };
+
 void GraphicsContext3D::Clear(std::initializer_list<AM> attributes) {
 	int mask = 0;
 	for(AM attribute : attributes)
@@ -138,6 +139,63 @@ void GraphicsContext3D::SetPerspective(Float perspective) {
 	SetMatrixMode(MM::Space);
 }
 
+using DUT = GraphicsContext3D::DatumType;
+std::map<DUT, int> datumTypeMap{
+	{ DUT::Byte, GL_BYTE },
+	{ DUT::UnsignedByte, GL_UNSIGNED_BYTE },
+	{ DUT::Short, GL_SHORT },
+	{ DUT::UnsignedShort, GL_UNSIGNED_SHORT },
+	{ DUT::Int, GL_INT },
+	{ DUT::UnsignedInt, GL_UNSIGNED_INT },
+	{ DUT::Float, GL_FLOAT },
+	{ DUT::Double, GL_DOUBLE },
+	{ DUT::Byte2, GL_2_BYTES },
+	{ DUT::Byte3, GL_3_BYTES },
+	{ DUT::Byte4, GL_4_BYTES },
+};
+
+using DT = GraphicsContext3D::DataType;
+std::map<DT, int> dataTypeMap{
+	{ DT::Color, GL_COLOR_ARRAY },
+	{ DT::EdgeFlag, GL_EDGE_FLAG_ARRAY },
+	{ DT::ColorIndex, GL_INDEX_ARRAY },
+	{ DT::Normal, GL_NORMAL_ARRAY },
+	{ DT::TextureCoord, GL_TEXTURE_COORD_ARRAY },
+	{ DT::Vertex, GL_VERTEX_ARRAY }
+};
+
+void GraphicsContext3D::SetDataArrayState(DT type, bool enabled) {
+	int cap = dataTypeMap[type];
+	if(enabled)
+		glEnableClientState(cap);
+	else
+		glDisableClientState(cap);
+}
+
+void GraphicsContext3D::SetDataArray(DT type, void const *data, unsigned stride, DUT datumType, int dimension) {
+	int dut = datumTypeMap[datumType];
+	switch(type) {
+	case DT::Color:
+		glColorPointer(dimension, dut, stride, data);
+		break;
+	case DT::EdgeFlag:
+		glEdgeFlagPointer(stride, data);
+		break;
+	case DT::ColorIndex:
+		glIndexPointer(dut, stride, data);
+		break;
+	case DT::Normal:
+		glNormalPointer(dut, stride, data);
+		break;
+	case DT::TextureCoord:
+		glTexCoordPointer(dimension, dut, stride, data);
+		break;
+	case DT::Vertex:
+		glVertexPointer(dimension, dut, stride, data);
+		break;
+	}
+}
+
 using GT = GraphicsContext3D::GeometryType;
 std::map<GT, int> geometryTypeMap{
 	{ GT::Points, GL_POINTS },
@@ -151,18 +209,7 @@ std::map<GT, int> geometryTypeMap{
 	{ GT::QuadStrip, GL_QUAD_STRIP },
 	{ GT::Polygon, GL_POLYGON }
 };
-void GraphicsContext3D::Begin(GeometryType type) {
-	glBegin(geometryTypeMap[type]);
-}
 
-void GraphicsContext3D::End() {
-	glEnd();
-}
-
-void GraphicsContext3D::Vertex(Coord3D coordinate) {
-	glVertex3fv((GLfloat *)&coordinate);
-}
-
-void GraphicsContext3D::Color(Graphics::Color color) {
-	glColor3fv((GLfloat *)&color);
+void GraphicsContext3D::DrawElements(GT type, int count, unsigned const *indices, DUT datumType) {
+	glDrawElements(geometryTypeMap[type], count, datumTypeMap[datumType], indices);
 }

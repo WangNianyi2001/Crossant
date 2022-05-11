@@ -15,6 +15,3 @@ namespace Graphics {
 		virtual void OnResize() = 0;
 	};
 }
-
-#include "context2d.hpp"
-#include "context3d.hpp"

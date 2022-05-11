@@ -143,7 +143,7 @@ namespace Graphics::Legacy {
 		L DefProc(Event event);
 
 		// Window state
-		enum struct ShowState : char {
+		enum struct ShowState : Byte {
 			Hidden,
 			Normal,
 			Minimized,

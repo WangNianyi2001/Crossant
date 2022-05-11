@@ -20,17 +20,35 @@ int Application::Main() {
 		gc3.Clear({ GC3::AttributeMask::ColorBuffer, GC3::AttributeMask::DepthBuffer });
 		gc3.LoadIdentity();
 		gc3.Translate({ 0, 0, -4 });
-		gc3.Begin(GC3::GeometryType::Triangles);
-		gc3.Color({ 1, 1, 1 });
-		gc3.Vertex({ 0, 0, 0 });
-		gc3.Vertex({ 1, 0, 0 });
-		gc3.Vertex({ 1, 1, 0 });
-		gc3.End();
+
+		using DT = GC3::DataType;
+		using DUT = GC3::DatumType;
+
+		gc3.SetDataArrayState(DT::Vertex, true);
+		Coord3D vertices[]{
+			{ 0, 0, 0 },
+			{ 1, 0, 0 },
+			{ .5f, .855f, 0 },
+		};
+		gc3.SetDataArray(DT::Vertex, vertices, 0, DUT::Float, 3);
+
+		gc3.SetDataArrayState(DT::Color, true);
+		Color colors[]{
+			{ 1, 0, 0 },
+			{ 0, 1, 0 },
+			{ 0, 0, 1 },
+		};
+		gc3.SetDataArray(DT::Color, colors, 0, DUT::Float, 3);
+
+		unsigned indices[]{ 0, 1, 2 };
+
+		gc3.DrawElements(GC3::GeometryType::Triangles, 3, indices);
+
 		gc3.Finish();
 		target.DrawOn(window->graphicsTarget);
 	});
 	window->Listen(EventType::Update, [&](WindowEvent) {
-		window->Repaint();
+		//window->Repaint();
 	});
 	window->Listen(EventType::Close, [&](WindowEvent) {
 		window->Kill();

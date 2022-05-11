@@ -57,6 +57,25 @@ namespace Graphics {
 		// Projection
 		void SetPerspective(Float perspective);
 
+		// Data
+		enum struct DatumType : Byte {
+			Byte, UnsignedByte,
+			Short, UnsignedShort,
+			Int, UnsignedInt,
+			Float, Double,
+			Byte2, Byte3, Byte4,
+		};
+		enum struct DataType : Byte {
+			Color,
+			EdgeFlag,
+			ColorIndex,
+			Normal,
+			TextureCoord,
+			Vertex
+		};
+		void SetDataArrayState(DataType type, bool enabled);
+		void SetDataArray(DataType type, void const* array, unsigned stride = 0, DatumType datumType = DatumType::Float, int dimension = 4);
+
 		// Geometry
 		enum struct GeometryType : Byte {
 			Points,
@@ -64,11 +83,6 @@ namespace Graphics {
 			Triangles, TriangleStrip, TriangleFan,
 			Quads, QuadStrip, Polygon
 		};
-		void Begin(GeometryType type);
-		void End();
-		void Vertex(Coord3D coordinate);
-
-		// Appearance
-		void Color(Color color);
+		void DrawElements(GeometryType type, int count, unsigned const *indices = nullptr, DatumType datumType = DatumType::UnsignedInt);
 	};
 }

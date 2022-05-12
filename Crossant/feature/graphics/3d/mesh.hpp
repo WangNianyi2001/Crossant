@@ -5,35 +5,29 @@
 
 namespace Crossant::Graphics::Graphics3D {
 	struct Mesh {
-		virtual Vertex const *FirstVertex() const = 0;
-	};
-
-	struct StaticMesh : Mesh {
 		constexpr static Byte TriangleVertexCount = 3;
 		using VertexIndex = unsigned;
 		using IndexedTriangle = Crossant::Vector<VertexIndex, TriangleVertexCount>;
 
-		std::vector<Vertex> vertices;
-		std::vector<IndexedTriangle> triangles;
+		virtual Vertex const *VertexHead() const = 0;
+		virtual VertexIndex const *IndexHead() const = 0;
+		virtual unsigned IndexCount() const = 0;
+	};
 
-		virtual Vertex const *FirstVertex() const override {
+	struct StaticMesh : Mesh {
+		std::vector<Vertex> vertices;
+		std::vector<IndexedTriangle> indices;
+
+		virtual Vertex const *VertexHead() const override {
 			return &vertices[0];
 		}
 
-		virtual void Draw(Context &context) const {
-			context.SetDataArrayState(Context::DataType::Vertex, true);
-			context.SetDataArray(
-				Context::DataType::Vertex,
-				FirstVertex(),
-				sizeof(Vertex),
-				Context::DatumType::Float,
-				TriangleVertexCount
-			);
-			context.DrawElements(
-				Context::GeometryType::Triangles,
-				(unsigned)triangles.size() * TriangleVertexCount,
-				(unsigned *)&triangles[0]
-			);
+		virtual VertexIndex const *IndexHead() const override {
+			return (VertexIndex *)&indices[0];
+		}
+
+		virtual unsigned IndexCount() const override {
+			return indices.size();
 		}
 	};
 }

@@ -50,10 +50,10 @@ namespace Crossant::Graphics::Graphics3D {
 		void LoadIdentity();
 
 		// Transform
-		void Translate(Coord3D translation);
-		void Rotate(Float angle, Coord3D axis);
-		void Rotate(Quaternion quaternion);
-		void Scale(Coord3D scalor);
+		void Translate(Coord3D const &translation);
+		void Rotate(Float angle, Coord3D const &axis);
+		void Rotate(Quaternion const &quaternion);
+		void Scale(Coord3D const &scalor);
 
 		// Projection
 		void SetPerspective(Float perspective);

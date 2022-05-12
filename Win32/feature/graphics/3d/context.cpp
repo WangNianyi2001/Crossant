@@ -118,20 +118,23 @@ void Context::LoadIdentity() {
 	glLoadIdentity();
 }
 
-void Context::Translate(Coord3D translation) {
+void Context::Translate(Coord3D const &translation) {
 	glTranslatef(translation[0], translation[1], translation[2]);
 }
 
-void Context::Rotate(Float angle, Coord3D axis) {
+void Context::Rotate(Float angle, Coord3D const &axis) {
+	angle *= 180.f / PI;
 	glRotatef(angle, axis[0], axis[1], axis[2]);
 }
 
-void Context::Rotate(Quaternion quaternion) {
-	Float const angle = std::acosf(quaternion.re) * 2;
-	Rotate(angle, quaternion.im * (1 / std::sinf(angle)));
+void Context::Rotate(Quaternion const &quaternion) {
+	Float const angle = std::atan2(quaternion.im.Module(), quaternion.re) * 2;
+	if(std::abs(angle) < 1e-3f)
+		return;
+	Rotate(angle, quaternion.im);
 }
 
-void Context::Scale(Coord3D scalor) {
+void Context::Scale(Coord3D const &scalor) {
 	glScalef(scalor[0], scalor[1], scalor[2]);
 }
 

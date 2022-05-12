@@ -11,7 +11,7 @@ namespace Crossant {
 
 		static Quaternion AxisAngle(Coord3D axis, Float angle) {
 			angle *= .5f;
-			return { std::cosf(angle), axis * std::sinf(angle) };
+			return { std::cosf(angle), axis * (std::sinf(angle) / axis.Module()) };
 		}
 
 		Float Module() const {

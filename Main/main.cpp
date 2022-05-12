@@ -15,8 +15,8 @@ int Crossant::Main() {
 
 	float rot = 0;
 
-	StaticMesh cube;
-	cube.vertices = {
+	StaticMesh cubeMesh;
+	cubeMesh.vertices = {
 		{ { 0, 0, 0 } },
 		{ { 1, 0, 0 } },
 		{ { 0, 1, 0 } },
@@ -26,7 +26,7 @@ int Crossant::Main() {
 		{ { 0, 1, 1 } },
 		{ { 1, 1, 1 } },
 	};
-	cube.triangles = {
+	cubeMesh.indices = {
 		{ 1, 0, 2 },
 		{ 2, 3, 1 },
 		{ 0, 4, 6 },
@@ -41,23 +41,28 @@ int Crossant::Main() {
 		{ 1, 0, 4 },
 	};
 
+	Object cube(space);
+	MeshFilter filter(cube);
+	MeshRenderer renderer(cube);
+
+	filter.mesh = &cubeMesh;
+	cube.transform.translation = { 0, 0, -4 };
+
 	window->Listen(EventType::Resize, [&](WindowEvent event) {
 		target.Resize(event.clientSize);
 	});
 	window->Listen(EventType::Draw, [&](WindowEvent) {
 		space.Clear({ Context::AttributeMask::ColorBuffer, Context::AttributeMask::DepthBuffer });
-		space.LoadIdentity();
-		space.Translate({ 0, 0, -4 });
-		space.Rotate(rot, { 1, 1, 1 });
-
 		space.PolygonMode(Context::FaceType::Both, Context::FaceMode::Line);
-		cube.Draw(space);
+
+		renderer.Render();
 
 		space.Finish();
 		target.DrawOn(window->graphicsTarget);
 	});
 	window->Listen(EventType::Update, [&](WindowEvent) {
-		rot += .03f;
+		rot += PI / 3000;
+		cube.transform.rotation = Quaternion::AxisAngle({ 1, 1, 1 }, rot);
 		window->Repaint();
 	});
 	window->Listen(EventType::Close, [&](WindowEvent) {

@@ -206,7 +206,7 @@ std::map<GT, int> geometryTypeMap{
 	{ GT::Polygon, GL_POLYGON }
 };
 
-void Context::DrawElements(GT type, int count, unsigned const *indices, DUT datumType) {
+void Context::DrawElements(GT type, unsigned count, unsigned const *indices, DUT datumType) {
 	glDrawElements(geometryTypeMap[type], count, datumTypeMap[datumType], indices);
 }
 

@@ -4,6 +4,7 @@
 #include <concepts>
 #include <initializer_list>
 #include <algorithm>
+#include <cmath>
 
 namespace Crossant {
 	template<typename Component, unsigned dimension>
@@ -124,13 +125,11 @@ namespace Crossant {
 		inline Vector operator-(Vector const &vector) const {
 			return Arithmetic<Minus<Component>>(*this, vector);
 		}
-		template<typename Scalor>
-		inline Vector operator*(Scalor const &scalor) const {
-			return Arithmetic<Multiply<Component, Component, Scalor>>(*this, scalor);
+		inline Vector operator*(Component const &scalor) const {
+			return Arithmetic<Component, Multiply<Component, Component, Component>>(*this, scalor);
 		}
-		template<typename Scalor>
-		inline Vector operator/(Scalor const &scalor) const {
-			return Arithmetic<Divide<Component, Component, Scalor>>(*this, scalor);
+		inline Vector operator/(Component const &scalor) const {
+			return Arithmetic<Component, Divide<Component, Component, Component>>(*this, scalor);
 		}
 		inline Vector Max(Vector const &vector) const {
 			return Arithmetic<Max<Component>>(*this, vector);
@@ -138,5 +137,23 @@ namespace Crossant {
 		inline Vector Min(Vector const &vector) const {
 			return Arithmetic<Min<Component>>(*this, vector);
 		}
+
+		Component SquaredModule() const {
+			Component sum = 0;
+			for(unsigned i = 0; i < dimension; ++i) {
+				Component const component = operator[](i);
+				sum += component * component;
+			}
+			return sum;
+		}
+
+		inline Component Module() const {
+			return std::sqrt(SquaredModule());
+		}
 	};
+
+	using Size2D = Vector<unsigned, 2>;
+	using Color = Vector<Float, 3>;
+	using Coord2D = Vector<Float, 2>;
+	using Coord3D = Vector<Float, 3>;
 }

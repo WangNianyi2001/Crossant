@@ -8,11 +8,10 @@ int Crossant::Main() {
 
 	using EventType = WindowEvent::Type;
 
-	using GC3 = Graphics::Graphics3D::Context;
-	Graphics::Target target({ 1, 1 });
-	auto gc3 = GC3(target);
-	gc3.MakeCurrent();
-	gc3.SetPerspective(45);
+	Graphics::Target target;
+	auto space = Space(target);
+	space.MakeCurrent();
+	space.SetPerspective(45);
 
 	float rot = 0;
 
@@ -46,15 +45,15 @@ int Crossant::Main() {
 		target.Resize(event.clientSize);
 	});
 	window->Listen(EventType::Draw, [&](WindowEvent) {
-		gc3.Clear({ GC3::AttributeMask::ColorBuffer, GC3::AttributeMask::DepthBuffer });
-		gc3.LoadIdentity();
-		gc3.Translate({ 0, 0, -4 });
-		gc3.Rotate(rot, { 1, 1, 1 });
+		space.Clear({ Context::AttributeMask::ColorBuffer, Context::AttributeMask::DepthBuffer });
+		space.LoadIdentity();
+		space.Translate({ 0, 0, -4 });
+		space.Rotate(rot, { 1, 1, 1 });
 
-		gc3.PolygonMode(GC3::FaceType::Both, GC3::FaceMode::Line);
-		cube.Draw(gc3);
+		space.PolygonMode(Context::FaceType::Both, Context::FaceMode::Line);
+		cube.Draw(space);
 
-		gc3.Finish();
+		space.Finish();
 		target.DrawOn(window->graphicsTarget);
 	});
 	window->Listen(EventType::Update, [&](WindowEvent) {

@@ -82,7 +82,7 @@ namespace Crossant::Graphics::Graphics3D {
 			Triangles, TriangleStrip, TriangleFan,
 			Quads, QuadStrip, Polygon
 		};
-		void DrawElements(GeometryType type, int count, unsigned const *indices = nullptr, DatumType datumType = DatumType::UnsignedInt);
+		void DrawElements(GeometryType type, unsigned count, unsigned const *indices = nullptr, DatumType datumType = DatumType::UnsignedInt);
 		enum struct FaceType : Byte {
 			Front, Back, Both
 		};

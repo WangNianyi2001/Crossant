@@ -33,4 +33,6 @@ namespace Crossant {
 			return max - min;
 		}
 	};
+
+	using RectRange = BoxRange<Coord2D>;
 }

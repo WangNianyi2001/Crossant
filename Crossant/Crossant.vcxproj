@@ -155,10 +155,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="common\type\basic.hpp" />
     <ClInclude Include="common\type\buffer.hpp" />
     <ClInclude Include="common\type\doublebuffer.hpp" />
     <ClInclude Include="common\type\function.hpp" />
     <ClInclude Include="common\type\just.hpp" />
+    <ClInclude Include="common\type\quaternion.hpp" />
     <ClInclude Include="common\type\range.hpp" />
     <ClInclude Include="common\type\tuple.hpp" />
     <ClInclude Include="common\type.hpp" />
@@ -167,9 +169,9 @@
     <ClInclude Include="3d.hpp" />
     <ClInclude Include="feature\graphics\3d\context.hpp" />
     <ClInclude Include="feature\graphics\2d\pen.hpp" />
-    <ClInclude Include="feature\graphics\3d\drawable.hpp" />
-    <ClInclude Include="feature\graphics\3d\staticmesh.hpp" />
+    <ClInclude Include="feature\graphics\3d\mesh.hpp" />
     <ClInclude Include="feature\graphics\3d\geometry.hpp" />
+    <ClInclude Include="feature\graphics\3d\space.hpp" />
     <ClInclude Include="feature\graphics\target.hpp" />
     <ClInclude Include="crossant.hpp" />
     <ClInclude Include="feature\graphics\2d\brush.hpp" />

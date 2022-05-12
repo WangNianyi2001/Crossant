@@ -17,7 +17,7 @@ namespace Crossant::Graphics {
 		Impl *impl;
 
 		Target(Impl *impl);
-		Target(Size2D size);
+		Target(Size2D size = { 1, 1 });
 		~Target();
 
 		Size2D Size() const;

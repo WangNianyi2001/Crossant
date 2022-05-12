@@ -6,22 +6,19 @@
 #include <concepts>
 
 namespace Crossant::Graphics::Graphics3D {
+	struct Object;
+
 	struct Transform {
 		Transform *parent = nullptr;
 		Coord3D translation{ 0, 0, 0 };
 		Quaternion rotation{ 1, { 0, 0, 0 } };
 		Coord3D scalor{ 1, 1, 1 };
+		Object &object;
 
-		void Apply(Context &context) const {
-			if(parent != nullptr)
-				parent->Apply(context);
-			context.Translate(translation);
-			context.Rotate(rotation);
-			context.Scale(scalor);
-		}
+		Transform(Object &object) : object(object) {}
+
+		void Apply() const;
 	};
-
-	struct Object;
 
 	struct Space : Context {
 		std::set<Object *> objects;
@@ -41,7 +38,7 @@ namespace Crossant::Graphics::Graphics3D {
 		Transform transform;
 		std::set<Component *> components;
 
-		Object(Space &space) : space(space) {
+		Object(Space &space) : space(space), transform(*this) {
 			space.objects.insert(this);
 		}
 

@@ -97,5 +97,8 @@
     <ClCompile Include="common\event\listener.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="feature\graphics\3d\space.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

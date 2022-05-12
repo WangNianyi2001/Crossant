@@ -185,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\event\listener.hpp" />
+    <ClCompile Include="feature\graphics\3d\space.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

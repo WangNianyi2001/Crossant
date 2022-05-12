@@ -15,7 +15,7 @@ namespace Crossant::Graphics::Graphics3D {
 			Space &space = object.space;
 			space.SetMatrixMode(Space::MatrixMode::Space);
 			space.LoadIdentity();
-			object.transform.Apply(space);
+			object.transform.Apply();
 			space.SetDataArrayState(Context::DataType::Vertex, true);
 			space.SetDataArray(
 				Context::DataType::Vertex,

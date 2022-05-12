@@ -52,6 +52,7 @@ namespace Crossant::Graphics::Graphics3D {
 		// Transform
 		void Translate(Coord3D translation);
 		void Rotate(Float angle, Coord3D axis);
+		void Rotate(Quaternion quaternion);
 		void Scale(Coord3D scalor);
 
 		// Projection

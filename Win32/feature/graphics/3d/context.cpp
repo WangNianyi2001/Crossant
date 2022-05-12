@@ -1,6 +1,7 @@
 #include "context.hpp"
 #include "../target.hpp"
 #include "Win32/legacy.hpp"
+#include <cmath>
 
 using namespace Crossant::Graphics::Graphics3D;
 
@@ -123,6 +124,11 @@ void Context::Translate(Coord3D translation) {
 
 void Context::Rotate(Float angle, Coord3D axis) {
 	glRotatef(angle, axis[0], axis[1], axis[2]);
+}
+
+void Context::Rotate(Quaternion quaternion) {
+	Float const angle = std::acosf(quaternion.re) * 2;
+	Rotate(angle, quaternion.im * (1 / std::sinf(angle)));
 }
 
 void Context::Scale(Coord3D scalor) {

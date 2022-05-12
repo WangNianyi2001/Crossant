@@ -101,4 +101,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="feature\graphics\3d\mesh.cpp" />
+  </ItemGroup>
 </Project>

@@ -15,38 +15,12 @@ int Crossant::Main() {
 
 	float rot = 0;
 
-	StaticMesh cubeMesh;
-	cubeMesh.vertices = {
-		{ { 0, 0, 0 }, { 0, 0, 0 } },
-		{ { 1, 0, 0 }, { 1, 0, 0 } },
-		{ { 0, 1, 0 }, { 0, 1, 0 } },
-		{ { 1, 1, 0 }, { 1, 1, 0 } },
-		{ { 0, 0, 1 }, { 0, 0, 1 } },
-		{ { 1, 0, 1 }, { 1, 0, 1 } },
-		{ { 0, 1, 1 }, { 0, 1, 1 } },
-		{ { 1, 1, 1 }, { 1, 1, 1 } },
-	};
-	cubeMesh.indices = {
-		{ 1, 0, 2 },
-		{ 2, 3, 1 },
-		{ 0, 4, 6 },
-		{ 6, 2, 0 },
-		{ 4, 5, 7 },
-		{ 7, 6, 4 },
-		{ 5, 1, 3 },
-		{ 3, 7, 5 },
-		{ 6, 7, 3 },
-		{ 3, 2, 6 },
-		{ 4, 5, 1 },
-		{ 1, 0, 4 },
-	};
-
 	Object cube(space);
 	MeshFilter filter(cube);
 	MeshRenderer renderer(cube);
 
 	cube.transform.translation = { 0, 0, -4 };
-	filter.mesh = &cubeMesh;
+	filter.mesh = &StaticMesh::cube;
 	renderer.useAttributes.color = true;
 
 	window->Listen(EventType::Resize, [&](WindowEvent event) {

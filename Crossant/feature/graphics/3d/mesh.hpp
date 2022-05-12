@@ -15,8 +15,14 @@ namespace Crossant::Graphics::Graphics3D {
 	};
 
 	struct StaticMesh : Mesh {
+		static StaticMesh cube;
+
 		std::vector<Vertex> vertices;
 		std::vector<IndexedTriangle> indices;
+
+		StaticMesh() = default;
+		StaticMesh(std::vector<Vertex> const &vertices, std::vector<IndexedTriangle> const &indices) :
+			vertices(vertices), indices(indices) {}
 
 		virtual Vertex const *VertexHead() const override {
 			return &vertices[0];
@@ -27,7 +33,7 @@ namespace Crossant::Graphics::Graphics3D {
 		}
 
 		virtual unsigned IndexCount() const override {
-			return indices.size();
+			return (unsigned)indices.size();
 		}
 	};
 }

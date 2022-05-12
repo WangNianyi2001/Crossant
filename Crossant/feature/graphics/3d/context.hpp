@@ -70,7 +70,7 @@ namespace Crossant::Graphics::Graphics3D {
 			Color,
 			EdgeFlag,
 			Normal,
-			TextureCoord,
+			TexCoord,
 			Vertex
 		};
 		void SetDataArrayState(DataType type, bool enabled);

@@ -44,6 +44,7 @@ Context::~Context() {
 
 void Context::MakeCurrent() const {
 	wglMakeCurrent(impl->hDC, impl->hRC);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Context::OnResize() {
@@ -168,7 +169,7 @@ std::map<DT, int> dataTypeMap{
 	{ DT::Color, GL_COLOR_ARRAY },
 	{ DT::EdgeFlag, GL_EDGE_FLAG_ARRAY },
 	{ DT::Normal, GL_NORMAL_ARRAY },
-	{ DT::TextureCoord, GL_TEXTURE_COORD_ARRAY },
+	{ DT::TexCoord, GL_TEXTURE_COORD_ARRAY },
 	{ DT::Vertex, GL_VERTEX_ARRAY }
 };
 
@@ -192,7 +193,7 @@ void Context::SetDataArray(DT type, void const *data, unsigned stride, DUT datum
 	case DT::Normal:
 		glNormalPointer(dut, stride, data);
 		break;
-	case DT::TextureCoord:
+	case DT::TexCoord:
 		glTexCoordPointer(dimension, dut, stride, data);
 		break;
 	case DT::Vertex:

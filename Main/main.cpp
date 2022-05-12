@@ -17,14 +17,14 @@ int Crossant::Main() {
 
 	StaticMesh cubeMesh;
 	cubeMesh.vertices = {
-		{ { 0, 0, 0 } },
-		{ { 1, 0, 0 } },
-		{ { 0, 1, 0 } },
-		{ { 1, 1, 0 } },
-		{ { 0, 0, 1 } },
-		{ { 1, 0, 1 } },
-		{ { 0, 1, 1 } },
-		{ { 1, 1, 1 } },
+		{ { 0, 0, 0 }, { 0, 0, 0 } },
+		{ { 1, 0, 0 }, { 1, 0, 0 } },
+		{ { 0, 1, 0 }, { 0, 1, 0 } },
+		{ { 1, 1, 0 }, { 1, 1, 0 } },
+		{ { 0, 0, 1 }, { 0, 0, 1 } },
+		{ { 1, 0, 1 }, { 1, 0, 1 } },
+		{ { 0, 1, 1 }, { 0, 1, 1 } },
+		{ { 1, 1, 1 }, { 1, 1, 1 } },
 	};
 	cubeMesh.indices = {
 		{ 1, 0, 2 },
@@ -45,15 +45,15 @@ int Crossant::Main() {
 	MeshFilter filter(cube);
 	MeshRenderer renderer(cube);
 
-	filter.mesh = &cubeMesh;
 	cube.transform.translation = { 0, 0, -4 };
+	filter.mesh = &cubeMesh;
+	renderer.useAttributes.color = true;
 
 	window->Listen(EventType::Resize, [&](WindowEvent event) {
 		target.Resize(event.clientSize);
 	});
 	window->Listen(EventType::Draw, [&](WindowEvent) {
 		space.Clear({ Context::AttributeMask::ColorBuffer, Context::AttributeMask::DepthBuffer });
-		space.PolygonMode(Context::FaceType::Both, Context::FaceMode::Line);
 
 		renderer.Render();
 

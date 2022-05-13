@@ -2,7 +2,7 @@
 
 #include "../user.hpp"
 #include "../kernel.hpp"
-#include "Crossant/common/type.hpp"
+#include "Crossant/common/basic.hpp"
 
 namespace Crossant::Legacy {
 	struct PaintStruct;

@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Crossant/common/type.hpp"
-#include "Crossant/common/event/listener.hpp"
+#include "Crossant/common/listener.hpp"
 #include "graphics/context.hpp"
 #include <map>
 

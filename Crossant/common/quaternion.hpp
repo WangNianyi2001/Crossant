@@ -1,7 +1,6 @@
 #pragma once
 
 #include "basic.hpp"
-#include "vector.hpp"
 #include <cmath>
 
 namespace Crossant {

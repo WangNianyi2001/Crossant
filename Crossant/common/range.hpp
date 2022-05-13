@@ -1,5 +1,7 @@
 #pragma once
 
+#include "function.hpp"
+
 namespace Crossant {
 	template<typename Point>
 	struct Range {
@@ -33,6 +35,4 @@ namespace Crossant {
 			return max - min;
 		}
 	};
-
-	using RectRange = BoxRange<Coord2D>;
 }

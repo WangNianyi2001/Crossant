@@ -227,7 +227,7 @@ std::map<GT, int> geometryTypeMap{
 };
 
 void Context::DrawElements(GT type, std::vector<unsigned> &indices) {
-	glDrawElements(geometryTypeMap[type], indices.size(), datumTypeMap[DUT::UnsignedInt], &indices[0]);
+	glDrawElements(geometryTypeMap[type], (GLsizei)indices.size(), datumTypeMap[DUT::UnsignedInt], &indices[0]);
 }
 
 using FT = Context::FaceType;

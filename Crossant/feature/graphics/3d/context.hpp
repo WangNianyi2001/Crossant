@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Crossant/common/quaternion.hpp"
+#include "Crossant/common/range.hpp"
 #include "../context.hpp"
 #include "geometry.hpp"
 #include <initializer_list>

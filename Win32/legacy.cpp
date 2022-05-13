@@ -1,5 +1,4 @@
 #include "legacy.hpp"
-#include "Crossant/common/type.hpp"
 #include <Windows.h>
 
 using namespace Crossant::Legacy;

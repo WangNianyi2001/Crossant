@@ -1,8 +1,7 @@
 #pragma once
 
 #include "../legacy.hpp"
-#include "Crossant/common/event/listener.hpp"
-#include "Crossant/common/type.hpp"
+#include "Crossant/common/listener.hpp"
 
 namespace Crossant::Legacy {
 	struct UserObject : HandledObject {

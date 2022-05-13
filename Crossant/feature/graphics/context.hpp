@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Crossant/common/event/subscriber.hpp"
-#include "Crossant/common/type.hpp"
+#include "Crossant/common/subscriber.hpp"
 #include "target.hpp"
 
 namespace Crossant::Graphics {

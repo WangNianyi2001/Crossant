@@ -156,16 +156,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="common\hierarchy.hpp" />
-    <ClInclude Include="common\type\basic.hpp" />
-    <ClInclude Include="common\type\buffer.hpp" />
+    <ClInclude Include="common\basic.hpp" />
+    <ClInclude Include="common\buffer.hpp" />
     <ClInclude Include="common\type\doublebuffer.hpp" />
-    <ClInclude Include="common\type\function.hpp" />
-    <ClInclude Include="common\type\just.hpp" />
-    <ClInclude Include="common\type\quaternion.hpp" />
-    <ClInclude Include="common\type\range.hpp" />
-    <ClInclude Include="common\type\tuple.hpp" />
-    <ClInclude Include="common\type.hpp" />
-    <ClInclude Include="common\type\vector.hpp" />
+    <ClInclude Include="common\function.hpp" />
+    <ClInclude Include="common\just.hpp" />
+    <ClInclude Include="common\quaternion.hpp" />
+    <ClInclude Include="common\range.hpp" />
+    <ClInclude Include="common\tuple.hpp" />
+    <ClInclude Include="common\vector.hpp" />
     <ClInclude Include="feature\graphics\2d\context.hpp" />
     <ClInclude Include="feature\graphics\3d\space\component\meshfilter.hpp" />
     <ClInclude Include="feature\graphics\3d\space\component\meshrenderer.hpp" />
@@ -176,11 +175,11 @@
     <ClInclude Include="feature\graphics\target.hpp" />
     <ClInclude Include="feature\graphics\2d\brush.hpp" />
     <ClInclude Include="feature\graphics\context.hpp" />
-    <ClInclude Include="common\event\subscriber.hpp" />
+    <ClInclude Include="common\subscriber.hpp" />
     <ClInclude Include="feature\window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="common\event\listener.hpp" />
+    <ClCompile Include="common\listener.hpp" />
     <ClCompile Include="feature\graphics\3d\space\component\meshrenderer.cpp" />
     <ClCompile Include="feature\graphics\3d\geometry.cpp" />
     <ClCompile Include="feature\graphics\3d\space\space.cpp" />

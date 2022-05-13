@@ -2,7 +2,7 @@
 
 #include "../context.hpp"
 #include "Crossant/common/hierarchy.hpp"
-#include "Crossant/common/type/quaternion.hpp"
+#include "Crossant/common/quaternion.hpp"
 
 namespace Crossant::Graphics::Graphics3D {
 

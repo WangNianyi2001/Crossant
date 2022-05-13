@@ -151,9 +151,4 @@ namespace Crossant {
 			return std::sqrt(SquaredModule());
 		}
 	};
-
-	using Size2D = Vector<unsigned, 2>;
-	using Color = Vector<Float, 3>;
-	using Coord2D = Vector<Float, 2>;
-	using Coord3D = Vector<Float, 3>;
 }

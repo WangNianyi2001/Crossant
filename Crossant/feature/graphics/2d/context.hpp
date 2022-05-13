@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Crossant/common/buffer.hpp"
 #include "../context.hpp"
 #include "../target.hpp"
 #include "brush.hpp"

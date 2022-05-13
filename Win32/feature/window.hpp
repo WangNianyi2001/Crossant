@@ -12,15 +12,12 @@
 #endif
 
 namespace Crossant {
-	using Event = Legacy::Window::Event;
-	using Type = WindowEvent::Type;
-
 	struct Window::Impl {
 		static std::map<void *, Window *> map;
 
 		static std::map<
 			unsigned,
-			std::function<WindowEvent(Event)>
+			std::function<WindowEvent(Window *, Legacy::Window::Event)>
 		> conversion;
 
 		Legacy::Window *const legacy;

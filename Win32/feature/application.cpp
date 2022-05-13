@@ -33,7 +33,7 @@ __int64 __stdcall Crossant::MsgProc(
 		message, wParam, lParam
 	};
 	auto convert = Window::Impl::conversion[message];
-	window->Push(convert(legacyEvent));
+	window->Push(convert(window, legacyEvent));
 	return 0;
 }
 

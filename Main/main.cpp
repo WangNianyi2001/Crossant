@@ -24,7 +24,7 @@ int Crossant::Main() {
 	renderer.use[Vertex::Attribute::Color] = true;
 
 	window->Listen(EventType::Resize, [&](WindowEvent event) {
-		target.Resize(event.clientSize);
+		target.Resize(window->ClientRect().Diagonal());
 	});
 	window->Listen(EventType::Draw, [&](WindowEvent) {
 		space.Clear({ Context::AttributeMask::ColorBuffer, Context::AttributeMask::DepthBuffer });
@@ -34,9 +34,11 @@ int Crossant::Main() {
 		space.Finish();
 		target.DrawOn(window->graphicsTarget);
 	});
-	window->Listen(EventType::Update, [&](WindowEvent) {
-		rot += PI / 3000;
-		cube.transform.rotation = Quaternion::AxisAngle({ 1, 1, 1 }, rot);
+	window->Listen(EventType::MouseMove, [&](WindowEvent) {
+		cube.transform.rotation = Quaternion::AxisAngle(
+			{ 1, 1, 1 },
+			window->mouse.position[0] / 100
+		);
 		window->Repaint();
 	});
 	window->Listen(EventType::Close, [&](WindowEvent) {

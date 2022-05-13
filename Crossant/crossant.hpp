@@ -8,4 +8,3 @@ namespace Crossant {
 
 #include "feature/application.hpp"
 #include "feature/window.hpp"
-#include "feature/mouse.hpp"

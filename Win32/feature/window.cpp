@@ -4,47 +4,49 @@
 
 using namespace Crossant;
 
+using Event = Legacy::Window::Event;
+using Type = WindowEvent::Type;
+
 template<Type type>
-WindowEvent directEvent(Event) {
-	return WindowEvent{ type };
+WindowEvent directEvent(Window *window, Event) {
+	return WindowEvent{ window, type };
 }
 
 template<Type type>
-WindowEvent mouseEvent(Event legacy) {
-	WindowEvent event{ type };
-	event.mouse = Mouse{
-		.position = {
-			(Float)GET_X_LPARAM(legacy.l),
-			(Float)GET_Y_LPARAM(legacy.l),
-		}
+WindowEvent mouseEvent(Window *window, Event legacy) {
+	WindowEvent event = directEvent<type>(window, Event {});
+	window->mouse.position = {
+		(Float)GET_X_LPARAM(legacy.l),
+		(Float)GET_Y_LPARAM(legacy.l),
 	};
 	return event;
 }
 
-WindowEvent resizeEvent(Event legacy) {
-	Size2D size{
-		LOWORD(legacy.l),
-		HIWORD(legacy.l)
-	};
-	return WindowEvent{
-		.type = Type::Resize,
-		.clientSize = size
-	};
+using MB = Mouse::Button;
+
+template<Type type, MB button, bool clicked>
+WindowEvent mouseButtonEvent(Window *window, Event legacy) {
+	window->mouse.buttons[button] = clicked;
+	WindowEvent event = mouseEvent<type>(window, legacy);
+	event.mouseButton = button;
+	return event;
 }
 
 std::map<void *, Window *> Window::Impl::map{};
 
 std::map<
 	unsigned,
-	std::function<WindowEvent(Event)>
+	std::function<WindowEvent(Window *, Event)>
 > Window::Impl::conversion{
 	{ WM_CLOSE, &directEvent<Type::Close> },
-	{ WM_SIZE, &resizeEvent },
+	{ WM_SIZE, &directEvent<Type::Resize> },
 	{ WM_MOUSEMOVE, &mouseEvent<Type::MouseMove> },
-	{ WM_LBUTTONDOWN, &mouseEvent<Type::MouseDown> },
-	{ WM_LBUTTONUP, &mouseEvent<Type::MouseUp> },
-	{ WM_RBUTTONDOWN, &mouseEvent<Type::MouseDown> },
-	{ WM_RBUTTONUP, &mouseEvent<Type::MouseUp> },
+	{ WM_LBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Left, true> },
+	{ WM_LBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Left, false> },
+	{ WM_RBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Right, true> },
+	{ WM_RBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Right, false> },
+	{ WM_MBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Middle, true> },
+	{ WM_MBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Middle, false> },
 	{ WM_PAINT, &directEvent<Type::Draw> },
 };
 
@@ -85,7 +87,7 @@ bool Window::Alive() {
 }
 
 void Window::Live() {
-	Push(WindowEvent(Type::Update));
+	Push(WindowEvent{ this, Type::Update });
 	while(impl->legacy->ProcessEvent());
 }
 

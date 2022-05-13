@@ -26,9 +26,6 @@
     <ClInclude Include="common\type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\mouse.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="common\type\tuple.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

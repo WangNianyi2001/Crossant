@@ -2,10 +2,20 @@
 
 #include "Crossant/common/type.hpp"
 #include "Crossant/common/event/listener.hpp"
-#include "mouse.hpp"
 #include "graphics/context.hpp"
+#include <map>
 
 namespace Crossant {
+	struct Mouse {
+		enum struct Button : Byte {
+			Left, Middle, Right
+		};
+		std::map<Button, bool> buttons;
+		Coord2D position;
+	};
+	
+	struct Window;
+
 	struct WindowEvent {
 		enum struct Type {
 			// Life cycle
@@ -24,18 +34,21 @@ namespace Crossant {
 			Draw,
 		};
 
+		Window *window;
 		Type type;
-		Mouse mouse;
-		Size2D clientSize;
+		Mouse::Button mouseButton;
 	};
 
 	struct Application;
 
 	struct Window : Listener<WindowEvent::Type, WindowEvent> {
+		using Event = WindowEvent;
+
 		struct Impl;
 		Impl *impl;
 
 		Graphics::Target graphicsTarget;
+		Mouse mouse;
 
 		Window(Application &application);
 		virtual ~Window();

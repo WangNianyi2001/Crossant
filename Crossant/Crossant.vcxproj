@@ -179,7 +179,6 @@
     <ClInclude Include="feature\graphics\context.hpp" />
     <ClInclude Include="feature\application.hpp" />
     <ClInclude Include="common\event\subscriber.hpp" />
-    <ClInclude Include="feature\mouse.hpp" />
     <ClInclude Include="feature\window.hpp" />
   </ItemGroup>
   <ItemGroup>

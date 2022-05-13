@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../context.hpp"
+#include "geometry.hpp"
 #include <initializer_list>
 
 namespace Crossant::Graphics::Graphics3D {
@@ -9,7 +10,7 @@ namespace Crossant::Graphics::Graphics3D {
 		Impl *impl;
 
 		Context(Graphics::Target &target);
-		virtual ~Context() override;
+		virtual ~Context();
 
 		virtual void MakeCurrent() const override;
 		void OnResize() override;
@@ -61,22 +62,7 @@ namespace Crossant::Graphics::Graphics3D {
 		void SetPerspective(Float perspective);
 
 		// Data
-		enum struct DatumType : Byte {
-			Byte, UnsignedByte,
-			Short, UnsignedShort,
-			Int, UnsignedInt,
-			Float, Double,
-			Byte2, Byte3, Byte4,
-		};
-		enum struct DataType : Byte {
-			Color,
-			EdgeFlag,
-			Normal,
-			TexCoord,
-			Vertex
-		};
-		void SetDataArrayState(DataType type, bool enabled);
-		void SetDataArray(DataType type, void const* array, unsigned stride = 0, DatumType datumType = DatumType::Float, int dimension = 4);
+		void SetAttributeArray(Vertex::Attribute attibute, bool enabled, void const *data);
 
 		// Geometry
 		enum struct GeometryType : Byte {
@@ -85,7 +71,7 @@ namespace Crossant::Graphics::Graphics3D {
 			Triangles, TriangleStrip, TriangleFan,
 			Quads, QuadStrip, Polygon
 		};
-		void DrawElements(GeometryType type, unsigned count, unsigned const *indices = nullptr, DatumType datumType = DatumType::UnsignedInt);
+		void DrawElements(GeometryType type, std::vector<unsigned> &indices);
 		enum struct FaceType : Byte {
 			Front, Back, Both
 		};

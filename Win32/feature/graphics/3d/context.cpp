@@ -157,7 +157,7 @@ void Context::SetPerspective(Float perspective) {
 	SetMatrixMode(MM::Space);
 }
 
-using DUT = Context::DatumType;
+using DUT = Vertex::DatumType;
 std::map<DUT, int> datumTypeMap{
 	{ DUT::Byte, GL_BYTE },
 	{ DUT::UnsignedByte, GL_UNSIGNED_BYTE },
@@ -172,40 +172,42 @@ std::map<DUT, int> datumTypeMap{
 	{ DUT::Byte4, GL_4_BYTES },
 };
 
-using DT = Context::DataType;
-std::map<DT, int> dataTypeMap{
-	{ DT::Color, GL_COLOR_ARRAY },
-	{ DT::EdgeFlag, GL_EDGE_FLAG_ARRAY },
-	{ DT::Normal, GL_NORMAL_ARRAY },
-	{ DT::TexCoord, GL_TEXTURE_COORD_ARRAY },
-	{ DT::Vertex, GL_VERTEX_ARRAY }
+using AT = Vertex::Attribute;
+std::map<AT, int> dataTypeMap{
+	{ AT::Vertex, GL_VERTEX_ARRAY },
+	{ AT::Color, GL_COLOR_ARRAY },
+	{ AT::TexCoord, GL_TEXTURE_COORD_ARRAY },
+	{ AT::Normal, GL_NORMAL_ARRAY },
+	{ AT::EdgeFlag, GL_EDGE_FLAG_ARRAY },
 };
 
-void Context::SetDataArrayState(DT type, bool enabled) {
+void Context::SetAttributeArray(AT type, bool enabled, void const *data){
 	int cap = dataTypeMap[type];
 	if(enabled)
 		glEnableClientState(cap);
-	else
+	else {
 		glDisableClientState(cap);
-}
-
-void Context::SetDataArray(DT type, void const *data, unsigned stride, DUT datumType, int dimension) {
-	int dut = datumTypeMap[datumType];
+		return;
+	}
+	int dut = datumTypeMap[Vertex::typeMap[type]];
+	int dimension = Vertex::dimensionMap.contains(type) ? Vertex::dimensionMap[type] : 0;
+	unsigned stride = sizeof(Vertex);
+	data = (Byte const *)data + Vertex::offsetMap[type];
 	switch(type) {
-	case DT::Color:
+	case AT::Vertex:
+		glVertexPointer(dimension, dut, stride, data);
+		break;
+	case AT::Color:
 		glColorPointer(dimension, dut, stride, data);
 		break;
-	case DT::EdgeFlag:
-		glEdgeFlagPointer(stride, data);
-		break;
-	case DT::Normal:
-		glNormalPointer(dut, stride, data);
-		break;
-	case DT::TexCoord:
+	case AT::TexCoord:
 		glTexCoordPointer(dimension, dut, stride, data);
 		break;
-	case DT::Vertex:
-		glVertexPointer(dimension, dut, stride, data);
+	case AT::Normal:
+		glNormalPointer(dut, stride, data);
+		break;
+	case AT::EdgeFlag:
+		glEdgeFlagPointer(stride, data);
 		break;
 	}
 }
@@ -224,8 +226,8 @@ std::map<GT, int> geometryTypeMap{
 	{ GT::Polygon, GL_POLYGON }
 };
 
-void Context::DrawElements(GT type, unsigned count, unsigned const *indices, DUT datumType) {
-	glDrawElements(geometryTypeMap[type], count, datumTypeMap[datumType], indices);
+void Context::DrawElements(GT type, std::vector<unsigned> &indices) {
+	glDrawElements(geometryTypeMap[type], indices.size(), datumTypeMap[DUT::UnsignedInt], &indices[0]);
 }
 
 using FT = Context::FaceType;

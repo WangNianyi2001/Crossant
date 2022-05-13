@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../space.hpp"
-#include "../mesh.hpp"
+#include "../geometry.hpp"
 
 namespace Crossant::Graphics::Graphics3D {
 	struct MeshFilter : Component {

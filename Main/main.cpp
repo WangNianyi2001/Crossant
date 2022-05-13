@@ -21,7 +21,7 @@ int Crossant::Main() {
 
 	cube.transform.translation = { 0, 0, -4 };
 	filter.mesh = &Mesh::cube;
-	renderer.useAttributes.color = true;
+	renderer.use[Vertex::Attribute::Color] = true;
 
 	window->Listen(EventType::Resize, [&](WindowEvent event) {
 		target.Resize(event.clientSize);

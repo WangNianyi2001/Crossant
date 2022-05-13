@@ -111,6 +111,14 @@ void Context::Clear(std::initializer_list<AM> attributes) {
 	glClear(mask);
 }
 
+void Context::PopMatrix() {
+	glPopMatrix();
+}
+
+void Context::PushMatrix() {
+	glPushMatrix();
+}
+
 void Context::SetMatrixMode(MatrixMode mode) {
 	glMatrixMode(matrixModeMap[mode]);
 }

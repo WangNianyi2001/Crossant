@@ -21,7 +21,7 @@ namespace Crossant::Graphics::Graphics3D {
 			Mesh const *const mesh = filter->mesh;
 			Space &space = object.space;
 			space.SetMatrixMode(Space::MatrixMode::Space);
-			// TODO: Push matrix
+			space.PushMatrix();
 			space.LoadIdentity();
 			object.transform.Apply();
 			// Set pointer of data arrays
@@ -75,7 +75,7 @@ namespace Crossant::Graphics::Graphics3D {
 				(unsigned)(mesh->indices.size() * mesh->TriangleVertexCount),
 				(unsigned *)&mesh->indices[0]
 			);
-			// TODO: Pop matrix
+			space.PopMatrix();
 		}
 	};
 }

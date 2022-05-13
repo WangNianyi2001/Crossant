@@ -41,6 +41,8 @@ namespace Crossant::Graphics::Graphics3D {
 		void Clear(std::initializer_list<AttributeMask> attributes);
 
 		// Matrix
+		void PopMatrix();
+		void PushMatrix();
 		enum struct MatrixMode : Byte {
 			Projection,
 			Space,

@@ -6,6 +6,8 @@
 #include <map>
 
 namespace Crossant {
+	int Main();
+
 	struct Mouse {
 		enum struct Button : Byte {
 			Left, Middle, Right
@@ -50,7 +52,7 @@ namespace Crossant {
 		Graphics::Target graphicsTarget;
 		Mouse mouse;
 
-		Window(Application &application);
+		Window();
 		virtual ~Window();
 
 		// Life cycle

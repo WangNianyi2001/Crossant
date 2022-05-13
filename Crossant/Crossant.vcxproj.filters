@@ -14,9 +14,6 @@
     <ClInclude Include="feature\graphics\context.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\application.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="feature\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

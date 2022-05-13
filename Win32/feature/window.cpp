@@ -1,8 +1,45 @@
 #include "window.hpp"
-#include "application.hpp"
 #include "graphics/target.hpp"
 
 using namespace Crossant;
+
+static Legacy::Window::Class *windowClass;
+static Legacy::ModuleInstance *instance;
+
+__int64 __stdcall MsgProc(
+	void *hWnd, unsigned int message,
+	unsigned __int64 wParam, __int64 lParam
+) {
+	if(!Window::Impl::map.contains(hWnd))
+		return DefWindowProc((HWND)hWnd, message, wParam, lParam);
+	Window *window = Window::Impl::map[hWnd];
+	if(!Window::Impl::conversion.contains(message)) {
+		Legacy::Window::Event legacy(message, wParam, lParam);
+		return window->impl->legacy->DefProc(legacy);
+	}
+	Legacy::Window::Event legacyEvent{
+		message, wParam, lParam
+	};
+	auto convert = Window::Impl::conversion[message];
+	window->Push(convert(window, legacyEvent));
+	return 0;
+}
+
+#pragma warning(push)
+#pragma warning(disable: 28251)
+INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
+	instance = new Legacy::ModuleInstance(hInst);
+	windowClass = new Legacy::Window::Class(
+		Legacy::Window::Class::Info{
+			.process = &MsgProc,
+			.instance = instance,
+			.className = String(L"Window"),
+		}
+	);
+	return Main();
+}
+#pragma warning(pop)
+
 
 using Event = Legacy::Window::Event;
 using Type = WindowEvent::Type;
@@ -51,8 +88,7 @@ std::map<
 };
 
 
-static Window::Impl *makeImpl(Application &application) {
-	auto windowClass = application.impl->windowClass;
+static Window::Impl *makeImpl() {
 	return new Window::Impl{
 		.legacy = new Legacy::Window({
 			.windowClass = windowClass,
@@ -69,13 +105,13 @@ static Graphics::Target::Impl *makeTargetImpl(Window &window) {
 	return new Graphics::Target::Impl(*dc, size);
 }
 
-Window::Window(Application &application) :
-	impl(makeImpl(application)),
+Window::Window() : impl(makeImpl()),
 	graphicsTarget{ makeTargetImpl(*this) } {
 	Impl::map[impl->legacy->handle] = this;
 	Listen(Type::Draw, [&](WindowEvent) {
 		impl->legacy->Validate();
 	});
+	HWND hWnd = impl->legacy->GetHandle<HWND>();
 }
 
 Window::~Window() {

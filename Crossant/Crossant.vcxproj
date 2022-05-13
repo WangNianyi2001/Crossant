@@ -177,7 +177,6 @@
     <ClInclude Include="crossant.hpp" />
     <ClInclude Include="feature\graphics\2d\brush.hpp" />
     <ClInclude Include="feature\graphics\context.hpp" />
-    <ClInclude Include="feature\application.hpp" />
     <ClInclude Include="common\event\subscriber.hpp" />
     <ClInclude Include="feature\window.hpp" />
   </ItemGroup>

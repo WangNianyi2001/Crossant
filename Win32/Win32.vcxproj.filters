@@ -30,9 +30,6 @@
     <ClCompile Include="legacy\gdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="feature\application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="legacy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature\application.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\graphics\2d\brush.hpp">

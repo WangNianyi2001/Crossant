@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="feature\application.cpp" />
     <ClCompile Include="feature\graphics\2d\brush.cpp" />
     <ClCompile Include="feature\graphics\context.cpp" />
     <ClCompile Include="feature\graphics\2d\context.cpp" />
@@ -162,7 +161,6 @@
     <ClCompile Include="feature\window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="feature\application.hpp" />
     <ClInclude Include="feature\graphics\2d\brush.hpp" />
     <ClInclude Include="feature\graphics\2d\context.hpp" />
     <ClInclude Include="feature\graphics\3d\context.hpp" />

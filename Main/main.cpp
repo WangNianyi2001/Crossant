@@ -4,7 +4,7 @@ using namespace Crossant;
 using namespace Crossant::Graphics::Graphics3D;
 
 int Crossant::Main() {
-	Window *window = Application::current->CreateWindow();
+	Window window;
 
 	using EventType = WindowEvent::Type;
 
@@ -23,29 +23,29 @@ int Crossant::Main() {
 	filter.mesh = &Mesh::cube;
 	renderer.use[Vertex::Attribute::Color] = true;
 
-	window->Listen(EventType::Resize, [&](WindowEvent event) {
-		target.Resize(window->ClientRect().Diagonal());
+	window.Listen(EventType::Resize, [&](WindowEvent event) {
+		target.Resize(window.ClientRect().Diagonal());
 	});
-	window->Listen(EventType::Draw, [&](WindowEvent) {
+	window.Listen(EventType::Draw, [&](WindowEvent) {
 		space.Clear({ Context::AttributeMask::ColorBuffer, Context::AttributeMask::DepthBuffer });
 
 		renderer.Render();
 
 		space.Finish();
-		target.DrawOn(window->graphicsTarget);
+		target.DrawOn(window.graphicsTarget);
 	});
-	window->Listen(EventType::MouseMove, [&](WindowEvent) {
+	window.Listen(EventType::MouseMove, [&](WindowEvent) {
 		cube.transform.rotation = Quaternion::AxisAngle(
 			{ 1, 1, 1 },
-			window->mouse.position[0] / 100
+			window.mouse.position[0] / 100
 		);
-		window->Repaint();
+		window.Repaint();
 	});
-	window->Listen(EventType::Close, [&](WindowEvent) {
-		window->Kill();
+	window.Listen(EventType::Close, [&](WindowEvent) {
+		window.Kill();
 	});
 
-	window->Show();
-	for(; window->Alive(); window->Live());
+	window.Show();
+	for(; window.Alive(); window.Live());
 	return 0;
 }

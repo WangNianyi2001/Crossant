@@ -20,7 +20,7 @@ int Crossant::Main() {
 	MeshRenderer renderer(cube);
 
 	cube.transform.translation = { 0, 0, -4 };
-	filter.mesh = &StaticMesh::cube;
+	filter.mesh = &Mesh::cube;
 	renderer.useAttributes.color = true;
 
 	window->Listen(EventType::Resize, [&](WindowEvent event) {

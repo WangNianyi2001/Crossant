@@ -9,31 +9,34 @@ namespace Crossant::Graphics::Graphics3D {
 		using VertexIndex = unsigned;
 		using IndexedTriangle = Crossant::Vector<VertexIndex, TriangleVertexCount>;
 
-		virtual Vertex const *VertexHead() const = 0;
-		virtual VertexIndex const *IndexHead() const = 0;
-		virtual unsigned IndexCount() const = 0;
-	};
-
-	struct StaticMesh : Mesh {
-		static StaticMesh cube;
+		static Mesh cube;
 
 		std::vector<Vertex> vertices;
 		std::vector<IndexedTriangle> indices;
 
-		StaticMesh() = default;
-		StaticMesh(std::vector<Vertex> const &vertices, std::vector<IndexedTriangle> const &indices) :
+		Mesh() = default;
+		Mesh(std::vector<Vertex> const &vertices, std::vector<IndexedTriangle> const &indices) :
 			vertices(vertices), indices(indices) {}
+	};
 
-		virtual Vertex const *VertexHead() const override {
-			return &vertices[0];
-		}
-
-		virtual VertexIndex const *IndexHead() const override {
-			return (VertexIndex *)&indices[0];
-		}
-
-		virtual unsigned IndexCount() const override {
-			return (unsigned)indices.size();
+	Mesh Mesh::cube{
+		{
+			{ { 0, 0, 0 }, { 0, 0, 0 } },
+			{ { 1, 0, 0 }, { 1, 0, 0 } },
+			{ { 0, 1, 0 }, { 0, 1, 0 } },
+			{ { 1, 1, 0 }, { 1, 1, 0 } },
+			{ { 0, 0, 1 }, { 0, 0, 1 } },
+			{ { 1, 0, 1 }, { 1, 0, 1 } },
+			{ { 0, 1, 1 }, { 0, 1, 1 } },
+			{ { 1, 1, 1 }, { 1, 1, 1 } },
+		},
+		{
+			{ 1, 0, 2 }, { 2, 3, 1 },
+			{ 0, 4, 6 }, { 6, 2, 0 },
+			{ 4, 5, 7 }, { 7, 6, 4 },
+			{ 5, 1, 3 }, { 3, 7, 5 },
+			{ 6, 7, 3 }, { 3, 2, 6 },
+			{ 4, 5, 1 }, { 1, 0, 4 },
 		}
 	};
 }

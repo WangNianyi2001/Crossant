@@ -28,7 +28,7 @@ namespace Crossant::Graphics::Graphics3D {
 			space.SetDataArrayState(Context::DataType::Vertex, true);
 			space.SetDataArray(
 				Context::DataType::Vertex,
-				mesh->VertexHead(),
+				&mesh->vertices[0],
 				sizeof(Vertex),
 				Context::DatumType::Float,
 				3
@@ -37,7 +37,7 @@ namespace Crossant::Graphics::Graphics3D {
 			if(useAttributes.color) {
 				space.SetDataArray(
 					Context::DataType::Color,
-					&mesh->VertexHead()->color,
+					&mesh->vertices[0].color,
 					sizeof(Vertex),
 					Context::DatumType::Float,
 					3
@@ -47,7 +47,7 @@ namespace Crossant::Graphics::Graphics3D {
 			if(useAttributes.texCoord) {
 				space.SetDataArray(
 					Context::DataType::TexCoord,
-					&mesh->VertexHead()->texCoord,
+					&mesh->vertices[0].texCoord,
 					sizeof(Vertex),
 					Context::DatumType::Float,
 					2
@@ -57,7 +57,7 @@ namespace Crossant::Graphics::Graphics3D {
 			if(useAttributes.normal) {
 				space.SetDataArray(
 					Context::DataType::Normal,
-					&mesh->VertexHead()->normal,
+					&mesh->vertices[0].normal,
 					sizeof(Vertex)
 				);
 			}
@@ -65,15 +65,15 @@ namespace Crossant::Graphics::Graphics3D {
 			if(useAttributes.edgeFlag) {
 				space.SetDataArray(
 					Context::DataType::EdgeFlag,
-					&mesh->VertexHead()->edgeFlag,
+					&mesh->vertices[0].edgeFlag,
 					sizeof(Vertex)
 				);
 			}
 			// Draw
 			space.DrawElements(
 				Context::GeometryType::Triangles,
-				mesh->IndexCount() * mesh->TriangleVertexCount,
-				mesh->IndexHead()
+				(unsigned)(mesh->indices.size() * mesh->TriangleVertexCount),
+				(unsigned *)&mesh->indices[0]
 			);
 			// TODO: Pop matrix
 		}

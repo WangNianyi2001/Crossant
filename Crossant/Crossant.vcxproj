@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="common\hierarchy.hpp" />
     <ClInclude Include="common\type\basic.hpp" />
     <ClInclude Include="common\type\buffer.hpp" />
     <ClInclude Include="common\type\doublebuffer.hpp" />
@@ -166,15 +167,13 @@
     <ClInclude Include="common\type.hpp" />
     <ClInclude Include="common\type\vector.hpp" />
     <ClInclude Include="feature\graphics\2d\context.hpp" />
-    <ClInclude Include="3d.hpp" />
-    <ClInclude Include="feature\graphics\3d\component\meshfilter.hpp" />
-    <ClInclude Include="feature\graphics\3d\component\meshrenderer.hpp" />
+    <ClInclude Include="feature\graphics\3d\space\component\meshfilter.hpp" />
+    <ClInclude Include="feature\graphics\3d\space\component\meshrenderer.hpp" />
     <ClInclude Include="feature\graphics\3d\context.hpp" />
     <ClInclude Include="feature\graphics\2d\pen.hpp" />
     <ClInclude Include="feature\graphics\3d\geometry.hpp" />
-    <ClInclude Include="feature\graphics\3d\space.hpp" />
+    <ClInclude Include="feature\graphics\3d\space\space.hpp" />
     <ClInclude Include="feature\graphics\target.hpp" />
-    <ClInclude Include="crossant.hpp" />
     <ClInclude Include="feature\graphics\2d\brush.hpp" />
     <ClInclude Include="feature\graphics\context.hpp" />
     <ClInclude Include="common\event\subscriber.hpp" />
@@ -182,9 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\event\listener.hpp" />
-    <ClCompile Include="feature\graphics\3d\component\meshrenderer.cpp" />
+    <ClCompile Include="feature\graphics\3d\space\component\meshrenderer.cpp" />
     <ClCompile Include="feature\graphics\3d\geometry.cpp" />
-    <ClCompile Include="feature\graphics\3d\space.cpp" />
+    <ClCompile Include="feature\graphics\3d\space\space.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

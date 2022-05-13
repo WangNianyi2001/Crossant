@@ -1,4 +1,6 @@
-#include "Crossant/3d.hpp"
+#include "Crossant/feature/window.hpp"
+#include "Crossant/feature/graphics/3d/space/space.hpp"
+#include "Crossant/feature/graphics/3d/space/component/meshrenderer.hpp"
 
 using namespace Crossant;
 using namespace Crossant::Graphics::Graphics3D;

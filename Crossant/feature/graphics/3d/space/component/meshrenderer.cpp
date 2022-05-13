@@ -16,15 +16,15 @@ MeshRenderer::MeshRenderer(Object &object) :
 	Component(object), use(useTemplate) {}
 
 void MeshRenderer::Render() {
-	MeshFilter *const filter = object.GetComponentOfType<MeshFilter>();
+	MeshFilter *const filter = parent.GetComponentOfType<MeshFilter>();
 	if(filter == nullptr || filter->mesh == nullptr)
 		return;
 	Mesh const *const mesh = filter->mesh;
-	Space &space = object.space;
+	Space &space = parent.parent;
 	space.SetMatrixMode(Space::MatrixMode::Space);
 	space.PushMatrix();
 	space.LoadIdentity();
-	object.transform.Apply();
+	parent.transform.Apply();
 	for(auto pair : use)
 		space.SetAttributeArray(pair.first, pair.second, &mesh->vertices[0]);
 	space.DrawElements(Context::GeometryType::Triangles, (std::vector<unsigned> &)mesh->indices);

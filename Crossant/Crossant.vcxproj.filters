@@ -35,9 +35,6 @@
     <ClInclude Include="common\type\range.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="crossant.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="feature\graphics\2d\brush.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -65,10 +62,7 @@
     <ClInclude Include="feature\graphics\3d\geometry.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="3d.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature\graphics\3d\space.hpp">
+    <ClInclude Include="feature\graphics\3d\space\space.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common\type\quaternion.hpp">
@@ -77,10 +71,13 @@
     <ClInclude Include="common\type\basic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\component\meshfilter.hpp">
+    <ClInclude Include="feature\graphics\3d\space\component\meshfilter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\component\meshrenderer.hpp">
+    <ClInclude Include="feature\graphics\3d\space\component\meshrenderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\hierarchy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -88,13 +85,13 @@
     <ClCompile Include="common\event\listener.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="feature\graphics\3d\space.cpp">
+    <ClCompile Include="feature\graphics\3d\space\space.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="feature\graphics\3d\geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="feature\graphics\3d\component\meshrenderer.cpp">
+    <ClCompile Include="feature\graphics\3d\space\component\meshrenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -41,17 +41,17 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 #pragma warning(pop)
 
 
-using Event = Legacy::Window::Event;
-using Type = WindowEvent::Type;
+using LegacyEvent = Legacy::Window::Event;
+using Type = Window::Event::Type;
 
 template<Type type>
-WindowEvent directEvent(Window *window, Event) {
-	return WindowEvent{ window, type };
+Window::Event directEvent(Window * window, LegacyEvent) {
+	return Window::Event{ window, type };
 }
 
 template<Type type>
-WindowEvent mouseEvent(Window *window, Event legacy) {
-	WindowEvent event = directEvent<type>(window, Event {});
+Window::Event mouseEvent(Window *window, LegacyEvent legacy) {
+	Window::Event event = directEvent<type>(window, LegacyEvent {});
 	window->mouse.position = {
 		(Float)GET_X_LPARAM(legacy.l),
 		(Float)GET_Y_LPARAM(legacy.l),
@@ -62,9 +62,9 @@ WindowEvent mouseEvent(Window *window, Event legacy) {
 using MB = Mouse::Button;
 
 template<Type type, MB button, bool clicked>
-WindowEvent mouseButtonEvent(Window *window, Event legacy) {
+Window::Event mouseButtonEvent(Window *window, LegacyEvent legacy) {
 	window->mouse.buttons[button] = clicked;
-	WindowEvent event = mouseEvent<type>(window, legacy);
+	Window::Event event = mouseEvent<type>(window, legacy);
 	event.mouseButton = button;
 	return event;
 }
@@ -73,7 +73,7 @@ std::map<void *, Window *> Window::Impl::map{};
 
 std::map<
 	unsigned,
-	std::function<WindowEvent(Window *, Event)>
+	std::function<Window::Event(Window *, LegacyEvent)>
 > Window::Impl::conversion{
 	{ WM_CLOSE, &directEvent<Type::Close> },
 	{ WM_SIZE, &directEvent<Type::Resize> },
@@ -98,20 +98,22 @@ static Window::Impl *makeImpl() {
 	};
 }
 
-static Graphics::Target::Impl *makeTargetImpl(Window &window) {
-	auto hdc = GetDC(window.impl->legacy->GetHandle<HWND>());
+static Graphics::Target::Impl *makeTargetImpl(Window *window) {
+	HDC hdc = GetDC(window->impl->legacy->GetHandle<HWND>());
 	auto dc = new Legacy::DeviceContext(hdc);
-	auto size = (Size2D)window.ClientRect().Diagonal();
+	auto size = (Size2D)window->ClientRect().Diagonal();
 	return new Graphics::Target::Impl(*dc, size);
 }
 
-Window::Window() : impl(makeImpl()),
-	graphicsTarget{ makeTargetImpl(*this) } {
-	Impl::map[impl->legacy->handle] = this;
-	Listen(Type::Draw, [&](WindowEvent) {
+Window::Window() : impl(makeImpl()) {
+	Listen(Type::Resize, [&](Event) {
+		delete graphicsTarget.impl;
+		graphicsTarget.impl = makeTargetImpl(this);
+	});
+	Listen(Type::Draw, [&](Event) {
 		impl->legacy->Validate();
 	});
-	HWND hWnd = impl->legacy->GetHandle<HWND>();
+	Impl::map[impl->legacy->handle] = this;
 }
 
 Window::~Window() {
@@ -123,7 +125,7 @@ bool Window::Alive() {
 }
 
 void Window::Live() {
-	Push(WindowEvent{ this, Type::Update });
+	Push(Window::Event{ this, Type::Update });
 	while(impl->legacy->ProcessEvent());
 }
 

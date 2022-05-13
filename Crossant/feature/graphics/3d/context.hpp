@@ -4,7 +4,6 @@
 #include "Crossant/common/range.hpp"
 #include "../context.hpp"
 #include "geometry.hpp"
-#include <initializer_list>
 
 namespace Crossant::Graphics::Graphics3D {
 	struct Context : Graphics::Context {
@@ -41,7 +40,7 @@ namespace Crossant::Graphics::Graphics3D {
 			Texture,
 			Scissor
 		};
-		void Clear(std::initializer_list<AttributeMask> attributes);
+		void Clear(AttributeMask attribute);
 
 		// Matrix
 		void PopMatrix();

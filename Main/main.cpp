@@ -29,7 +29,8 @@ int Crossant::Main() {
 		target.Resize(window.ClientRect().Diagonal());
 	});
 	window.Listen(EventType::Draw, [&](WindowEvent) {
-		space.Clear({ Context::AttributeMask::ColorBuffer, Context::AttributeMask::DepthBuffer });
+		space.Clear(Context::AttributeMask::ColorBuffer);
+		space.Clear(Context::AttributeMask::DepthBuffer);
 
 		renderer.Render();
 

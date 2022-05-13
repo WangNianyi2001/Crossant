@@ -57,8 +57,6 @@ void Context::OnResize() {
 	int format = ChoosePixelFormat(impl->hDC, &descriptor);
 	if(format == 0)
 		Legacy::TryThrowLastError();
-	else
-		Legacy::ResolveLastError();
 	SetPixelFormat(impl->hDC, format, &descriptor);
 	impl->hRC = wglCreateContext(impl->hDC);
 	if(!impl->hRC)
@@ -104,11 +102,8 @@ std::map<AM, int> attributeMaskMap{
 	{ AM::Scissor, GL_SCISSOR_BIT }
 };
 
-void Context::Clear(std::initializer_list<AM> attributes) {
-	int mask = 0;
-	for(AM attribute : attributes)
-		mask |= attributeMaskMap[attribute];
-	glClear(mask);
+void Context::Clear(AM attribute) {
+	glClear(attributeMaskMap[attribute]);
 }
 
 void Context::PopMatrix() {

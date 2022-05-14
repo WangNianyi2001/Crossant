@@ -1,5 +1,6 @@
 #include "window.hpp"
 #include "graphics/target.hpp"
+#include "keyboard.hpp"
 
 using namespace Crossant;
 
@@ -47,7 +48,7 @@ Window::Event directEvent(Window * window, LegacyEvent) {
 template<Type type>
 Window::Event mouseEvent(Window *window, LegacyEvent legacy) {
 	Window::Event event = directEvent<type>(window, LegacyEvent {});
-	window->mouse.position = {
+	Mouse::position = {
 		(Float)GET_X_LPARAM(legacy.l),
 		(Float)GET_Y_LPARAM(legacy.l),
 	};
@@ -56,11 +57,17 @@ Window::Event mouseEvent(Window *window, LegacyEvent legacy) {
 
 using MB = Mouse::Button;
 
-template<Type type, MB button, bool clicked>
+template<Type type, MB button>
 Window::Event mouseButtonEvent(Window *window, LegacyEvent legacy) {
-	window->mouse.buttons[button] = clicked;
 	Window::Event event = mouseEvent<type>(window, legacy);
 	event.mouseButton = button;
+	return event;
+}
+
+template<Type type>
+Window::Event keyboardEvent(Window *window, LegacyEvent legacy) {
+	Window::Event event = mouseEvent<type>(window, legacy);
+	event.key = VKToKey((Byte)legacy.w);
 	return event;
 }
 
@@ -80,12 +87,14 @@ std::map<
 		return Window::Event{ window, Type::Resize };
 	} },
 	{ WM_MOUSEMOVE, &mouseEvent<Type::MouseMove> },
-	{ WM_LBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Left, true> },
-	{ WM_LBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Left, false> },
-	{ WM_RBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Right, true> },
-	{ WM_RBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Right, false> },
-	{ WM_MBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Middle, true> },
-	{ WM_MBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Middle, false> },
+	{ WM_LBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Left> },
+	{ WM_LBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Left> },
+	{ WM_RBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Right> },
+	{ WM_RBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Right> },
+	{ WM_MBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Middle> },
+	{ WM_MBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Middle> },
+	{ WM_KEYDOWN, &keyboardEvent<Type::KeyDown> },
+	{ WM_KEYUP, &keyboardEvent<Type::KeyUp> },
 	{ WM_PAINT, [](Window *window, LegacyEvent) {
 		window->impl->legacy->Validate();
 		return Window::Event{ window, Type::Draw };

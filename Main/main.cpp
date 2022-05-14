@@ -9,7 +9,8 @@ using namespace Crossant::Graphics::Graphics3D;
 int Crossant::Main() {
 	Window window;
 
-	using EventType = WindowEvent::Type;
+	using WE = Window::Event;
+	using EventType = WE::Type;
 
 	Graphics::Target target;
 	auto space = Space(target);
@@ -28,10 +29,10 @@ int Crossant::Main() {
 	filter.mesh = &Mesh::cube;
 	renderer.use[Vertex::Attribute::Color] = true;
 
-	window.Listen(EventType::Resize, [&](WindowEvent event) {
+	window.Listen(EventType::Resize, [&](WE event) {
 		target.Resize(window.ClientRect().Diagonal());
 	});
-	window.Listen(EventType::Draw, [&](WindowEvent) {
+	window.Listen(EventType::Draw, [&](WE) {
 		space.Clear(Context::AttributeMask::ColorBuffer);
 		space.Clear(Context::AttributeMask::DepthBuffer);
 
@@ -40,15 +41,18 @@ int Crossant::Main() {
 		space.Finish();
 		target.DrawOn(window.graphicsTarget);
 	});
-	window.Listen(EventType::MouseMove, [&](WindowEvent) {
-		Coord2D mouse = window.mouse.position / window.graphicsTarget.Size();
+	window.Listen(EventType::Update, [&](WE e) {
+		bool down = Mouse::Pressed(e.mouseButton);
+		window.Repaint();
+	});
+	window.Listen(EventType::MouseMove, [&](WE) {
+		Coord2D mouse = Mouse::position / window.graphicsTarget.Size();
 		mouse = mouse - Coord2D{ .5f, .5f };
 		cameraObj.transform.rotation = Quaternion::Euler({
 			-mouse[1], mouse[0], 0
 		});
-		window.Repaint();
 	});
-	window.Listen(EventType::Close, [&](WindowEvent) {
+	window.Listen(EventType::Close, [&](WE) {
 		window.Kill();
 	});
 

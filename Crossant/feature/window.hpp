@@ -25,6 +25,8 @@ namespace Crossant {
 			MouseUp,
 
 			// Keyboard
+			KeyDown,
+			KeyUp,
 
 			// Visual
 			Draw,
@@ -33,6 +35,7 @@ namespace Crossant {
 		Window *window;
 		Type type;
 		Mouse::Button mouseButton;
+		Keyboard::Key key;
 	};
 
 	struct Window : Listener<WindowEvent::Type, WindowEvent> {
@@ -42,7 +45,6 @@ namespace Crossant {
 		Impl *impl;
 
 		Graphics::Target graphicsTarget;
-		Mouse mouse;
 
 		Window();
 		virtual ~Window();

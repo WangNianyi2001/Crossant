@@ -1,19 +1,12 @@
 #pragma once
 
 #include "Crossant/common/listener.hpp"
+#include "mouse.hpp"
+#include "keyboard.hpp"
 #include "graphics/context.hpp"
-#include <map>
 
 namespace Crossant {
 	int Main();
-
-	struct Mouse {
-		enum struct Button : Byte {
-			Left, Middle, Right
-		};
-		std::map<Button, bool> buttons;
-		Coord2D position;
-	};
 	
 	struct Window;
 
@@ -31,6 +24,8 @@ namespace Crossant {
 			MouseDown,
 			MouseUp,
 
+			// Keyboard
+
 			// Visual
 			Draw,
 		};
@@ -39,8 +34,6 @@ namespace Crossant {
 		Type type;
 		Mouse::Button mouseButton;
 	};
-
-	struct Application;
 
 	struct Window : Listener<WindowEvent::Type, WindowEvent> {
 		using Event = WindowEvent;

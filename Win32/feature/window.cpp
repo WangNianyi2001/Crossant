@@ -3,9 +3,6 @@
 
 using namespace Crossant;
 
-static Legacy::Window::Class *windowClass;
-static Legacy::ModuleInstance *instance;
-
 __int64 __stdcall MsgProc(
 	void *hWnd, unsigned int message,
 	unsigned __int64 wParam, __int64 lParam
@@ -39,7 +36,6 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 	return Main();
 }
 #pragma warning(pop)
-
 
 using LegacyEvent = Legacy::Window::Event;
 using Type = Window::Event::Type;
@@ -76,7 +72,14 @@ std::map<
 	std::function<Window::Event(Window *, LegacyEvent)>
 > Window::Impl::conversion{
 	{ WM_CLOSE, &directEvent<Type::Close> },
-	{ WM_SIZE, &directEvent<Type::Resize> },
+	{ WM_SIZE, [](Window *window, LegacyEvent) {
+		delete window->graphicsTarget.impl;
+		HDC hdc = GetDC(window->impl->legacy->GetHandle<HWND>());
+		auto dc = new Legacy::DeviceContext(hdc);
+		auto size = (Size2D)window->ClientRect().Diagonal();
+		window->graphicsTarget.impl = new Graphics::Target::Impl(*dc, size);
+		return Window::Event{ window, Type::Resize };
+	} },
 	{ WM_MOUSEMOVE, &mouseEvent<Type::MouseMove> },
 	{ WM_LBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Left, true> },
 	{ WM_LBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Left, false> },
@@ -84,35 +87,20 @@ std::map<
 	{ WM_RBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Right, false> },
 	{ WM_MBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Middle, true> },
 	{ WM_MBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Middle, false> },
-	{ WM_PAINT, &directEvent<Type::Draw> },
+	{ WM_PAINT, [](Window *window, LegacyEvent) {
+		window->impl->legacy->Validate();
+		return Window::Event{ window, Type::Draw };
+	}},
 };
 
-
-static Window::Impl *makeImpl() {
-	return new Window::Impl{
+Window::Window() {
+	impl = new Window::Impl{
 		.legacy = new Legacy::Window({
 			.windowClass = windowClass,
 			.instance = windowClass->info.instance,
 		}),
 		.alive = true
 	};
-}
-
-static Graphics::Target::Impl *makeTargetImpl(Window *window) {
-	HDC hdc = GetDC(window->impl->legacy->GetHandle<HWND>());
-	auto dc = new Legacy::DeviceContext(hdc);
-	auto size = (Size2D)window->ClientRect().Diagonal();
-	return new Graphics::Target::Impl(*dc, size);
-}
-
-Window::Window() : impl(makeImpl()) {
-	Listen(Type::Resize, [&](Event) {
-		delete graphicsTarget.impl;
-		graphicsTarget.impl = makeTargetImpl(this);
-	});
-	Listen(Type::Draw, [&](Event) {
-		impl->legacy->Validate();
-	});
 	Impl::map[impl->legacy->handle] = this;
 }
 

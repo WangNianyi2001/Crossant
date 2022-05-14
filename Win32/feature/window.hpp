@@ -12,6 +12,9 @@
 #endif
 
 namespace Crossant {
+	static Legacy::Window::Class *windowClass;
+	static Legacy::ModuleInstance *instance;
+
 	struct Window::Impl {
 		static std::map<void *, Window *> map;
 

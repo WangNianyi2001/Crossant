@@ -47,13 +47,6 @@ int Crossant::Main() {
 		controller.Update();
 		window.Repaint();
 	});
-	window.Listen(EventType::MouseMove, [&](WE) {
-		Coord2D mouse = Mouse::position / window.graphicsTarget.Size();
-		mouse = mouse - Coord2D{ .5f, .5f };
-		cameraObj.transform.rotation = Quaternion::Euler({
-			-mouse[1], mouse[0], 0
-		});
-	});
 	window.Listen(EventType::Close, [&](WE) {
 		window.Kill();
 	});

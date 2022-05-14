@@ -66,7 +66,7 @@ Window::Event mouseButtonEvent(Window *window, LegacyEvent legacy) {
 
 template<Type type>
 Window::Event keyboardEvent(Window *window, LegacyEvent legacy) {
-	Window::Event event = mouseEvent<type>(window, legacy);
+	Window::Event event = directEvent<type>(window, legacy);
 	event.key = VKToKey((Byte)legacy.w);
 	return event;
 }

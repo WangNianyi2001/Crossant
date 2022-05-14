@@ -13,6 +13,14 @@ namespace Crossant {
 			return { std::cosf(angle), axis * (std::sinf(angle) / axis.Module()) };
 		}
 
+		static Quaternion Euler(Coord3D euler) {
+			Quaternion
+				y{ euler[1], { 0, 1, 0 } },
+				x{ euler[0], { 1, 0, 0 } },
+				z{ euler[2], { 0, 0, 1 } };
+			return y * x * z;
+		}
+
 		Float Module() const {
 			return std::sqrtf(re * re + im.SquaredModule());
 		}

@@ -1,76 +1,66 @@
 #pragma once
 
+#include <algorithm>
+#include <functional>
+
 namespace Crossant {
 	template<typename Ret, typename ...Args>
 	struct Function {
-		virtual Ret operator()(Args const &...arguments) const = 0;
+		virtual Ret operator()(Args ...arguments) const = 0;
 	};
 
-	template<typename To, typename From>
-	struct TypeConverter : Function<To, From> {
-		virtual To operator()(From const &value) const override {
-			return (To)value;
+	template<typename Ret, typename ...Args>
+	struct FunctionRef : Function<Ret, Args...> {
+		std::function<Ret(Args ...)> ref;
+
+		FunctionRef(std::function<Ret(Args ...)> const &ref) : ref(ref) {}
+
+		virtual Ret operator()(Args ...arguments) const override {
+			return ref(arguments...);
 		}
 	};
 
-#pragma region BinaryOperator
-	template<typename Ret, typename A = Ret, typename B = A>
-	using BinaryOperator = Function<Ret, A, B>;
+	struct Operator {
+#define DefBiOp(name, type, ret, expr)\
+	static inline FunctionRef<ret, type, type> const name{ expr }
+#define DefLambdaBiOp(name, type, ret, expr) DefBiOp(name, type, ret, [](type a, type b) { return expr; })
+#define TempHead template<typename T>
+#define DefTempBiOp(name, ret, expr) TempHead DefLambdaBiOp(name, T, ret, expr)
 
-#define BINARY_OPERATOR(name, expr)\
-	template<typename Ret, typename A = Ret, typename B = A>\
-	struct name : BinaryOperator<A, B> {\
-		virtual Ret operator()(A const &a, B const &b) const {\
-			return (expr);\
-		}\
-	}
-	BINARY_OPERATOR(Plus, a + b);
-	BINARY_OPERATOR(Minus, a - b);
-	BINARY_OPERATOR(Multiply, a * b);
-	BINARY_OPERATOR(Divide, a / b);
-	BINARY_OPERATOR(Max, a > b ? a : b);
-	BINARY_OPERATOR(Min, a < b ? a : b);
-#undef BINARY_OPERATOR
-#pragma endregion
+#define DefBiArith(name, op) DefTempBiOp(name, T, a op b)
+		DefBiArith(plus, +);
+		DefBiArith(minus, -);
+		DefBiArith(multiply, *);
+		DefBiArith(divide, / );
+#undef DefBiArith
 
-#pragma region BinaryRelation
-	template<typename Type>
-	using BinaryRelation = Function<bool, Type, Type>;
+		template<typename T, typename Pow = unsigned>
+		static inline FunctionRef<T, T, Pow> const power{ [](T base, Pow pow) {
+			return (T)std::pow(T, pow);
+		} };
+		TempHead static inline FunctionRef<T, T> const inverse{ [](T x) { return 1 / x; } };
+		TempHead static inline FunctionRef<T, T> const square{ [](T x) { return x * x; } };
 
-#define BINARY_RELATION(name, expr)\
-	template<typename Type>\
-	struct name : BinaryRelation<Type> {\
-		virtual bool operator()(Type const &a, Type const &b) const {\
-			return (expr);\
-		}\
-	}
-	BINARY_RELATION(Equal, a == b);
-	BINARY_RELATION(Inequal, a != b);
-	BINARY_RELATION(Less, a < b);
-	BINARY_RELATION(Greater, a > b);
-	BINARY_RELATION(LessEqual, a <= b);
-	BINARY_RELATION(GreaterEqual, a >= b);
-#undef BINARY_RELATION
-#pragma endregion
+		TempHead DefLambdaBiOp(min, T, T, std::min(a, b));
+		TempHead DefLambdaBiOp(max, T, T, std::max(a, b));
 
-#pragma region Folder
-	template<typename Ret, typename Type = Ret>
-	struct Folder : Function<Ret, Type, Type> {
-		Ret const unit;
+#define DefBiComp(name, op) DefTempBiOp(name, bool, a op b)
+		DefBiComp(equal, == );
+		DefBiComp(inequal, != );
+		DefBiComp(less, < );
+		DefBiComp(greater, > );
+		DefBiComp(lessEqual, <= );
+		DefBiComp(greaterEqual, >= );
+#undef DefBiComp
 
-		Folder(Ret unit) : unit(unit) {}
+#define DefLogicComp(name, op) DefLambdaBiOp(name, bool, bool, a op b)
+		DefLogicComp(logicAnd, &&);
+		DefLogicComp(logicOr, || );
+#undef DefLogicComp
+
+#undef DefTempBiOp
+#undef TempHead
+#undef DefLambdaBiOp
+#undef DefBiOp
 	};
-
-#define FOLDER(name, op, def)\
-	template<typename Ret, typename Type>\
-	struct name : Folder<Ret, Type> {\
-		name() : Folder<Ret, Type>(def) {}\
-		virtual Ret operator()(Type const &a, Type const &b) const{\
-			return a op b;\
-		}\
-	}
-	FOLDER(And, &&, true);
-	FOLDER(Or, || , false);
-#undef FOLDER
-#pragma endregion
 }

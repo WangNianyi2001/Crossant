@@ -13,9 +13,7 @@ namespace Crossant::Graphics::Graphics2D {
 		static std::map<Join, int> joinMap;
 
 		struct Getter : Function<Legacy::GDIObject *, Pen *> {
-			virtual Legacy::GDIObject *operator()(
-				Pen *const &pen
-				) const override {
+			inline virtual Legacy::GDIObject *	operator()(Pen *pen) const override {
 				return pen->impl->pen;
 			}
 		};

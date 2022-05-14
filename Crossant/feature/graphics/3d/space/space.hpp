@@ -3,9 +3,9 @@
 #include "../context.hpp"
 #include "Crossant/common/hierarchy.hpp"
 #include "Crossant/common/quaternion.hpp"
+#include <set>
 
 namespace Crossant::Graphics::Graphics3D {
-
 	struct Space;
 	struct Object;
 	struct Component;
@@ -25,6 +25,7 @@ namespace Crossant::Graphics::Graphics3D {
 			Transform(Object &object) : object(object) {}
 
 			void Apply() const;
+			void ApplyInverse() const;
 		};
 
 		Transform transform;
@@ -32,13 +33,24 @@ namespace Crossant::Graphics::Graphics3D {
 		Object(Space &space) : ChildHierarchy(space), transform(*this) {}
 
 		template<std::derived_from<Component> T>
-		T *GetComponentOfType() {
+		T *ComponentOf() {
 			for(Component *component : children) {
 				T *p = dynamic_cast<T *>(component);
 				if(p != nullptr)
 					return p;
 			}
 			return nullptr;
+		}
+
+		template<std::derived_from<Component> T>
+		std::set<T *> ComponentsOf() {
+			std::set<T *> components;
+			for(Component *component : children) {
+				T *p = dynamic_cast<T *>(component);
+				if(p != nullptr)
+					components.insert((T *)component);
+			}
+			return components;
 		}
 	};
 
@@ -50,6 +62,17 @@ namespace Crossant::Graphics::Graphics3D {
 		virtual ~Space() {
 			while(!objects.empty())
 				delete *objects.begin();
+		}
+
+		template<std::derived_from<Component> T>
+		std::set<T *> ComponentsOf() {
+			std::set<T *> result;
+			auto it = result.begin();
+			for(Object *object : children) {
+				auto components = object->ComponentsOf<T>();
+				result.insert(components.begin(), components.end());
+			}
+			return result;
 		}
 	};
 }

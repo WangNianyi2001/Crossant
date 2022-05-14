@@ -1,0 +1,38 @@
+#include "camera.hpp"
+#include "meshrenderer.hpp"
+
+using namespace Crossant::Graphics::Graphics3D;
+
+void Camera::Render() {
+	Space &space = parent.parent;
+	space.MakeCurrent();
+
+	// Push projection
+	space.SetMatrixMode(Space::MatrixMode::Projection);
+	space.PushMatrix();
+
+	// Overwrite projection
+	space.LoadIdentity();
+	auto size = space.target.Size();
+	float aspect = (float)size[0] / size[1];
+	space.Perspective(fov, aspect, .1f, 1e2);
+
+	// Push space
+	space.SetMatrixMode(Space::MatrixMode::Space);
+	space.PushMatrix();
+
+	// Overwrite space
+	space.LoadIdentity();
+	parent.transform.ApplyInverse();
+
+	// Render
+	for(MeshRenderer *renderer : space.ComponentsOf<MeshRenderer>())
+		renderer->Render();
+
+	// Restore space
+	space.PopMatrix();
+
+	// Restore projection
+	space.SetMatrixMode(Space::MatrixMode::Projection);
+	space.PopMatrix();
+}

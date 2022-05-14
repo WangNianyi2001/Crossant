@@ -19,11 +19,9 @@ namespace Crossant {
 				return;
 			auto it = list.begin();
 			min = max = *it;
-			Min<Point const &> const minOp{};
-			Max<Point const &> const maxOp{};
 			for(; it != list.end(); ++it) {
-				min = minOp(min, *it);
-				max = maxOp(max, *it);
+				min = Operator::min<Point>(min, *it);
+				max = Operator::max<Point>(max, *it);
 			}
 		}
 

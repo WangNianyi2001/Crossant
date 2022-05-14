@@ -1,6 +1,7 @@
 #pragma once
 
 #include "function.hpp"
+#include "tuple.hpp"
 #include <concepts>
 #include <initializer_list>
 #include <algorithm>
@@ -20,10 +21,13 @@ namespace Crossant {
 			for(unsigned i = 0; i < dimension; ++i)
 				components[i] = vector[i];
 		}
-		template<typename _Component>
-		Vector(Vector<_Component, dimension> const &vector) {
-			for(unsigned i = 0; i < dimension; ++i)
+		template<typename From, unsigned d>
+		Vector(Vector<From, d> const &vector) {
+			unsigned i = 0;
+			for(; i < dimension && i < d; ++i)
 				components[i] = (Component)vector[i];
+			for(; i < dimension; ++i)
+				components[i] = (Component)0;
 		}
 #pragma warning(suppress: 26495)
 		Vector(std::initializer_list<Component> list) {
@@ -34,21 +38,8 @@ namespace Crossant {
 				components[i] = component;
 				++i;
 			}
-		}
-
-		// Conversion
-
-		template<
-			typename Target,
-			std::derived_from<Function<Target, Component>> Converter
-				= TypeConverter<Target, Component>
-		>
-		Vector<Target, dimension> Convert() const {
-			Vector<Target, dimension> res;
-			Converter convert{};
-			for(unsigned i = 0; i < dimension; ++i)
-				res[i] = convert(operator[](i));
-			return res;
+			for(; i < dimension; ++i)
+				components[i] = (Component)0;
 		}
 
 		// Component
@@ -60,95 +51,110 @@ namespace Crossant {
 			return components[index];
 		}
 
-		// Comparison
+		// General operation
 
-		template<
-			std::derived_from<BinaryRelation<Component>> Comparator,
-			std::derived_from<Folder<bool, Component>> Folder
-				= And<bool, Component>
-		> static bool Compare(Vector const &a, Vector const &b) {
-			Comparator comp = Comparator();
-			Folder fold = Folder();
-			bool result = fold.unit;
-			for(unsigned index = 0; index < dimension; ++index)
-				result = fold(result, comp(a[index], b[index]));
+		template<typename To = Component>
+		Vector<To, dimension> Operate(Function<To, Component> const &op) const {
+			Vector<To, dimension> result;
+			for(unsigned i = 0; i < dimension; ++i)
+				result[i] = op(operator[](i));
+			return result;
+		}
+		template<typename To = Component, typename With = Component>
+		Vector<To, dimension> Operate(Function<To, Component, With> const &op, Vector<With, dimension> const &v) const {
+			Vector<To, dimension> result;
+			for(unsigned i = 0; i < dimension; ++i)
+				result[i] = op(operator[](i), v[i]);
+			return result;
+		}
+		template<typename To = Component>
+		inline Vector<To, dimension> Operate(Function<To, Component, Component> const &op, Vector const &v) const {
+			return Operate<To, Component>(op, v);
+		}
+		inline Vector Operate(Function<Component, Component, Component> const &op, Vector const &v) const {
+			return Operate<Component, Component>(op, v);
+		}
+		template<typename To = Component, typename With = Component>
+		Vector<To, dimension> Operate(Function<To, Component, With> const &op, With const &with) const {
+			Vector<To, dimension> result;
+			for(unsigned i = 0; i < dimension; ++i)
+				result[i] = op(operator[](i), with);
 			return result;
 		}
 
-		inline bool operator==(Vector const &vector) const {
-			return Compare<Equal<Component>>(*this, vector);
+		template<typename Ret = Component>
+		Ret Fold(Function<Ret, Component, Component> const &fold, Ret unit) const {
+			for(unsigned i = 0; i < dimension; ++i)
+				unit = fold(unit, operator[](i));
+			return unit;
 		}
-		inline bool operator!=(Vector const &vector) const {
-			return Compare<
-				Inequal<Component>,
-				Or<bool, Component>
-			>(*this, vector);
+
+		// Attribute
+
+		inline Component SquaredModule() const {
+			return Operate(Operator::square<Component>).Fold<Component>(Operator::plus<Component>, 0);
 		}
-		inline bool operator<(Vector const &vector) const {
-			return Compare<Less<Component>>(*this, vector);
-		}
-		inline bool operator>(Vector const &vector) const {
-			return Compare<Greater<Component>>(*this, vector);
-		}
-		inline bool operator<=(Vector const &vector) const {
-			return Compare<LessEqual<Component>>(*this, vector);
-		}
-		inline bool operator>=(Vector const &vector) const {
-			return Compare<GreaterEqual<Component>>(*this, vector);
+		inline Component Module() const {
+			return std::sqrt(SquaredModule());
 		}
 
 		// Arithmetic
 
-		template<std::derived_from<BinaryOperator<Component>> Operator>
-		static Vector Arithmetic(Vector const &a, Vector const &b) {
-			Operator op{};
-			Vector res;
-			for(unsigned i = 0; i < dimension; ++i)
-				res[i] = op(a[i], b[i]);
-			return res;
+		inline Vector operator+(Vector const &v) const {
+			return Operate(Operator::plus<Component>, v);
 		}
-		template<
-			typename Scalor,
-			std::derived_from<BinaryOperator<Component, Scalor>> Operator
-		>
-		static Vector Arithmetic(Vector const &v, Scalor const &s) {
-			Operator op{};
-			Vector res;
-			for(unsigned i = 0; i < dimension; ++i)
-				res[i] = op(v[i], s);
-			return res;
+		inline Vector operator-(Vector const &v) const {
+			return Operate(Operator::minus<Component>, v);
 		}
-
-		inline Vector operator+(Vector const &vector) const {
-			return Arithmetic<Plus<Component>>(*this, vector);
+		inline Vector operator*(Component s) const {
+			return Operate(Operator::multiply<Component>, s);
 		}
-		inline Vector operator-(Vector const &vector) const {
-			return Arithmetic<Minus<Component>>(*this, vector);
+		inline Vector operator/(Component s) const {
+			return Operate(Operator::divide<Component>, s);
 		}
-		inline Vector operator*(Component const &scalor) const {
-			return Arithmetic<Component, Multiply<Component, Component, Component>>(*this, scalor);
+		inline Vector operator*(Vector const &v) const {
+			return Operate(Operator::multiply<Component>, v);
 		}
-		inline Vector operator/(Component const &scalor) const {
-			return Arithmetic<Component, Divide<Component, Component, Component>>(*this, scalor);
+		inline Vector operator/(Vector const &v) const {
+			return Operate(Operator::divide<Component>, v);
 		}
-		inline Vector Max(Vector const &vector) const {
-			return Arithmetic<Max<Component>>(*this, vector);
+		inline Vector Min(Vector const &v) const {
+			return Operate(Operator::min<Component>, v);
 		}
-		inline Vector Min(Vector const &vector) const {
-			return Arithmetic<Min<Component>>(*this, vector);
+		inline Vector Max(Vector const &v) const {
+			return Operate(Operator::max<Component>, v);
+		}
+		inline Vector Inverse() const {
+			return Operate(Operator::inverse<Component>);
 		}
 
-		Component SquaredModule() const {
-			Component sum = 0;
-			for(unsigned i = 0; i < dimension; ++i) {
-				Component const component = operator[](i);
-				sum += component * component;
-			}
-			return sum;
+		// Comparison
+
+		bool Compare(
+			Function<bool, Component, Component> const &op,
+			Function<bool, bool, bool> const &folder,
+			Vector const &v, bool unit = true
+		) const {
+			return Operate<bool, Component>(op, v).Fold<bool>(folder, unit);
 		}
 
-		inline Component Module() const {
-			return std::sqrt(SquaredModule());
+		inline bool operator==(Vector const &v) const {
+			return Compare(Operator::equal<Component>, Operator::logicAnd, v);
+		}
+		inline bool operator!=(Vector const &v) const {
+			return Compare(Operator::inequal<Component>, Operator::logicOr, v);
+		}
+		inline bool operator<(Vector const &v) const {
+			return Compare(Operator::less<Component>, Operator::logicAnd, v);
+		}
+		inline bool operator>(Vector const &v) const {
+			return Compare(Operator::greater<Component>, Operator::logicAnd, v);
+		}
+		inline bool operator<=(Vector const &v) const {
+			return Compare(Operator::lessEqual<Component>, Operator::logicAnd, v);
+		}
+		inline bool operator>=(Vector const &v) const {
+			return Compare(Operator::greaterEqual<Component>, Operator::logicAnd, v);
 		}
 	};
 }

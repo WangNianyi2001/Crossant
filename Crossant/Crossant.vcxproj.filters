@@ -77,6 +77,9 @@
     <ClInclude Include="common\hierarchy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="feature\graphics\3d\space\component\camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\listener.hpp">
@@ -89,6 +92,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="feature\graphics\3d\space\component\meshrenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="feature\graphics\3d\space\component\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

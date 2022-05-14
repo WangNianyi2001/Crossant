@@ -64,7 +64,6 @@ void Context::OnResize() {
 	MakeCurrent();
 	auto size = target.Size();
 	glViewport(0, 0, size[0], size[1]);
-	SetPerspective(impl->perspective);
 }
 
 using MM = Context::MatrixMode;
@@ -142,15 +141,15 @@ void Context::Scale(Coord3D const &scalor) {
 	glScalef(scalor[0], scalor[1], scalor[2]);
 }
 
-void Context::SetPerspective(Float perspective) {
-	impl->perspective = perspective;
-	SetMatrixMode(MM::Projection);
-	LoadIdentity();
-	auto &size = target.impl->size;
-	GLdouble aspect = (GLdouble)size[0] / size[1];
-	gluPerspective(perspective, aspect, .1, 1e2);
-	SetMatrixMode(MM::Space);
+#pragma push_macro("near")
+#pragma push_macro("far")
+#undef near
+#undef far
+void Context::Perspective(Float fov, Float aspect, Float near, Float far) {
+	gluPerspective(fov, aspect, near, far);
 }
+#pragma pop_macro("far")
+#pragma pop_macro("near")
 
 using DUT = Vertex::DatumType;
 std::map<DUT, int> datumTypeMap{

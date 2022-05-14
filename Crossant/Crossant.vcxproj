@@ -166,6 +166,7 @@
     <ClInclude Include="common\tuple.hpp" />
     <ClInclude Include="common\vector.hpp" />
     <ClInclude Include="feature\graphics\2d\context.hpp" />
+    <ClInclude Include="feature\graphics\3d\space\component\camera.hpp" />
     <ClInclude Include="feature\graphics\3d\space\component\meshfilter.hpp" />
     <ClInclude Include="feature\graphics\3d\space\component\meshrenderer.hpp" />
     <ClInclude Include="feature\graphics\3d\context.hpp" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\listener.hpp" />
+    <ClCompile Include="feature\graphics\3d\space\component\camera.cpp" />
     <ClCompile Include="feature\graphics\3d\space\component\meshrenderer.cpp" />
     <ClCompile Include="feature\graphics\3d\geometry.cpp" />
     <ClCompile Include="feature\graphics\3d\space\space.cpp" />

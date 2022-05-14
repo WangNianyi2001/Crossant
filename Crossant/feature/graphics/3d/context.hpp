@@ -59,8 +59,8 @@ namespace Crossant::Graphics::Graphics3D {
 		void Rotate(Quaternion const &quaternion);
 		void Scale(Coord3D const &scalor);
 
-		// Projection
-		void SetPerspective(Float perspective);
+		// Viewport
+		void Perspective(Float fov, Float aspect, Float near, Float far);
 
 		// Data
 		void SetAttributeArray(Vertex::Attribute attibute, bool enabled, void const *data);

@@ -8,9 +8,7 @@ namespace Crossant::Graphics::Graphics2D {
 		Legacy::Brush *brush;
 
 		struct Getter : Function<Legacy::GDIObject *, Brush *> {
-			virtual Legacy::GDIObject *operator()(
-				Brush *const &brush
-				) const override {
+			inline virtual Legacy::GDIObject *operator()(Brush *brush) const override {
 				return brush->impl->brush;
 			}
 		};

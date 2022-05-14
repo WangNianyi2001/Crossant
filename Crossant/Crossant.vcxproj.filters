@@ -56,28 +56,13 @@
     <ClInclude Include="feature\graphics\target.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\geometry.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature\graphics\3d\space\space.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="common\quaternion.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common\basic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\space\component\meshfilter.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature\graphics\3d\space\component\meshrenderer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="common\hierarchy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature\graphics\3d\space\component\camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\mouse.hpp">
@@ -86,21 +71,15 @@
     <ClInclude Include="feature\keyboard.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="feature\graphics\3d\geometry.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\listener.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="feature\graphics\3d\space\space.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="feature\graphics\3d\geometry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="feature\graphics\3d\space\component\meshrenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="feature\graphics\3d\space\component\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

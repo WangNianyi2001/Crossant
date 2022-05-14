@@ -10,16 +10,15 @@ __int64 __stdcall MsgProc(
 	if(!Window::Impl::map.contains(hWnd))
 		return DefWindowProc((HWND)hWnd, message, wParam, lParam);
 	Window *window = Window::Impl::map[hWnd];
-	if(!Window::Impl::conversion.contains(message)) {
-		Legacy::Window::Event legacy(message, wParam, lParam);
-		return window->impl->legacy->DefProc(legacy);
+	if(Window::Impl::conversion.contains(message)) {
+		Legacy::Window::Event legacyEvent{
+			message, wParam, lParam
+		};
+		auto convert = Window::Impl::conversion[message];
+		window->Push(convert(window, legacyEvent));
 	}
-	Legacy::Window::Event legacyEvent{
-		message, wParam, lParam
-	};
-	auto convert = Window::Impl::conversion[message];
-	window->Push(convert(window, legacyEvent));
-	return 0;
+	Legacy::Window::Event legacy(message, wParam, lParam);
+	return window->impl->legacy->DefProc(legacy);
 }
 
 #pragma warning(push)

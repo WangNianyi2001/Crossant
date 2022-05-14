@@ -24,6 +24,9 @@
     <ClCompile Include="space.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="component\thirdpersoncontroller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="component\camera.hpp">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="space.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="component\thirdpersoncontroller.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

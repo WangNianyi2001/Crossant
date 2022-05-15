@@ -1,7 +1,6 @@
 #pragma once
 
-#include "function.hpp"
-#include "tuple.hpp"
+#include <functional>
 #include <concepts>
 #include <initializer_list>
 #include <algorithm>
@@ -23,8 +22,8 @@ namespace Crossant {
 		}
 		template<typename From, unsigned d>
 		Vector(Vector<From, d> const &vector) {
-			unsigned i = 0;
-			for(; i < dimension && i < d; ++i)
+			unsigned i = 0, lim = std::min(dimension, d);
+			for(; i < lim; ++i)
 				components[i] = (Component)vector[i];
 			for(; i < dimension; ++i)
 				components[i] = (Component)0;
@@ -54,28 +53,28 @@ namespace Crossant {
 		// General operation
 
 		template<typename To = Component>
-		Vector<To, dimension> Operate(Function<To, Component> const &op) const {
+		Vector<To, dimension> Operate(std::function<To(Component)> const &op) const {
 			Vector<To, dimension> result;
 			for(unsigned i = 0; i < dimension; ++i)
 				result[i] = op(operator[](i));
 			return result;
 		}
 		template<typename To = Component, typename With = Component>
-		Vector<To, dimension> Operate(Function<To, Component, With> const &op, Vector<With, dimension> const &v) const {
+		Vector<To, dimension> Operate(std::function<To(Component, With)> const &op, Vector<With, dimension> const &v) const {
 			Vector<To, dimension> result;
 			for(unsigned i = 0; i < dimension; ++i)
 				result[i] = op(operator[](i), v[i]);
 			return result;
 		}
 		template<typename To = Component>
-		inline Vector<To, dimension> Operate(Function<To, Component, Component> const &op, Vector const &v) const {
+		inline Vector<To, dimension> Operate(std::function<To(Component, Component)> const &op, Vector const &v) const {
 			return Operate<To, Component>(op, v);
 		}
-		inline Vector Operate(Function<Component, Component, Component> const &op, Vector const &v) const {
+		inline Vector Operate(std::function<Component(Component, Component)> const &op, Vector const &v) const {
 			return Operate<Component, Component>(op, v);
 		}
 		template<typename To = Component, typename With = Component>
-		Vector<To, dimension> Operate(Function<To, Component, With> const &op, With const &with) const {
+		Vector<To, dimension> Operate(std::function<To(Component, With)> const &op, With const &with) const {
 			Vector<To, dimension> result;
 			for(unsigned i = 0; i < dimension; ++i)
 				result[i] = op(operator[](i), with);
@@ -83,7 +82,7 @@ namespace Crossant {
 		}
 
 		template<typename Ret = Component>
-		Ret Fold(Function<Ret, Component, Component> const &fold, Ret unit) const {
+		Ret Fold(std::function<Ret(Component, Component)> const &fold, Ret unit) const {
 			for(unsigned i = 0; i < dimension; ++i)
 				unit = fold(unit, operator[](i));
 			return unit;
@@ -131,8 +130,8 @@ namespace Crossant {
 		// Comparison
 
 		bool Compare(
-			Function<bool, Component, Component> const &op,
-			Function<bool, bool, bool> const &folder,
+			std::function<bool(Component, Component)> const &op,
+			std::function<bool(bool, bool)> const &folder,
 			Vector const &v, bool unit = true
 		) const {
 			return Operate<bool, Component>(op, v).Fold<bool>(folder, unit);

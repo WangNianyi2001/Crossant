@@ -6,10 +6,8 @@
 #include "pen.hpp"
 
 namespace Crossant::Graphics::Graphics2D {
-	template<
-		typename T,
-		std::derived_from<Function<Legacy::GDIObject *, T>> Getter
-	> struct GraphicsObjectBuffer : DoubleBuffer<T> {
+	template<typename T, typename Getter>
+	struct GraphicsObjectBuffer : DoubleBuffer<T> {
 		Context &gc;
 
 		GraphicsObjectBuffer(Context &gc) : gc(gc) {}

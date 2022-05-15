@@ -14,10 +14,12 @@ namespace Crossant {
 		}
 
 		static Quaternion Euler(Coord3D euler) {
+			Coord3D cos = euler.Operate<Float>(std::cosf),
+				sin = euler.Operate<Float>(std::sinf);
 			Quaternion
-				y{ euler[1], { 0, 1, 0 } },
-				x{ euler[0], { 1, 0, 0 } },
-				z{ euler[2], { 0, 0, 1 } };
+				y{ cos[1], { 0, sin[1], 0 } },
+				x{ cos[0], { sin[0], 0, 0 } },
+				z{ cos[2], { 0, 0, sin[2] } };
 			return y * x * z;
 		}
 
@@ -43,11 +45,11 @@ namespace Crossant {
 		}
 
 		inline Quaternion Invert() const {
-			return Quaternion{ re, im * -1 } * (1 / Module());
+			return Quaternion{ re, im * -1 } *(1 / Module());
 		}
 
 		inline Coord3D operator*(Coord3D const &coord) const {
-			return (operator*(Quaternion{ 1, coord }) * Invert()).im ;
+			return (operator*(Quaternion{ 1, coord }) * Invert()).im;
 		}
 	};
 }

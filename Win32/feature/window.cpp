@@ -37,6 +37,17 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 }
 #pragma warning(pop)
 
+void CentralizeCursor(Window &window) {
+	Legacy::Window *const legacy = window.impl->legacy;
+	auto clientSize = legacy->info.clientRect.Diagonal();
+	Vector<int, 2> clientPos = clientSize / 2;
+	POINT point{ (LONG)clientPos[0], (LONG)clientPos[1] };
+	ClientToScreen(legacy->GetHandle<HWND>(), &point);
+	Vector<int, 2> screenPos{ point.x, point.y };
+	legacy->SetCursorPos(screenPos);
+	Mouse::position = clientPos;
+}
+
 using LegacyEvent = Legacy::Window::Event;
 using Type = Window::Event::Type;
 
@@ -45,21 +56,11 @@ Window::Event directEvent(Window * window, LegacyEvent) {
 	return Window::Event{ window, type };
 }
 
-template<Type type>
-Window::Event mouseEvent(Window *window, LegacyEvent legacy) {
-	Window::Event event = directEvent<type>(window, LegacyEvent {});
-	Mouse::position = {
-		(Float)GET_X_LPARAM(legacy.l),
-		(Float)GET_Y_LPARAM(legacy.l),
-	};
-	return event;
-}
-
 using MB = Mouse::Button;
 
 template<Type type, MB button>
 Window::Event mouseButtonEvent(Window *window, LegacyEvent legacy) {
-	Window::Event event = mouseEvent<type>(window, legacy);
+	Window::Event event = directEvent<type>(window, legacy);
 	event.mouseButton = button;
 	return event;
 }
@@ -86,7 +87,19 @@ std::map<
 		window->graphicsTarget.impl = new Graphics::Target::Impl(*dc, size);
 		return Window::Event{ window, Type::Resize };
 	} },
-	{ WM_MOUSEMOVE, &mouseEvent<Type::MouseMove> },
+	{ WM_MOUSEMOVE, [](Window *window, LegacyEvent legacy) {
+		Window::Event event = directEvent<Type::MouseMove>(window, LegacyEvent {});
+		Coord2D position = {
+			(Float)GET_X_LPARAM(legacy.l),
+			(Float)GET_Y_LPARAM(legacy.l),
+		};
+		Mouse::deltaPosition = position - Mouse::position;
+		if(window->impl->cursorLocked)
+			CentralizeCursor(*window);
+		else
+			Mouse::position = position;
+		return event;
+	}},
 	{ WM_LBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Left> },
 	{ WM_LBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Left> },
 	{ WM_RBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Right> },
@@ -106,8 +119,7 @@ Window::Window() {
 		.legacy = new Legacy::Window({
 			.windowClass = windowClass,
 			.instance = windowClass->info.instance,
-		}),
-		.alive = true
+		})
 	};
 	Impl::map[impl->legacy->handle] = this;
 }
@@ -133,6 +145,12 @@ void Window::Kill() {
 
 void Window::Show() {
 	impl->legacy->SetShowState(Legacy::Window::ShowState::Default);
+}
+
+void Window::SetCursorLockState(bool locked) {
+	if(locked && !impl->cursorLocked)
+		CentralizeCursor(*this);
+	impl->cursorLocked = locked;
 }
 
 RectRange Window::ClientRect() {

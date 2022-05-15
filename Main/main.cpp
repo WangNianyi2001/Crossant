@@ -50,6 +50,7 @@ int Crossant::Main() {
 	window.Listen(EventType::Close, [&](WE) {
 		window.Kill();
 	});
+	window.SetCursorLockState(true);
 
 	window.Show();
 	for(; window.Alive(); window.Live());

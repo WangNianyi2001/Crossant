@@ -99,6 +99,10 @@ void Window::UpdateInfo() {
 	info.borderSize = Size2D{ legacy.cxWindowBorders, legacy.cyWindowBorders };
 }
 
+void Window::SetCursorPos(Coord2D position) {
+	::SetCursorPos((int)position[0], (int)position[1]);
+}
+
 void Window::BeginPaint(PaintStruct *paintStruct) {
 	::BeginPaint(GetHandle<HWND>(), (LPPAINTSTRUCT)paintStruct->ps);
 }

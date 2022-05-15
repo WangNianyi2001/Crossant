@@ -4,7 +4,9 @@
 
 namespace Crossant::Graphics::Graphics3D {
 	struct ThirdPersonController : Component {
-		float speed = .01f;
+		float moveSpeed = .01f;
+		float rotateSpeed = .001f;
+		Coord3D euler{};
 
 		ThirdPersonController(Object &object) : Component(object) {}
 

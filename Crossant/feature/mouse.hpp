@@ -9,5 +9,6 @@ namespace Crossant {
 		};
 		static bool Pressed(Button button);
 		static inline Coord2D position{};
+		static inline Coord2D deltaPosition{};
 	};
 }

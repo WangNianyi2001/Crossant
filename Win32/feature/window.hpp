@@ -24,6 +24,7 @@ namespace Crossant {
 		> conversion;
 
 		Legacy::Window *const legacy;
-		bool alive;
+		bool alive = true;
+		bool cursorLocked = false;
 	};
 }

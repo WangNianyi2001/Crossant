@@ -1,11 +1,11 @@
-#include "thirdpersoncontroller.hpp"
+#include "freecameracontroller.hpp"
 #include "camera.hpp"
 #include "Crossant/feature/mouse.hpp"
 #include "Crossant/feature/keyboard.hpp"
 
 using namespace Crossant::Graphics::Graphics3D;
 
-void ThirdPersonController::Update() {
+void FreeCameraController::Update() {
 	Camera *camera = parent.ComponentOf<Camera>();
 	if(camera == nullptr)
 		return;

@@ -2,7 +2,7 @@
 #include "Space/space.hpp"
 #include "Space/component/meshrenderer.hpp"
 #include "Space/component/camera.hpp"
-#include "Space/component/thirdpersoncontroller.hpp"
+#include "Space/component/freecameracontroller.hpp"
 
 using namespace Crossant;
 using namespace Crossant::Graphics::Graphics3D;
@@ -21,7 +21,7 @@ int Crossant::Main() {
 
 	Object cameraObj(space);
 	Camera camera(cameraObj);
-	ThirdPersonController controller(cameraObj);
+	FreeCameraController controller(cameraObj);
 	cameraObj.transform.translation = { 0, 0, 4 };
 
 	Object cube(space);

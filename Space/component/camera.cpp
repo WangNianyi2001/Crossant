@@ -26,7 +26,7 @@ void Camera::Render() {
 	parent.transform.ApplyInverse();
 
 	// Render
-	for(MeshRenderer *renderer : space.ComponentsOf<MeshRenderer>())
+	for(Renderer *renderer : space.ComponentsOf<Renderer>())
 		renderer->Render();
 
 	// Restore space

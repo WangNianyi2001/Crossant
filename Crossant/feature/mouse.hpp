@@ -8,7 +8,7 @@ namespace Crossant {
 			Left, Middle, Right
 		};
 		static bool Pressed(Button button);
-		static inline Coord2D position{};
+		static inline Coord2D offset{};
 		static inline Coord2D deltaPosition{};
 	};
 }

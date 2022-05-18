@@ -7,6 +7,8 @@
 
 namespace Crossant {
 	int Main();
+	extern int argc;
+	extern Char **argv;
 	
 	struct Window;
 

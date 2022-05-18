@@ -165,7 +165,7 @@ namespace Crossant::Legacy {
 		Info info;
 		void UpdateInfo();
 
-		void SetCursorPos(Coord2D position);
+		void SetCursorPos(Coord2D offset);
 
 		// Visual
 		void BeginPaint(PaintStruct *paintStruct);

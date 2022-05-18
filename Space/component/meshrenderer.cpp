@@ -13,7 +13,7 @@ std::map<VA, bool> useTemplate{
 };
 
 MeshRenderer::MeshRenderer(Object &object) :
-	Component(object), use(useTemplate) {}
+	Renderer(object), use(useTemplate) {}
 
 void MeshRenderer::Render() {
 	Space &space = parent.parent;

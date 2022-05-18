@@ -44,5 +44,8 @@
     <ClInclude Include="component\freecameracontroller.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="component\renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

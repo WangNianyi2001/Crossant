@@ -1,6 +1,7 @@
 #include "window.hpp"
 #include "graphics/target.hpp"
 #include "keyboard.hpp"
+#include <shellapi.h>
 
 using namespace Crossant;
 
@@ -22,9 +23,13 @@ __int64 __stdcall MsgProc(
 	return window->impl->legacy->DefProc(legacy);
 }
 
+int Crossant::argc;
+Char **Crossant::argv;
+
 #pragma warning(push)
 #pragma warning(disable: 28251)
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
+	argv = CommandLineToArgvW(GetCommandLine(), &argc);
 	instance = new Legacy::ModuleInstance(hInst);
 	windowClass = new Legacy::Window::Class(
 		Legacy::Window::Class::Info{
@@ -45,7 +50,7 @@ void CentralizeCursor(Window &window) {
 	ClientToScreen(legacy->GetHandle<HWND>(), &point);
 	Vector<int, 2> screenPos{ point.x, point.y };
 	legacy->SetCursorPos(screenPos);
-	Mouse::position = clientPos;
+	Mouse::offset = clientPos;
 }
 
 using LegacyEvent = Legacy::Window::Event;
@@ -89,15 +94,15 @@ std::map<
 	} },
 	{ WM_MOUSEMOVE, [](Window *window, LegacyEvent legacy) {
 		Window::Event event = directEvent<Type::MouseMove>(window, LegacyEvent {});
-		Coord2D position = {
+		Coord2D offset = {
 			(Float)GET_X_LPARAM(legacy.l),
 			(Float)GET_Y_LPARAM(legacy.l),
 		};
-		Mouse::deltaPosition = position - Mouse::position;
+		Mouse::deltaPosition = offset - Mouse::offset;
 		if(window->impl->cursorLocked)
 			CentralizeCursor(*window);
 		else
-			Mouse::position = position;
+			Mouse::offset = offset;
 		return event;
 	}},
 	{ WM_LBUTTONDOWN, &mouseButtonEvent<Type::MouseDown, MB::Left> },

@@ -153,6 +153,7 @@
     <ClInclude Include="component\meshfilter.hpp" />
     <ClInclude Include="component\meshrenderer.hpp" />
     <ClInclude Include="component\freecameracontroller.hpp" />
+    <ClInclude Include="component\renderer.hpp" />
     <ClInclude Include="space.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

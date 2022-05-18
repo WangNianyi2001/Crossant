@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../space.hpp"
+#include "renderer.hpp"
 #include "meshfilter.hpp"
 
 namespace Crossant::Graphics::Graphics3D {
-	struct MeshRenderer : Component {
+	struct MeshRenderer : Renderer {
 		std::map<Vertex::Attribute, bool> use{};
 
 		MeshRenderer(Object &object);
 
-		void Render();
+		virtual void Render() override;
 	};
 }

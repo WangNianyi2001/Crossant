@@ -24,9 +24,6 @@
     <ClCompile Include="legacy\gdi\devicecontext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="legacy\user\window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="legacy\gdi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,9 +63,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="legacy\gdi\devicecontext.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\user\window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="legacy\gdi.hpp">

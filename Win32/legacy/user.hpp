@@ -18,5 +18,3 @@ namespace Crossant::Legacy {
 		Menu(void *const handle) : UserObject(handle) {}
 	};
 }
-
-#include "user/window.hpp"

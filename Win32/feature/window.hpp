@@ -12,18 +12,18 @@
 #endif
 
 namespace Crossant {
-	static Legacy::Window::Class *windowClass;
-	static Legacy::ModuleInstance *instance;
+	static HINSTANCE hInstance;
+	static ATOM windowClass;
 
 	struct Window::Impl {
-		static std::map<void *, Window *> map;
+		static std::map<void *, Window *> windowMap;
 
-		static std::map<
-			unsigned,
-			std::function<WindowEvent(Window *, Legacy::Window::Event)>
-		> conversion;
+		using LegacyProcessor = std::function<Event(
+			Window *, UINT, WPARAM, LPARAM
+		)>;
+		static std::map<unsigned, LegacyProcessor> eventConversionMap;
 
-		Legacy::Window *const legacy;
+		HWND hWnd;
 		bool alive = true;
 		bool cursorLocked = false;
 	};

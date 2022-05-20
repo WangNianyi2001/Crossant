@@ -1,11 +1,19 @@
 #pragma once
 
 #include "Crossant/feature/graphics/target.hpp"
-#include "Win32/legacy.hpp"
+#include "Win32/utility.hpp"
+#include <Windows.h>
 
 namespace Crossant::Graphics {
-	struct Target::Impl : Legacy::Bitmap {
-		Impl(Size2D size) : Legacy::Bitmap(size) {}
-		Impl(Legacy::DeviceContext &dc, Size2D size) : Legacy::Bitmap(dc, size) {}
+	struct Target::Impl {
+		Size2D size;
+		HBITMAP hBm;
+		HDC hDC;
+		bool isFree = true;
+
+		Impl(Size2D size);
+		Impl(HDC hDC, Size2D size);
+
+		~Impl();
 	};
 }

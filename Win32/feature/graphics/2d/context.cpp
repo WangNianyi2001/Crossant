@@ -1,4 +1,5 @@
 #include "context.hpp"
+#include "Win32/utility.hpp"
 
 #pragma push_macro("SelectBrush")
 #undef SelectBrush
@@ -25,14 +26,16 @@ void Context::OnResize() {
 }
 
 void Context::Pixel(Coord2D pos, Color color) const {
-	target.impl->dc.SetPixel(
+	SetPixel(
+		target.impl->hDC,
 		(int)pos[0], (int)pos[1],
-		Legacy::ColorRef(color)
+		ColorToRef(color)
 	);
 }
 
 void Context::Rectangle(RectRange const &rect) const {
-	target.impl->dc.Rectangle(
+	::Rectangle(
+		target.impl->hDC,
 		(int)rect.min[0], (int)rect.min[1],
 		(int)rect.max[0], (int)rect.max[1]
 	);

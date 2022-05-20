@@ -5,22 +5,21 @@
 
 using namespace Crossant;
 
-__int64 __stdcall MsgProc(
-	void *hWnd, unsigned int message,
-	unsigned __int64 wParam, __int64 lParam
+std::map<void *, Window *> Window::Impl::windowMap{};
+
+LRESULT __stdcall MsgProc(
+	HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 ) {
-	if(!Window::Impl::map.contains(hWnd))
+	using Impl = Window::Impl;
+	if(!Impl::windowMap.contains(hWnd))
 		return DefWindowProc((HWND)hWnd, message, wParam, lParam);
-	Window *window = Window::Impl::map[hWnd];
-	if(Window::Impl::conversion.contains(message)) {
-		Legacy::Window::Event legacyEvent{
-			message, wParam, lParam
-		};
-		auto convert = Window::Impl::conversion[message];
-		window->Push(convert(window, legacyEvent));
+	Window *window = Impl::windowMap[hWnd];
+	if(Impl::eventConversionMap.contains(message)) {
+		auto convert = Impl::eventConversionMap[message];
+		auto event = convert(window, message, wParam, lParam);
+		window->Push(event);
 	}
-	Legacy::Window::Event legacy(message, wParam, lParam);
-	return window->impl->legacy->DefProc(legacy);
+	return DefWindowProc(window->impl->hWnd, message, wParam, lParam);
 }
 
 int Crossant::argc;
@@ -30,73 +29,77 @@ Char **Crossant::argv;
 #pragma warning(disable: 28251)
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 	argv = CommandLineToArgvW(GetCommandLine(), &argc);
-	instance = new Legacy::ModuleInstance(hInst);
-	windowClass = new Legacy::Window::Class(
-		Legacy::Window::Class::Info{
-			.process = &MsgProc,
-			.instance = instance,
-			.className = String(L"Window"),
-		}
-	);
+	hInstance = hInst;
+	WNDCLASSEX classDescriptor{
+		.cbSize = sizeof(WNDCLASSEX),
+		.style = CS_CLASSDC,
+		.lpfnWndProc = &MsgProc,
+		.hInstance = hInst,
+		.hIcon = NULL,
+		.hCursor = NULL,
+		.hbrBackground = NULL,
+		.lpszMenuName = TEXT(""),
+		.lpszClassName = TEXT("Window"),
+		.hIconSm = NULL,
+	};
+	windowClass = RegisterClassEx(&classDescriptor);
 	return Main();
 }
 #pragma warning(pop)
 
 void CentralizeCursor(Window &window) {
-	Legacy::Window *const legacy = window.impl->legacy;
-	auto clientSize = legacy->info.clientRect.Diagonal();
+	auto clientSize = window.ClientRect().Diagonal();
 	Vector<int, 2> clientPos = clientSize / 2;
 	POINT point{ (LONG)clientPos[0], (LONG)clientPos[1] };
-	ClientToScreen(legacy->GetHandle<HWND>(), &point);
-	Vector<int, 2> screenPos{ point.x, point.y };
-	legacy->SetCursorPos(screenPos);
+	ClientToScreen(window.impl->hWnd, &point);
+	SetCursorPos(point.x, point.y);
 	Mouse::offset = clientPos;
 }
 
-using LegacyEvent = Legacy::Window::Event;
 using Type = Window::Event::Type;
 
 template<Type type>
-Window::Event directEvent(Window * window, LegacyEvent) {
+Window::Event directEvent(Window *window, UINT = NULL, WPARAM = NULL, LPARAM = NULL) {
 	return Window::Event{ window, type };
 }
 
 using MB = Mouse::Button;
 
 template<Type type, MB button>
-Window::Event mouseButtonEvent(Window *window, LegacyEvent legacy) {
-	Window::Event event = directEvent<type>(window, legacy);
+Window::Event mouseButtonEvent(Window *window,
+	UINT message, WPARAM wParam, LPARAM lParam
+) {
+	Window::Event event = directEvent<type>(window, message, wParam, lParam);
 	event.mouseButton = button;
 	return event;
 }
 
 template<Type type>
-Window::Event keyboardEvent(Window *window, LegacyEvent legacy) {
-	Window::Event event = directEvent<type>(window, legacy);
-	event.key = VKToKey((Byte)legacy.w);
+Window::Event keyboardEvent(Window *window,
+	UINT message, WPARAM wParam, LPARAM lParam
+) {
+	Window::Event event = directEvent<type>(window, message, wParam, lParam);
+	event.key = VKToKey((Byte)wParam);
 	return event;
 }
 
-std::map<void *, Window *> Window::Impl::map{};
-
-std::map<
-	unsigned,
-	std::function<Window::Event(Window *, LegacyEvent)>
-> Window::Impl::conversion{
+std::map<unsigned, Window::Impl::LegacyProcessor>
+Window::Impl::eventConversionMap{
 	{ WM_CLOSE, &directEvent<Type::Close> },
-	{ WM_SIZE, [](Window *window, LegacyEvent) {
+	{ WM_SIZE, [](Window *window, UINT, WPARAM, LPARAM) {
+		ReleaseDC(window->impl->hWnd, window->graphicsTarget.impl->hDC);
 		delete window->graphicsTarget.impl;
-		HDC hdc = GetDC(window->impl->legacy->GetHandle<HWND>());
-		auto dc = new Legacy::DeviceContext(hdc);
-		auto size = (Size2D)window->ClientRect().Diagonal();
-		window->graphicsTarget.impl = new Graphics::Target::Impl(*dc, size);
+		window->graphicsTarget.impl = new Graphics::Target::Impl(
+			GetDC(window->impl->hWnd),
+			(Size2D)window->ClientRect().Diagonal()
+		);
 		return Window::Event{ window, Type::Resize };
 	} },
-	{ WM_MOUSEMOVE, [](Window *window, LegacyEvent legacy) {
-		Window::Event event = directEvent<Type::MouseMove>(window, LegacyEvent {});
+	{ WM_MOUSEMOVE, [](Window *window, UINT, WPARAM, LPARAM lParam) {
+		Window::Event event = directEvent<Type::MouseMove>(window);
 		Coord2D offset = {
-			(Float)GET_X_LPARAM(legacy.l),
-			(Float)GET_Y_LPARAM(legacy.l),
+			(Float)GET_X_LPARAM(lParam),
+			(Float)GET_Y_LPARAM(lParam),
 		};
 		Mouse::deltaPosition = offset - Mouse::offset;
 		if(window->impl->cursorLocked)
@@ -113,20 +116,29 @@ std::map<
 	{ WM_MBUTTONUP, &mouseButtonEvent<Type::MouseUp, MB::Middle> },
 	{ WM_KEYDOWN, &keyboardEvent<Type::KeyDown> },
 	{ WM_KEYUP, &keyboardEvent<Type::KeyUp> },
-	{ WM_PAINT, [](Window *window, LegacyEvent) {
-		window->impl->legacy->Validate();
+	{ WM_PAINT, [](Window *window, UINT, WPARAM, LPARAM) {
+		ValidateRect(window->impl->hWnd, NULL);
 		return Window::Event{ window, Type::Draw };
 	}},
 };
 
-Window::Window() {
-	impl = new Window::Impl{
-		.legacy = new Legacy::Window({
-			.windowClass = windowClass,
-			.instance = windowClass->info.instance,
-		})
-	};
-	Impl::map[impl->legacy->handle] = this;
+Window::Window() : impl(new Window::Impl{
+	.hWnd = CreateWindowEx(
+		WS_EX_OVERLAPPEDWINDOW,
+		(LPTSTR)windowClass,
+		TEXT(""),
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		NULL,
+		NULL,
+		hInstance,
+		NULL
+	)
+}), graphicsTarget(new Graphics::Target::Impl(GetDC(impl->hWnd), Size2D{ 1, 1 })) {
+	Impl::windowMap[impl->hWnd] = this;
 }
 
 Window::~Window() {
@@ -134,22 +146,29 @@ Window::~Window() {
 }
 
 bool Window::Alive() {
-	return impl->alive;
+	return impl->hWnd != NULL && impl->alive;
 }
 
 void Window::Live() {
+	while(true) {
+		MSG msg;
+		if(!PeekMessage(&msg, impl->hWnd, 0, 0, true))
+			break;
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
 	Push(Window::Event{ this, Type::Update });
-	while(impl->legacy->ProcessEvent());
 }
 
 void Window::Kill() {
-	Impl::map.erase(Impl::map.find(impl->legacy->handle));
-	delete impl->legacy;
+	if(Impl::windowMap.contains(impl->hWnd))
+		Impl::windowMap.erase(Impl::windowMap.find(impl->hWnd));
+	DestroyWindow(impl->hWnd);
 	impl->alive = false;
 }
 
 void Window::Show() {
-	impl->legacy->SetShowState(Legacy::Window::ShowState::Default);
+	ShowWindow(impl->hWnd, SW_SHOWDEFAULT);
 }
 
 void Window::SetCursorLockState(bool locked) {
@@ -158,11 +177,21 @@ void Window::SetCursorLockState(bool locked) {
 	impl->cursorLocked = locked;
 }
 
+inline RectRange ParseRect(RECT rect) {
+	return {
+		{ (Float)rect.left, (Float)rect.top },
+		{ (Float)rect.right, (Float)rect.bottom }
+	};
+}
+
 RectRange Window::ClientRect() {
-	impl->legacy->UpdateInfo();
-	return impl->legacy->info.clientRect;
+	WINDOWINFO info{
+		.cbSize = sizeof(WINDOWINFO)
+	};
+	GetWindowInfo(impl->hWnd, &info);
+	return ParseRect(info.rcClient);
 }
 
 void Window::Repaint() {
-	impl->legacy->Invalidate();
+	InvalidateRect(impl->hWnd, NULL, false);
 }

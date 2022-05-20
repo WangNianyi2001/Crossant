@@ -17,7 +17,6 @@ int Octree::Main() {
 
 	Graphics::Target target;
 	auto space = Space(target);
-	space.MakeCurrent();
 
 	Object cameraObj(space);
 	Camera camera(cameraObj);
@@ -55,7 +54,7 @@ int Octree::Main() {
 
 		camera.Render();
 
-		space.Finish();
+		space.Render();
 		target.DrawOn(window.graphicsTarget);
 	});
 	window.Listen(EventType::Update, [&](WE e) {

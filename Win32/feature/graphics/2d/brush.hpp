@@ -1,15 +1,15 @@
 #pragma once
 
 #include "Crossant/feature/graphics/2d/brush.hpp"
-#include "Win32/legacy.hpp"
+#include <Windows.h>
 
 namespace Crossant::Graphics::Graphics2D {
 	struct Brush::Impl {
-		Legacy::Brush *brush;
+		HBRUSH hBr;
 
 		struct Getter {
-			inline Legacy::GDIObject *operator()(Brush *brush) const {
-				return brush->impl->brush;
+			inline HBRUSH operator()(Brush *brush) const {
+				return brush->impl->hBr;
 			}
 		};
 	};

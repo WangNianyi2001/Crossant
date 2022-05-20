@@ -1,6 +1,6 @@
 #include "context.hpp"
 #include "../target.hpp"
-#include "Win32/legacy.hpp"
+#include "Win32/utility.hpp"
 #include <cmath>
 
 using namespace Crossant::Graphics::Graphics3D;
@@ -43,7 +43,7 @@ Context::~Context() {
 }
 
 void Context::MakeCurrent() const {
-	wglMakeCurrent(impl->hDC, impl->hRC);
+	wglMakeCurrent(target.impl->hDC, impl->hRC);
 	glEnable(GL_DEPTH_TEST);
 }
 
@@ -53,14 +53,13 @@ void Context::OnResize() {
 		wglDeleteContext(impl->hRC);
 	}
 	PIXELFORMATDESCRIPTOR descriptor = descriptorTemplate;
-	impl->hDC = target.impl->dc.GetHandle<HDC>();
-	int format = ChoosePixelFormat(impl->hDC, &descriptor);
+	int format = ChoosePixelFormat(target.impl->hDC, &descriptor);
 	if(format == 0)
-		Legacy::TryThrowLastError();
-	SetPixelFormat(impl->hDC, format, &descriptor);
-	impl->hRC = wglCreateContext(impl->hDC);
+		TryThrowLastError();
+	SetPixelFormat(target.impl->hDC, format, &descriptor);
+	impl->hRC = wglCreateContext(target.impl->hDC);
 	if(!impl->hRC)
-		Legacy::TryThrowLastError();
+		TryThrowLastError();
 	MakeCurrent();
 	auto size = target.Size();
 	glViewport(0, 0, size[0], size[1]);
@@ -73,7 +72,7 @@ std::map<MM, int> matrixModeMap{
 	{ MM::Texture, GL_TEXTURE },
 };
 
-void Context::Finish() {
+void Context::Render() {
 	glFinish();
 }
 

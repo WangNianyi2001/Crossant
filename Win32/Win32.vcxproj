@@ -155,12 +155,8 @@
     <ClCompile Include="feature\keyboard.cpp" />
     <ClCompile Include="feature\mouse.cpp" />
     <ClCompile Include="feature\graphics\target.cpp" />
-    <ClCompile Include="legacy.cpp" />
-    <ClCompile Include="legacy\gdi.cpp" />
-    <ClCompile Include="legacy\gdi\bitmap.cpp" />
-    <ClCompile Include="legacy\gdi\devicecontext.cpp" />
-    <ClCompile Include="legacy\user\window.cpp" />
     <ClCompile Include="feature\window.cpp" />
+    <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="feature\graphics\2d\brush.hpp" />
@@ -169,14 +165,8 @@
     <ClInclude Include="feature\graphics\2d\pen.hpp" />
     <ClInclude Include="feature\graphics\target.hpp" />
     <ClInclude Include="feature\keyboard.hpp" />
-    <ClInclude Include="legacy.hpp" />
-    <ClInclude Include="legacy\gdi.hpp" />
-    <ClInclude Include="legacy\gdi\bitmap.hpp" />
-    <ClInclude Include="legacy\gdi\devicecontext.hpp" />
-    <ClInclude Include="legacy\kernel.hpp" />
-    <ClInclude Include="legacy\user.hpp" />
-    <ClInclude Include="legacy\user\window.hpp" />
     <ClInclude Include="feature\window.hpp" />
+    <ClInclude Include="utility.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

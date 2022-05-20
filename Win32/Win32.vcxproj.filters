@@ -18,21 +18,6 @@
     <ClCompile Include="feature\graphics\2d\context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="legacy\gdi\bitmap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="legacy\gdi\devicecontext.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="legacy\user\window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="legacy\gdi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="legacy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="feature\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,30 +42,12 @@
     <ClCompile Include="feature\keyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="feature\graphics\2d\context.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\gdi\bitmap.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\gdi\devicecontext.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\user\window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\gdi.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\kernel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy\user.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="legacy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\window.hpp">
@@ -99,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="feature\keyboard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

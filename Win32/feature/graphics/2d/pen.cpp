@@ -1,5 +1,6 @@
 #include "pen.hpp"
 #include <Windows.h>
+#include "Win32/utility.hpp"
 
 using namespace Crossant::Graphics::Graphics2D;
 
@@ -32,34 +33,32 @@ Pen::~Pen() {
 }
 
 NullPen::NullPen() {
-	impl->pen = new Legacy::Pen(GetStockObject(NULL_PEN));
+	impl->hPen = (HPEN)GetStockObject(NULL_PEN);
 }
 
 SimplePen::SimplePen(Color color, Style style) : style(style) {
-	HPEN hPen = CreatePen(
+	impl->hPen = CreatePen(
 		impl->styleMap[style], 1,
-		Legacy::ColorRef(color).value
+		ColorToRef(color)
 	);
-	impl->pen = new Legacy::Pen(hPen);
 }
 
 SimplePen::~SimplePen() {
-	delete impl->pen;
+	DeleteObject(impl->hPen);
 }
 
 SolidPen::SolidPen(
 	Color color, int width,
 	Style style, Cap cap, Join join
 ) : style(style), cap(cap), join(join) {
-	LOGBRUSH log{ BS_SOLID, Legacy::ColorRef(color).value };
-	HPEN hPen = ExtCreatePen(
+	LOGBRUSH log{ BS_SOLID, ColorToRef(color) };
+	impl->hPen = ExtCreatePen(
 		PS_GEOMETRIC |
 		impl->styleMap[style] | impl->capMap[cap] | impl->joinMap[join],
 		width, &log, 0, NULL
 	);
-	impl->pen = new Legacy::Pen(hPen);
 }
 
 SolidPen::~SolidPen() {
-	delete impl->pen;
+	DeleteObject(impl->hPen);
 }

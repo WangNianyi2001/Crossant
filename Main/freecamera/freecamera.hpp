@@ -41,7 +41,7 @@ namespace FreeCamera {
 
 			camera.Render();
 
-			space.Finish();
+			space.Render();
 			target.DrawOn(window.graphicsTarget);
 		});
 

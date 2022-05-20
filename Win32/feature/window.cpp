@@ -87,10 +87,12 @@ std::map<unsigned, Window::Impl::LegacyProcessor>
 Window::Impl::eventConversionMap{
 	{ WM_CLOSE, &directEvent<Type::Close> },
 	{ WM_SIZE, [](Window *window, UINT, WPARAM, LPARAM) {
-		/*HDC hdc = GetDC(window->impl->hWnd);
-		auto size = (Size2D)window->ClientRect().Diagonal();
+		ReleaseDC(window->impl->hWnd, window->graphicsTarget.impl->hDC);
 		delete window->graphicsTarget.impl;
-		window->graphicsTarget.impl = new Graphics::Target::Impl(hdc, size);*/
+		window->graphicsTarget.impl = new Graphics::Target::Impl(
+			GetDC(window->impl->hWnd),
+			(Size2D)window->ClientRect().Diagonal()
+		);
 		return Window::Event{ window, Type::Resize };
 	} },
 	{ WM_MOUSEMOVE, [](Window *window, UINT, WPARAM, LPARAM lParam) {

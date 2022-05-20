@@ -72,7 +72,7 @@ std::map<MM, int> matrixModeMap{
 	{ MM::Texture, GL_TEXTURE },
 };
 
-void Context::Finish() {
+void Context::Render() {
 	glFinish();
 }
 

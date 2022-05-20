@@ -17,7 +17,7 @@ namespace Crossant::Graphics::Graphics3D {
 		void OnResize() override;
 
 		// Basic
-		void Finish();
+		void Render();
 		enum struct AttributeMask : Byte {
 			Current,
 			Point,

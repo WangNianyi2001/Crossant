@@ -54,7 +54,7 @@ int Octree::Main() {
 
 		camera.Render();
 
-		space.Finish();
+		space.Render();
 		target.DrawOn(window.graphicsTarget);
 	});
 	window.Listen(EventType::Update, [&](WE e) {

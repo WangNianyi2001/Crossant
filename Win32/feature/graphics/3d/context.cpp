@@ -43,7 +43,7 @@ Context::~Context() {
 }
 
 void Context::MakeCurrent() const {
-	wglMakeCurrent(impl->hDC, impl->hRC);
+	wglMakeCurrent(target.impl->hDC, impl->hRC);
 	glEnable(GL_DEPTH_TEST);
 }
 
@@ -53,12 +53,11 @@ void Context::OnResize() {
 		wglDeleteContext(impl->hRC);
 	}
 	PIXELFORMATDESCRIPTOR descriptor = descriptorTemplate;
-	impl->hDC = target.impl->dc.GetHandle<HDC>();
-	int format = ChoosePixelFormat(impl->hDC, &descriptor);
+	int format = ChoosePixelFormat(target.impl->hDC, &descriptor);
 	if(format == 0)
 		Legacy::TryThrowLastError();
-	SetPixelFormat(impl->hDC, format, &descriptor);
-	impl->hRC = wglCreateContext(impl->hDC);
+	SetPixelFormat(target.impl->hDC, format, &descriptor);
+	impl->hRC = wglCreateContext(target.impl->hDC);
 	if(!impl->hRC)
 		Legacy::TryThrowLastError();
 	MakeCurrent();

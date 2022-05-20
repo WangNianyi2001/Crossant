@@ -15,7 +15,6 @@
 
 namespace Crossant::Graphics::Graphics3D {
 	struct Context::Impl {
-		HDC hDC = NULL;
 		HGLRC hRC = NULL;
 	};
 }

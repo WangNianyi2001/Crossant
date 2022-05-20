@@ -31,6 +31,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 	argv = CommandLineToArgvW(GetCommandLine(), &argc);
 	hInstance = hInst;
 	WNDCLASSEX classDescriptor{
+		.cbSize = sizeof(WNDCLASSEX),
 		.style = CS_CLASSDC,
 		.lpfnWndProc = &MsgProc,
 		.hInstance = hInst,
@@ -86,11 +87,10 @@ std::map<unsigned, Window::Impl::LegacyProcessor>
 Window::Impl::eventConversionMap{
 	{ WM_CLOSE, &directEvent<Type::Close> },
 	{ WM_SIZE, [](Window *window, UINT, WPARAM, LPARAM) {
-		delete window->graphicsTarget.impl;
-		HDC hdc = GetDC(window->impl->hWnd);
-		auto dc = new Legacy::DeviceContext(hdc);
+		/*HDC hdc = GetDC(window->impl->hWnd);
 		auto size = (Size2D)window->ClientRect().Diagonal();
-		window->graphicsTarget.impl = new Graphics::Target::Impl(*dc, size);
+		delete window->graphicsTarget.impl;
+		window->graphicsTarget.impl = new Graphics::Target::Impl(hdc, size);*/
 		return Window::Event{ window, Type::Resize };
 	} },
 	{ WM_MOUSEMOVE, [](Window *window, UINT, WPARAM, LPARAM lParam) {
@@ -120,13 +120,13 @@ Window::Impl::eventConversionMap{
 	}},
 };
 
-Window::Window() {
+Window::Window() : graphicsTarget(nullptr) {
 	impl = new Window::Impl{};
 	impl->hWnd = CreateWindowEx(
-		WS_OVERLAPPEDWINDOW,
+		WS_EX_OVERLAPPEDWINDOW,
 		(LPTSTR)windowClass,
 		TEXT(""),
-		WS_EX_OVERLAPPEDWINDOW,
+		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
@@ -136,6 +136,8 @@ Window::Window() {
 		hInstance,
 		NULL
 	);
+	auto graphicsImpl = new Graphics::Target::Impl(GetDC(impl->hWnd), Size2D{ 1, 1 });
+	graphicsTarget = Graphics::Target(graphicsImpl);
 	Impl::windowMap[impl->hWnd] = this;
 }
 
@@ -144,7 +146,7 @@ Window::~Window() {
 }
 
 bool Window::Alive() {
-	return impl->alive;
+	return impl->hWnd != NULL && impl->alive;
 }
 
 void Window::Live() {
@@ -160,7 +162,7 @@ void Window::Live() {
 
 void Window::Kill() {
 	if(Impl::windowMap.contains(impl->hWnd))
-	Impl::windowMap.erase(Impl::windowMap.find(impl->hWnd));
+		Impl::windowMap.erase(Impl::windowMap.find(impl->hWnd));
 	DestroyWindow(impl->hWnd);
 	impl->alive = false;
 }

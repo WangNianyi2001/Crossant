@@ -17,7 +17,8 @@ namespace Crossant::Graphics::Graphics2D {
 				return;
 			if(gc.target.impl == nullptr)
 				return;
-			gc.target.impl->dc.Select(
+			SelectObject(
+				gc.target.impl->hDC,
 				Getter{}(DoubleBuffer<T>::Get().value())
 			);
 		}

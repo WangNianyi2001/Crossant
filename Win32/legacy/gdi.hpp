@@ -45,6 +45,3 @@ namespace Crossant::Legacy {
 		Pen(void *handle) : GDIObject(handle) {}
 	};
 }
-
-#include "gdi/bitmap.hpp"
-#include "gdi/devicecontext.hpp"

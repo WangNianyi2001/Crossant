@@ -5,7 +5,6 @@ using namespace Crossant::Graphics::Graphics3D;
 
 void Camera::Render() {
 	Space &space = parent.parent;
-	space.MakeCurrent();
 
 	// Push projection
 	space.SetMatrixMode(Space::MatrixMode::Projection);

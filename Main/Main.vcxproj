@@ -158,6 +158,7 @@
     <ClCompile Include="octree\octree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="freecamera\freecamera.hpp" />
     <ClInclude Include="octree\octree.hpp" />
   </ItemGroup>
   <ItemGroup>

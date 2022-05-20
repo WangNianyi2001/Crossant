@@ -68,6 +68,6 @@ void Target::Resize(Size2D size) {
 void Target::DrawOn(Target &target) {
 	BitBlt(
 		target.impl->hDC, 0, 0, target.impl->size[0], target.impl->size[1],
-		impl->hDC, impl->size[0], impl->size[1], SRCCOPY
+		impl->hDC, 0, 0, SRCCOPY
 	);
 }

@@ -150,7 +150,6 @@ bool Window::Alive() {
 }
 
 void Window::Live() {
-	Push(Window::Event{ this, Type::Update });
 	while(true) {
 		MSG msg;
 		if(!PeekMessage(&msg, impl->hWnd, 0, 0, true))
@@ -158,6 +157,8 @@ void Window::Live() {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+	Mouse::deltaPosition = Coord2D{};
+	Push(Window::Event{ this, Type::Update });
 }
 
 void Window::Kill() {

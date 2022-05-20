@@ -1,5 +1,6 @@
 #include "brush.hpp"
 #include <Windows.h>
+#include "Win32/utility.hpp"
 
 using namespace Crossant::Graphics::Graphics2D;
 
@@ -12,13 +13,13 @@ Brush::~Brush() {
 }
 
 NullBrush::NullBrush() {
-	impl->brush = new Legacy::Brush(GetStockObject(NULL_BRUSH));
+	impl->hBr = (HBRUSH)GetStockObject(NULL_BRUSH);
 }
 
 SolidBrush::SolidBrush(Color color) {
-	impl->brush = new Legacy::Brush(CreateSolidBrush(Legacy::ColorRef(color).value));
+	impl->hBr = CreateSolidBrush(ColorToRef(color));
 }
 
 SolidBrush::~SolidBrush() {
-	delete impl->brush;
+	DeleteObject(impl->hBr);
 }

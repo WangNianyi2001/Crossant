@@ -157,7 +157,6 @@ void Window::Live() {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
-	Mouse::deltaPosition = Coord2D{};
 	Push(Window::Event{ this, Type::Update });
 }
 

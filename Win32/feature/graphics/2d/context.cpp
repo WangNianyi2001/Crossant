@@ -1,4 +1,5 @@
 #include "context.hpp"
+#include "Win32/utility.hpp"
 
 #pragma push_macro("SelectBrush")
 #undef SelectBrush
@@ -28,7 +29,7 @@ void Context::Pixel(Coord2D pos, Color color) const {
 	SetPixel(
 		target.impl->hDC,
 		(int)pos[0], (int)pos[1],
-		Legacy::ColorRef::ToHex(color)
+		ColorToRef(color)
 	);
 }
 

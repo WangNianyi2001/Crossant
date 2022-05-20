@@ -1,6 +1,6 @@
 #include "context.hpp"
 #include "../target.hpp"
-#include "Win32/legacy.hpp"
+#include "Win32/utility.hpp"
 #include <cmath>
 
 using namespace Crossant::Graphics::Graphics3D;
@@ -55,11 +55,11 @@ void Context::OnResize() {
 	PIXELFORMATDESCRIPTOR descriptor = descriptorTemplate;
 	int format = ChoosePixelFormat(target.impl->hDC, &descriptor);
 	if(format == 0)
-		Legacy::TryThrowLastError();
+		TryThrowLastError();
 	SetPixelFormat(target.impl->hDC, format, &descriptor);
 	impl->hRC = wglCreateContext(target.impl->hDC);
 	if(!impl->hRC)
-		Legacy::TryThrowLastError();
+		TryThrowLastError();
 	MakeCurrent();
 	auto size = target.Size();
 	glViewport(0, 0, size[0], size[1]);

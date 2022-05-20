@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Crossant/feature/graphics/target.hpp"
-#include "Win32/legacy.hpp"
+#include "Win32/utility.hpp"
 #include <Windows.h>
 
 namespace Crossant::Graphics {

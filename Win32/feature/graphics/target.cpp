@@ -59,7 +59,7 @@ Crossant::Size2D Target::Size() const {
 }
 
 void Target::Resize(Size2D size) {
-	delete impl;
+ 	delete impl;
 	impl = new Impl(size);
 	for(auto context : contexts)
 		context->OnResize();

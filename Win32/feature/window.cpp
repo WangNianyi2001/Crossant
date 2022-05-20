@@ -120,9 +120,8 @@ Window::Impl::eventConversionMap{
 	}},
 };
 
-Window::Window() : graphicsTarget(nullptr) {
-	impl = new Window::Impl{};
-	impl->hWnd = CreateWindowEx(
+Window::Window() : impl(new Window::Impl{
+	.hWnd = CreateWindowEx(
 		WS_EX_OVERLAPPEDWINDOW,
 		(LPTSTR)windowClass,
 		TEXT(""),
@@ -135,9 +134,8 @@ Window::Window() : graphicsTarget(nullptr) {
 		NULL,
 		hInstance,
 		NULL
-	);
-	auto graphicsImpl = new Graphics::Target::Impl(GetDC(impl->hWnd), Size2D{ 1, 1 });
-	graphicsTarget = Graphics::Target(graphicsImpl);
+	)
+}), graphicsTarget(new Graphics::Target::Impl(GetDC(impl->hWnd), Size2D{ 1, 1 })) {
 	Impl::windowMap[impl->hWnd] = this;
 }
 

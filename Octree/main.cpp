@@ -6,10 +6,10 @@
 #include <stdio.h>
 #include <fstream>
 
-using namespace Crossant;
-using namespace Crossant::Graphics::Graphics3D;
+int Crossant::Main() {
+	using namespace Crossant;
+	using namespace Crossant::Graphics::Graphics3D;
 
-int Octree::Main() {
 	Window window;
 
 	using WE = Window::Event;
@@ -47,7 +47,7 @@ int Octree::Main() {
 
 	window.Listen(EventType::Resize, [&](WE event) {
 		target.Resize(window.ClientRect().Diagonal());
-	});
+		});
 	window.Listen(EventType::Draw, [&](WE) {
 		space.Clear(Context::AttributeMask::ColorBuffer);
 		space.Clear(Context::AttributeMask::DepthBuffer);
@@ -56,14 +56,14 @@ int Octree::Main() {
 
 		space.Render();
 		target.DrawOn(window.graphicsTarget);
-	});
+		});
 	window.Listen(EventType::Update, [&](WE e) {
 		controller.Update();
 		window.Repaint();
-	});
+		});
 	window.Listen(EventType::Close, [&](WE) {
 		window.Kill();
-	});
+		});
 	window.SetCursorLockState(true);
 
 	window.Show();

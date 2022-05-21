@@ -22,9 +22,9 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{b57bf63c-2163-4410-aa30-6fffc8553924}</ProjectGuid>
-    <RootNamespace>Main</RootNamespace>
+    <RootNamespace>Octree</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Main</ProjectName>
+    <ProjectName>Octree</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -155,11 +155,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="octree\octree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="freecamera\freecamera.hpp" />
-    <ClInclude Include="octree\octree.hpp" />
+    <ClInclude Include="octree.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="octree\sample-octree.txt" />

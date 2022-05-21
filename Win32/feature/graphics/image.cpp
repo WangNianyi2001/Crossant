@@ -2,7 +2,6 @@
 
 #include "Crossant/feature/graphics/image.hpp"
 #include <Windows.h>
-#include <fstream>
 #include "Win32/utility.hpp"
 
 using namespace Crossant;
@@ -23,8 +22,7 @@ Color ParseColor(Byte const *position, WORD byteCount) {
 	return color;
 }
 
-Image *Image::FromBitmap(Char const *dir) {
-	std::ifstream fs(dir, std::ios_base::in | std::ios_base::binary);
+Image *Image::FromBitmap(File &fs) {
 	if(!fs.is_open())
 		return nullptr;
 

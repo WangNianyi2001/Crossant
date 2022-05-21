@@ -14,14 +14,14 @@ namespace Crossant::Graphics::Graphics3D {
 			Byte2, Byte3, Byte4,
 		};
 		enum struct Attribute : Byte {
-			Vertex,
+			Position,
 			Color,
 			TexCoord,
 			Normal,
 			EdgeFlag,
 		};
 
-		Coord3D vertex;
+		Coord3D position;
 		Color color;
 		Coord2D texCoord;
 		Coord3D normal;

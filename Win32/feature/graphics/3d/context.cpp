@@ -167,7 +167,7 @@ std::map<DUT, int> datumTypeMap{
 
 using AT = Vertex::Attribute;
 std::map<AT, int> dataTypeMap{
-	{ AT::Vertex, GL_VERTEX_ARRAY },
+	{ AT::Position, GL_VERTEX_ARRAY },
 	{ AT::Color, GL_COLOR_ARRAY },
 	{ AT::TexCoord, GL_TEXTURE_COORD_ARRAY },
 	{ AT::Normal, GL_NORMAL_ARRAY },
@@ -192,8 +192,8 @@ void Context::SetAttributeArray(
 
 	unsigned offset = 0;
 	switch(attribute) {
-	case AT::Vertex:
-		offset = offsetof(Vertex, vertex);
+	case AT::Position:
+		offset = offsetof(Vertex, position);
 		break;
 	case AT::Color:
 		offset = offsetof(Vertex, color);
@@ -211,7 +211,7 @@ void Context::SetAttributeArray(
 	data = (Byte const *)data + offset;
 
 	switch(attribute) {
-	case AT::Vertex:
+	case AT::Position:
 		glVertexPointer(3, dut, stride, data);
 		break;
 	case AT::Color:

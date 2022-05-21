@@ -29,7 +29,7 @@ int Crossant::Main() {
 
 	Mesh cubeMesh = Mesh::cube;
 	for(Vertex &vertex : cubeMesh.vertices)
-		vertex.color = vertex.vertex;
+		vertex.color = vertex.position;
 	filter.mesh = &cubeMesh;
 	renderer.attributeUsage[Vertex::Attribute::Color].used = true;
 

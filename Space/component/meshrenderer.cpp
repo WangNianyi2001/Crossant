@@ -6,7 +6,7 @@ using VA = Vertex::Attribute;
 using DUT = Vertex::DatumType;
 
 std::map<Vertex::Attribute, MeshRenderer::AttributeUsage> useTemplate{
-	{ VA::Vertex, { DUT::Float, true } },
+	{ VA::Position, { DUT::Float, true } },
 	{ VA::Color, { DUT::Float } },
 	{ VA::TexCoord, { DUT::Float } },
 	{ VA::Normal, { DUT::Float } },

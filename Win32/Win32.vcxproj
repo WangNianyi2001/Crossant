@@ -152,11 +152,11 @@
     <ClCompile Include="feature\graphics\2d\context.cpp" />
     <ClCompile Include="feature\graphics\3d\context.cpp" />
     <ClCompile Include="feature\graphics\2d\pen.cpp" />
+    <ClCompile Include="utility.cpp" />
     <ClCompile Include="feature\keyboard.cpp" />
     <ClCompile Include="feature\mouse.cpp" />
     <ClCompile Include="feature\graphics\target.cpp" />
     <ClCompile Include="feature\window.cpp" />
-    <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="feature\graphics\2d\brush.hpp" />
@@ -167,6 +167,9 @@
     <ClInclude Include="feature\keyboard.hpp" />
     <ClInclude Include="feature\window.hpp" />
     <ClInclude Include="utility.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="feature\graphics\image.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

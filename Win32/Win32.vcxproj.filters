@@ -42,6 +42,7 @@
     <ClCompile Include="feature\keyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="feature\graphics\image.cpp" />
     <ClCompile Include="utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

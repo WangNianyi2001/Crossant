@@ -174,27 +174,51 @@ std::map<AT, int> dataTypeMap{
 	{ AT::EdgeFlag, GL_EDGE_FLAG_ARRAY },
 };
 
-void Context::SetAttributeArray(AT type, bool enabled, void const *data){
-	int cap = dataTypeMap[type];
+void Context::SetAttributeArray(
+	AT attribute, DUT datum,
+	bool enabled, void const *data
+){
+	int cap = dataTypeMap[attribute];
 	if(enabled)
 		glEnableClientState(cap);
 	else {
 		glDisableClientState(cap);
 		return;
 	}
-	int dut = datumTypeMap[Vertex::typeMap[type]];
-	int dimension = Vertex::dimensionMap.contains(type) ? Vertex::dimensionMap[type] : 0;
+
+	int dut = datumTypeMap[datum];
+
 	unsigned stride = sizeof(Vertex);
-	data = (Byte const *)data + Vertex::offsetMap[type];
-	switch(type) {
+
+	unsigned offset = 0;
+	switch(attribute) {
 	case AT::Vertex:
-		glVertexPointer(dimension, dut, stride, data);
+		offset = offsetof(Vertex, vertex);
 		break;
 	case AT::Color:
-		glColorPointer(dimension, dut, stride, data);
+		offset = offsetof(Vertex, color);
 		break;
 	case AT::TexCoord:
-		glTexCoordPointer(dimension, dut, stride, data);
+		offset = offsetof(Vertex, texCoord);
+		break;
+	case AT::Normal:
+		offset = offsetof(Vertex, normal);
+		break;
+	case AT::EdgeFlag:
+		offset = offsetof(Vertex, edgeFlag);
+		break;
+	}
+	data = (Byte const *)data + offset;
+
+	switch(attribute) {
+	case AT::Vertex:
+		glVertexPointer(3, dut, stride, data);
+		break;
+	case AT::Color:
+		glColorPointer(4, dut, stride, data);
+		break;
+	case AT::TexCoord:
+		glTexCoordPointer(2, dut, stride, data);
 		break;
 	case AT::Normal:
 		glNormalPointer(dut, stride, data);

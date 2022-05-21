@@ -71,15 +71,15 @@
     <ClInclude Include="feature\keyboard.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\geometry.hpp">
+    <ClInclude Include="feature\graphics\3d\vertex.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature\graphics\image.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\listener.hpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="feature\graphics\3d\geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

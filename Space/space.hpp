@@ -11,10 +11,15 @@ namespace Crossant::Graphics::Graphics3D {
 	struct Component;
 
 	struct Component : ChildHierarchy<Component, Object> {
-		Component(Object &object) : ChildHierarchy(object) {}
+		Object &object;
+
+		Component(Object &object) : ChildHierarchy(object), object(object) {}
 	};
 
 	struct Object : ChildHierarchy<Object, Space>, ParentHierarchy<Object, Component> {
+		Space &space;
+		std::set<Component *> &components;
+
 		struct Transform {
 			Transform *parent = nullptr;
 			Coord3D translation{ 0, 0, 0 };
@@ -30,7 +35,7 @@ namespace Crossant::Graphics::Graphics3D {
 
 		Transform transform;
 
-		Object(Space &space) : ChildHierarchy(space), transform(*this) {}
+		Object(Space &space) : ChildHierarchy(space), space(space), components(children), transform(*this) {}
 
 		template<std::derived_from<Component> T>
 		T *ComponentOf() {
@@ -55,9 +60,9 @@ namespace Crossant::Graphics::Graphics3D {
 	};
 
 	struct Space : Context, ParentHierarchy<Space, Object> {
-		std::set<Object *> objects;
+		std::set<Object *> &objects;
 
-		Space(Target &target) : Context(target) {}
+		Space(Target &target) : Context(target), objects(children) {}
 
 		virtual ~Space() {
 			while(!objects.empty())

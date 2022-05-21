@@ -17,7 +17,7 @@ namespace Crossant {
 	constexpr Float PI = 3.14159265359f;
 
 	using Size2D = Vector<unsigned, 2>;
-	using Color = Vector<Float, 3>;
+	using Color = Vector<Float, 4>;
 	using Coord2D = Vector<Float, 2>;
 	using Coord3D = Vector<Float, 3>;
 	using RectRange = BoxRange<Coord2D>;

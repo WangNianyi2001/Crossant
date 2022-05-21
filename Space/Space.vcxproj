@@ -146,6 +146,7 @@
     <ClCompile Include="component\camera.cpp" />
     <ClCompile Include="component\meshrenderer.cpp" />
     <ClCompile Include="component\freecameracontroller.cpp" />
+    <ClCompile Include="mesh.cpp" />
     <ClCompile Include="space.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="component\meshrenderer.hpp" />
     <ClInclude Include="component\freecameracontroller.hpp" />
     <ClInclude Include="component\renderer.hpp" />
+    <ClInclude Include="mesh.hpp" />
     <ClInclude Include="space.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

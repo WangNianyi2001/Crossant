@@ -168,7 +168,8 @@
     <ClInclude Include="feature\graphics\2d\context.hpp" />
     <ClInclude Include="feature\graphics\3d\context.hpp" />
     <ClInclude Include="feature\graphics\2d\pen.hpp" />
-    <ClInclude Include="feature\graphics\3d\geometry.hpp" />
+    <ClInclude Include="feature\graphics\3d\vertex.hpp" />
+    <ClInclude Include="feature\graphics\image.hpp" />
     <ClInclude Include="feature\graphics\target.hpp" />
     <ClInclude Include="feature\graphics\2d\brush.hpp" />
     <ClInclude Include="feature\graphics\context.hpp" />
@@ -179,7 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\listener.hpp" />
-    <ClCompile Include="feature\graphics\3d\geometry.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

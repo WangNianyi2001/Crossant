@@ -2,10 +2,17 @@
 
 #include "renderer.hpp"
 #include "meshfilter.hpp"
+#include "../mesh.hpp"
+#include <map>
 
 namespace Crossant::Graphics::Graphics3D {
 	struct MeshRenderer : Renderer {
-		std::map<Vertex::Attribute, bool> use{};
+		struct AttributeUsage {
+			Vertex::DatumType datumType = Vertex::DatumType::Float;
+			bool used = false;
+		};
+
+		std::map<Vertex::Attribute, AttributeUsage> attributeUsage{};
 
 		MeshRenderer(Object &object);
 

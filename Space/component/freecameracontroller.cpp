@@ -6,20 +6,21 @@
 using namespace Crossant::Graphics::Graphics3D;
 
 void FreeCameraController::Update() {
-	Camera *camera = parent.ComponentOf<Camera>();
+	Camera *camera = object.ComponentOf<Camera>();
 	if(camera == nullptr)
 		return;
+	Object &cameraObj = camera->object;
 	Coord3D eulerDelta = Coord3D{
 		Mouse::deltaPosition[1],
 		Mouse::deltaPosition[0],
 	};
 	euler = euler - eulerDelta * rotateSpeed;
-	camera->parent.transform.rotation = Quaternion::Euler(euler);
+	cameraObj.transform.rotation = Quaternion::Euler(euler);
 	using Key = Keyboard::Key;
-	Coord3D camMovement = camera->parent.transform.rotation * Coord3D{
+	Coord3D camMovement = cameraObj.transform.rotation * Coord3D{
 		(float)Keyboard::Pressed(Key::D) - (float)Keyboard::Pressed(Key::A),
 		(float)Keyboard::Pressed(Key::E) - (float)Keyboard::Pressed(Key::Q),
 		(float)Keyboard::Pressed(Key::S) - (float)Keyboard::Pressed(Key::W),
 	};
-	camera->parent.transform.translation = camera->parent.transform.translation + camMovement * moveSpeed;
+	cameraObj.transform.translation = cameraObj.transform.translation + camMovement * moveSpeed;
 }

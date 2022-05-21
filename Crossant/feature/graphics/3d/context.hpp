@@ -3,7 +3,7 @@
 #include "Crossant/common/quaternion.hpp"
 #include "Crossant/common/range.hpp"
 #include "../context.hpp"
-#include "geometry.hpp"
+#include "vertex.hpp"
 
 namespace Crossant::Graphics::Graphics3D {
 	struct Context : Graphics::Context {
@@ -63,7 +63,11 @@ namespace Crossant::Graphics::Graphics3D {
 		void Perspective(Float fov, Float aspect, Float near, Float far);
 
 		// Data
-		void SetAttributeArray(Vertex::Attribute attibute, bool enabled, void const *data);
+		void SetAttributeArray(
+			Vertex::Attribute attibute,
+			Vertex::DatumType datum,
+			bool enabled, void const *data
+		);
 
 		// Geometry
 		enum struct GeometryType : Byte {

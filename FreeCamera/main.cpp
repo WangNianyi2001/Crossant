@@ -27,12 +27,15 @@ int Crossant::Main() {
 	MeshFilter filter(cube);
 	MeshRenderer renderer(cube);
 
-	filter.mesh = &Mesh::cube;
-	renderer.use[Vertex::Attribute::Color] = true;
+	Mesh cubeMesh = Mesh::cube;
+	for(Vertex &vertex : cubeMesh.vertices)
+		vertex.color = vertex.vertex;
+	filter.mesh = &cubeMesh;
+	renderer.attributeUsage[Vertex::Attribute::Color].used = true;
 
 	window.Listen(EventType::Resize, [&](WE event) {
 		target.Resize(window.ClientRect().Diagonal());
-		});
+	});
 
 	window.Listen(EventType::Draw, [&](WE) {
 		space.Clear(Context::AttributeMask::ColorBuffer);
@@ -42,16 +45,17 @@ int Crossant::Main() {
 
 		space.Render();
 		target.DrawOn(window.graphicsTarget);
-		});
+	});
 
 	window.Listen(EventType::Update, [&](WE e) {
 		controller.Update();
 		window.Repaint();
-		});
+	});
 
 	window.Listen(EventType::Close, [&](WE) {
 		window.Kill();
-		});
+	});
+
 	window.SetCursorLockState(true);
 
 	window.Show();

@@ -4,7 +4,7 @@
 using namespace Crossant::Graphics::Graphics3D;
 
 void Camera::Render() {
-	Space &space = parent.parent;
+	Space &space = object.space;
 
 	// Push projection
 	space.SetMatrixMode(Space::MatrixMode::Projection);
@@ -22,7 +22,7 @@ void Camera::Render() {
 
 	// Overwrite space
 	space.LoadIdentity();
-	parent.transform.ApplyInverse();
+	object.transform.ApplyInverse();
 
 	// Render
 	for(Renderer *renderer : space.ComponentsOf<Renderer>())

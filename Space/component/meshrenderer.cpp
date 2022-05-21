@@ -3,30 +3,33 @@
 using namespace Crossant::Graphics::Graphics3D;
 
 using VA = Vertex::Attribute;
+using DUT = Vertex::DatumType;
 
-std::map<VA, bool> useTemplate{
-	{ VA::Vertex, true },
-	{ VA::Color, false },
-	{ VA::TexCoord, false },
-	{ VA::Normal, false },
-	{ VA::EdgeFlag, false },
+std::map<Vertex::Attribute, MeshRenderer::AttributeUsage> useTemplate{
+	{ VA::Vertex, { DUT::Float, true } },
+	{ VA::Color, { DUT::Float } },
+	{ VA::TexCoord, { DUT::Float } },
+	{ VA::Normal, { DUT::Float } },
+	{ VA::EdgeFlag, { DUT::Byte } },
 };
 
 MeshRenderer::MeshRenderer(Object &object) :
-	Renderer(object), use(useTemplate) {}
+	Renderer(object), attributeUsage(useTemplate) {}
 
 void MeshRenderer::Render() {
-	Space &space = parent.parent;
+	Space &space = object.space;
 	space.SetMatrixMode(Space::MatrixMode::Space);
 	space.PushMatrix();
-	parent.transform.Apply();
-	for(MeshFilter *filter : parent.ComponentsOf<MeshFilter>()) {
+	object.transform.Apply();
+	for(MeshFilter *filter : object.ComponentsOf<MeshFilter>()) {
 		if(filter->mesh == nullptr)
 			continue;
 		Mesh const *const mesh = filter->mesh;
-		for(auto pair : use) {
+		for(auto pair : attributeUsage) {
 			space.SetAttributeArray(
-				pair.first, pair.second,
+				pair.first,
+				pair.second.datumType,
+				pair.second.used,
 				&mesh->vertices[0]
 			);
 		}

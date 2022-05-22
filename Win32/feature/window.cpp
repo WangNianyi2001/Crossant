@@ -48,8 +48,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
 #pragma warning(pop)
 
 void CentralizeCursor(Window &window) {
-	auto clientSize = window.ClientRect().Diagonal();
-	Vector<int, 2> clientPos = clientSize / 2;
+	Vector<int, 2> clientPos = window.graphicsTarget.Size() / 2;
 	POINT point{ (LONG)clientPos[0], (LONG)clientPos[1] };
 	ClientToScreen(window.impl->hWnd, &point);
 	SetCursorPos(point.x, point.y);
@@ -86,12 +85,12 @@ Window::Event keyboardEvent(Window *window,
 std::map<unsigned, Window::Impl::LegacyProcessor>
 Window::Impl::eventConversionMap{
 	{ WM_CLOSE, &directEvent<Type::Close> },
-	{ WM_SIZE, [](Window *window, UINT, WPARAM, LPARAM) {
+	{ WM_SIZE, [](Window *window, UINT, WPARAM w, LPARAM l) {
 		ReleaseDC(window->impl->hWnd, window->graphicsTarget.impl->hDC);
 		delete window->graphicsTarget.impl;
 		window->graphicsTarget.impl = new Graphics::Target::Impl(
 			GetDC(window->impl->hWnd),
-			(Size2D)window->ClientRect().Diagonal()
+			Size2D{ LOWORD(l), HIWORD(l) }
 		);
 		return Window::Event{ window, Type::Resize };
 	} },
@@ -175,21 +174,6 @@ void Window::SetCursorLockState(bool locked) {
 	if(locked && !impl->cursorLocked)
 		CentralizeCursor(*this);
 	impl->cursorLocked = locked;
-}
-
-inline RectRange ParseRect(RECT rect) {
-	return {
-		{ (Float)rect.left, (Float)rect.top },
-		{ (Float)rect.right, (Float)rect.bottom }
-	};
-}
-
-RectRange Window::ClientRect() {
-	WINDOWINFO info{
-		.cbSize = sizeof(WINDOWINFO)
-	};
-	GetWindowInfo(impl->hWnd, &info);
-	return ParseRect(info.rcClient);
 }
 
 void Window::Repaint() {

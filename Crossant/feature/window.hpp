@@ -61,7 +61,6 @@ namespace Crossant {
 		void SetCursorLockState(bool lock);
 
 		// Visual
-		RectRange ClientRect();
 		void Repaint();
 	};
 }

@@ -77,7 +77,13 @@
     <ClInclude Include="feature\graphics\image.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\file.hpp">
+    <ClInclude Include="feature\graphics\3d\texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature\graphics\3d\shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="crossant.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

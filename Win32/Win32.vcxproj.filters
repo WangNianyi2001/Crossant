@@ -46,7 +46,13 @@
     <ClCompile Include="utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="feature\file.cpp">
+    <ClCompile Include="crossant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="feature\graphics\3d\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="feature\graphics\3d\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

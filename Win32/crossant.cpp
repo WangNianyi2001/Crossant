@@ -1,10 +1,8 @@
-#include "Crossant/feature/file.hpp"
-#include <Windows.h>
+#include "Crossant/crossant.hpp"
 #include <sstream>
+#include <Windows.h>
 
-using namespace Crossant;
-
-File File::ChooseFromDisk(
+Crossant::String Crossant::ChooseFile(
 	std::map<String, std::set<String>> restrictions
 ) {
 	OPENFILENAME ofn;
@@ -14,7 +12,7 @@ File File::ChooseFromDisk(
 	ofn.lStructSize = sizeof(ofn);
 	ofn.lpstrFile = szFile;
 	ofn.nMaxFile = sizeof(szFile);
-	std::wstringstream filterSs;
+	std::basic_stringstream<Char, std::char_traits<Char>, std::allocator<Char>> filterSs;
 	for(auto restriction : restrictions) {
 		auto &types = restriction.second;
 		if(types.size() == 0)
@@ -32,6 +30,6 @@ File File::ChooseFromDisk(
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_EXPLORER;
 
 	if(!GetOpenFileName(&ofn))
-		return File();
-	return File(szFile);
+		return String{};
+	return szFile;
 }

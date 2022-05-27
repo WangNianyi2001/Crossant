@@ -22,7 +22,7 @@ Color ParseColor(Byte const *position, WORD byteCount) {
 	return color;
 }
 
-Image *Image::FromBitmap(File &fs) {
+Image *Image::FromBitmap(std::ifstream &fs) {
 	if(!fs.is_open())
 		return nullptr;
 

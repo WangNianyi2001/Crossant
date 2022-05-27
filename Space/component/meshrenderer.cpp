@@ -17,6 +17,8 @@ MeshRenderer::MeshRenderer(Object &object) :
 	Renderer(object), attributeUsage(useTemplate) {}
 
 void MeshRenderer::Render() {
+	if(texture != nullptr)
+		texture->Apply();
 	Space &space = object.space;
 	space.SetMatrixMode(Space::MatrixMode::Space);
 	space.PushMatrix();

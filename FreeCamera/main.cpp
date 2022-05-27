@@ -6,28 +6,13 @@
 #include "Space/component/camera.hpp"
 #include "Space/component/freecameracontroller.hpp"
 
-#include "Crossant/feature/file.hpp"
+#include "Crossant/crossant.hpp"
 #include "Crossant/feature/graphics/image.hpp"
+#include "Crossant/feature/graphics/3d/texture.hpp"
 
 int Crossant::Main() {
-	File file = File::ChooseFromDisk({
-		{ L"Bitmap(*.bmp)", { L"*.bmp" }}
-	});
-	return 0;
-
 	using namespace Crossant;
 	using namespace Crossant::Graphics::Graphics3D;
-
-	File bitmap = File::ChooseFromDisk({
-		{ L"Bitmap(*.bmp)", { L"*.bmp" }}
-	});
-	Graphics::Image *image = Graphics::Image::FromBitmap(bitmap);
-	Color pixels[4] = {
-		image->At({ 0, 0 }),
-		image->At({ 1, 0 }),
-		image->At({ 0, 1 }),
-		image->At({ 1, 1 }),
-	};
 
 	Window window;
 
@@ -45,15 +30,24 @@ int Crossant::Main() {
 	Object cube(space);
 	MeshFilter filter(cube);
 	MeshRenderer renderer(cube);
+	std::ifstream bitmap(ChooseFile({
+		{ L"Bitmap(*.bmp)", { L"*.bmp" }}
+	}));
+	Graphics::Image *image = Graphics::Image::FromBitmap(bitmap);
+	Texture texture(*image);
+	renderer.texture = &texture;
 
 	Mesh cubeMesh = Mesh::cube;
-	for(Vertex &vertex : cubeMesh.vertices)
-		vertex.color = (Vector<Float, 4>)vertex.position;
+	for(Vertex &vertex : cubeMesh.vertices) {
+		// vertex.color = (Vector<Float, 4>)vertex.position;
+		vertex.texCoord = vertex.position;
+	}
 	filter.mesh = &cubeMesh;
-	renderer.attributeUsage[Vertex::Attribute::Color].used = true;
+	// renderer.attributeUsage[Vertex::Attribute::Color].used = true;
+	renderer.attributeUsage[Vertex::Attribute::TexCoord].used = true;
 
 	window.Listen(EventType::Resize, [&](WE event) {
-		target.Resize(window.ClientRect().Diagonal());
+		target.Resize(window.graphicsTarget.Size());
 	});
 
 	window.Listen(EventType::Draw, [&](WE) {

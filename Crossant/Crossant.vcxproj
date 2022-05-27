@@ -165,10 +165,12 @@
     <ClInclude Include="common\range.hpp" />
     <ClInclude Include="common\tuple.hpp" />
     <ClInclude Include="common\vector.hpp" />
-    <ClInclude Include="feature\file.hpp" />
     <ClInclude Include="feature\graphics\2d\context.hpp" />
     <ClInclude Include="feature\graphics\3d\context.hpp" />
     <ClInclude Include="feature\graphics\2d\pen.hpp" />
+    <ClInclude Include="crossant.hpp" />
+    <ClInclude Include="feature\graphics\3d\shader.hpp" />
+    <ClInclude Include="feature\graphics\3d\texture.hpp" />
     <ClInclude Include="feature\graphics\3d\vertex.hpp" />
     <ClInclude Include="feature\graphics\image.hpp" />
     <ClInclude Include="feature\graphics\target.hpp" />

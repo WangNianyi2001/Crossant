@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Crossant/common/basic.hpp"
-#include "Crossant/feature/file.hpp"
+#include <fstream>
 
 namespace Crossant::Graphics {
 	struct Image {
-		static Image *FromBitmap(File &bitmap);
+		static Image *FromBitmap(std::ifstream &bitmap);
 
 		Size2D const size;
 		Color *const pixels;

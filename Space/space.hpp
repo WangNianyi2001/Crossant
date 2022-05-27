@@ -5,7 +5,9 @@
 #include "Crossant/common/quaternion.hpp"
 #include <set>
 
-namespace Crossant::Graphics::Graphics3D {
+namespace Crossant::Space {
+	using namespace Crossant::Graphics::Graphics3D;
+
 	struct Space;
 	struct Object;
 	struct Component;
@@ -62,7 +64,7 @@ namespace Crossant::Graphics::Graphics3D {
 	struct Space : Context, ParentHierarchy<Space, Object> {
 		std::set<Object *> &objects;
 
-		Space(Target &target) : Context(target), objects(children) {}
+		Space(Crossant::Graphics::Target &target) : Context(target), objects(children) {}
 
 		virtual ~Space() {
 			while(!objects.empty())

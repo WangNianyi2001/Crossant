@@ -8,7 +8,7 @@ namespace Crossant::Graphics::Graphics3D {
 
 		~Shader();
 
-		Shader *FromStream(std::istream vertexStream, std::istream fragmentStream);
+		static Shader *FromStream(std::istream vertexStream, std::istream fragmentStream);
 		
 		void Use() const;
 	};

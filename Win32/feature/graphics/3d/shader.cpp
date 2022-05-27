@@ -1,7 +1,7 @@
 #include "Crossant/feature/graphics/3d/shader.hpp"
 #include <Windows.h>
-#include <gl/GL.h>
 #include <gl/glew.h>
+#include <gl/GL.h>
 #include <sstream>
 #include <iostream>
 
@@ -58,7 +58,7 @@ Shader* Shader::FromStream(std::istream vertexStream, std::istream fragmentStrea
 	}
 
 	// Create program
-	id = glCreateProgram();
+	unsigned id = glCreateProgram();
 	glAttachShader(id, vertexID);
 	glAttachShader(id, fragmentID);
 	glLinkProgram(id);
@@ -71,6 +71,8 @@ Shader* Shader::FromStream(std::istream vertexStream, std::istream fragmentStrea
 	// Release
 	glDeleteShader(vertexID);
 	glDeleteShader(fragmentID);
+
+	return new Shader{ id };
 }
 
 void Shader::Use() const {

@@ -1,11 +1,12 @@
 #pragma once
 #pragma once
 
+#include "space.hpp"
 #include "Crossant/common/basic.hpp"
 #include "Crossant/feature/graphics/3d/vertex.hpp"
 #include <map>
 
-namespace Crossant::Graphics::Graphics3D {
+namespace Crossant::Space {
 	struct Mesh {
 		constexpr static Byte TriangleVertexCount = 3;
 		using VertexIndex = unsigned;

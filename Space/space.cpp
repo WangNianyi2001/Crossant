@@ -1,6 +1,6 @@
 #include "space.hpp"
 
-using namespace Crossant::Graphics::Graphics3D;
+using namespace Crossant::Space;
 
 void Object::Transform::Apply() const {
 	if(parent != nullptr)

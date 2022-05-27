@@ -1,6 +1,6 @@
 #include "meshrenderer.hpp"
 
-using namespace Crossant::Graphics::Graphics3D;
+using namespace Crossant::Space;
 
 using VA = Vertex::Attribute;
 using DUT = Vertex::DatumType;
@@ -17,8 +17,6 @@ MeshRenderer::MeshRenderer(Object &object) :
 	Renderer(object), attributeUsage(useTemplate) {}
 
 void MeshRenderer::Render() {
-	if(texture != nullptr)
-		texture->Apply();
 	Space &space = object.space;
 	space.SetMatrixMode(Space::MatrixMode::Space);
 	space.PushMatrix();

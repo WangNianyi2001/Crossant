@@ -7,12 +7,10 @@
 #include "Space/component/freecameracontroller.hpp"
 
 #include "Crossant/crossant.hpp"
-#include "Crossant/feature/graphics/image.hpp"
-#include "Crossant/feature/graphics/3d/texture.hpp"
 
 int Crossant::Main() {
 	using namespace Crossant;
-	using namespace Crossant::Graphics::Graphics3D;
+	using namespace Crossant::Space;
 
 	Window window;
 
@@ -20,7 +18,7 @@ int Crossant::Main() {
 	using EventType = WE::Type;
 
 	Graphics::Target target({ 100, 100 });
-	auto space = Space(target);
+	auto space = Crossant::Space::Space(target);
 
 	Object cameraObj(space);
 	Camera camera(cameraObj);
@@ -30,20 +28,14 @@ int Crossant::Main() {
 	Object cube(space);
 	MeshFilter filter(cube);
 	MeshRenderer renderer(cube);
-	std::ifstream bitmap(ChooseFile({
-		{ L"Bitmap(*.bmp)", { L"*.bmp" }}
-	}));
-	Graphics::Image *image = Graphics::Image::FromBitmap(bitmap);
-	Texture texture(*image);
-	renderer.texture = &texture;
 
 	Mesh cubeMesh = Mesh::cube;
-	for(Vertex &vertex : cubeMesh.vertices) {
-		// vertex.color = (Vector<Float, 4>)vertex.position;
+	for(Graphics::Graphics3D::Vertex &vertex : cubeMesh.vertices) {
+		vertex.color = (Vector<Float, 4>)vertex.position;
 		vertex.texCoord = vertex.position;
 	}
 	filter.mesh = &cubeMesh;
-	// renderer.attributeUsage[Vertex::Attribute::Color].used = true;
+	renderer.attributeUsage[Vertex::Attribute::Color].used = true;
 	renderer.attributeUsage[Vertex::Attribute::TexCoord].used = true;
 
 	window.Listen(EventType::Resize, [&](WE event) {

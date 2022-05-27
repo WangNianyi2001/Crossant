@@ -1,7 +1,7 @@
 #include "camera.hpp"
 #include "meshrenderer.hpp"
 
-using namespace Crossant::Graphics::Graphics3D;
+using namespace Crossant::Space;
 
 void Camera::Render() {
 	Space &space = object.space;

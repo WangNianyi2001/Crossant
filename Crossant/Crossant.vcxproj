@@ -170,7 +170,6 @@
     <ClInclude Include="feature\graphics\2d\pen.hpp" />
     <ClInclude Include="crossant.hpp" />
     <ClInclude Include="feature\graphics\3d\shader.hpp" />
-    <ClInclude Include="feature\graphics\3d\texture.hpp" />
     <ClInclude Include="feature\graphics\3d\vertex.hpp" />
     <ClInclude Include="feature\graphics\image.hpp" />
     <ClInclude Include="feature\graphics\target.hpp" />

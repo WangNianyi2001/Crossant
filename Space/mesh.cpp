@@ -1,6 +1,6 @@
 #include "mesh.hpp"
 
-using namespace Crossant::Graphics::Graphics3D;
+using namespace Crossant::Space;
 
 Mesh Mesh::cube{
 	{

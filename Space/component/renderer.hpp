@@ -2,7 +2,7 @@
 
 #include "../space.hpp"
 
-namespace Crossant::Graphics::Graphics3D {
+namespace Crossant::Space {
 	struct Renderer : Component {
 		Renderer(Object &object) : Component(object) {}
 

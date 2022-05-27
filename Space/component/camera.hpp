@@ -2,7 +2,7 @@
 
 #include "../space.hpp"
 
-namespace Crossant::Graphics::Graphics3D {
+namespace Crossant::Space {
 	struct Camera : Component {
 		float fov = 45;
 

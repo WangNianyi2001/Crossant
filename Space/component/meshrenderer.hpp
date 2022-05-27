@@ -3,10 +3,9 @@
 #include "renderer.hpp"
 #include "meshfilter.hpp"
 #include "../mesh.hpp"
-#include "Crossant/feature/graphics/3d/texture.hpp"
 #include <map>
 
-namespace Crossant::Graphics::Graphics3D {
+namespace Crossant::Space {
 	struct MeshRenderer : Renderer {
 		struct AttributeUsage {
 			Vertex::DatumType datumType = Vertex::DatumType::Float;
@@ -14,7 +13,6 @@ namespace Crossant::Graphics::Graphics3D {
 		};
 
 		std::map<Vertex::Attribute, AttributeUsage> attributeUsage{};
-		Texture *texture = nullptr;
 
 		MeshRenderer(Object &object);
 

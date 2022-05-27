@@ -3,7 +3,7 @@
 #include "../space.hpp"
 #include "../mesh.hpp"
 
-namespace Crossant::Graphics::Graphics3D {
+namespace Crossant::Space {
 	struct MeshFilter : Component {
 		Mesh const *mesh;
 

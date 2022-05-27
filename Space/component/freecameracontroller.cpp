@@ -3,7 +3,7 @@
 #include "Crossant/feature/mouse.hpp"
 #include "Crossant/feature/keyboard.hpp"
 
-using namespace Crossant::Graphics::Graphics3D;
+using namespace Crossant::Space;
 
 void FreeCameraController::Update() {
 	Camera *camera = object.ComponentOf<Camera>();

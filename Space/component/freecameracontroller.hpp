@@ -2,7 +2,7 @@
 
 #include "../space.hpp"
 
-namespace Crossant::Graphics::Graphics3D {
+namespace Crossant::Space {
 	struct FreeCameraController : Component {
 		float moveSpeed = .01f;
 		float rotateSpeed = .001f;

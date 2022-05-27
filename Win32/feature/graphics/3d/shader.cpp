@@ -1,4 +1,4 @@
-#include "Crossant/feature/graphics/3d/shader.hpp"
+#include "Crossant/graphics/3d/shader.hpp"
 #include <Windows.h>
 #include <gl/glew.h>
 #include <gl/GL.h>

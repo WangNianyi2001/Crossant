@@ -21,21 +21,18 @@
     <ClCompile Include="component\meshrenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="space.cpp">
+    <ClCompile Include="common\hierarchy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="component\freecameracontroller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mesh.cpp">
+    <ClCompile Include="common\mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="component\camera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="component\meshfilter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="component\meshrenderer.hpp">
@@ -50,7 +47,13 @@
     <ClInclude Include="component\renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mesh.hpp">
+    <ClInclude Include="common\mesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\material.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\hierarchy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

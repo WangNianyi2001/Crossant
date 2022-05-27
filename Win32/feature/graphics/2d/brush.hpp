@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Crossant/feature/graphics/2d/brush.hpp"
+#include "Crossant/graphics/2d/brush.hpp"
 #include <Windows.h>
 
 namespace Crossant::Graphics::Graphics2D {

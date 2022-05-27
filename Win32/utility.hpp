@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Crossant/common/basic.hpp"
+#include "Crossant/utility.hpp"
+#include <sstream>
 #include <Windows.h>
 
 namespace Crossant {

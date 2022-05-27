@@ -21,19 +21,14 @@ void MeshRenderer::Render() {
 	space.SetMatrixMode(Space::MatrixMode::Space);
 	space.PushMatrix();
 	object.transform.Apply();
-	for(MeshFilter *filter : object.ComponentsOf<MeshFilter>()) {
-		if(filter->mesh == nullptr)
-			continue;
-		Mesh const *const mesh = filter->mesh;
-		for(auto pair : attributeUsage) {
-			space.SetAttributeArray(
-				pair.first,
-				pair.second.datumType,
-				pair.second.used,
-				&mesh->vertices[0]
-			);
-		}
-		space.DrawElements(Context::GeometryType::Triangles, (std::vector<unsigned> &)mesh->indices);
+	for(auto pair : attributeUsage) {
+		space.SetAttributeArray(
+			pair.first,
+			pair.second.datumType,
+			pair.second.used,
+			&mesh->vertices[0]
+		);
 	}
+	space.DrawElements(Context::GeometryType::Triangles, (std::vector<unsigned> &)mesh->indices);
 	space.PopMatrix();
 }

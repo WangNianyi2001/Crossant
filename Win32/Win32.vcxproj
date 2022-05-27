@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="crossant.cpp" />
     <ClCompile Include="feature\graphics\2d\brush.cpp" />
     <ClCompile Include="feature\graphics\3d\shader.cpp" />
     <ClCompile Include="feature\graphics\context.cpp" />

@@ -1,8 +1,7 @@
 #pragma once
 
 #include "renderer.hpp"
-#include "meshfilter.hpp"
-#include "../mesh.hpp"
+#include "Space/common/mesh.hpp"
 #include <map>
 
 namespace Crossant::Space {
@@ -13,6 +12,8 @@ namespace Crossant::Space {
 		};
 
 		std::map<Vertex::Attribute, AttributeUsage> attributeUsage{};
+
+		Mesh *mesh;
 
 		MeshRenderer(Object &object);
 

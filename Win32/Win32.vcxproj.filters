@@ -46,9 +46,6 @@
     <ClCompile Include="utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="crossant.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="feature\graphics\3d\shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

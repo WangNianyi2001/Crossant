@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Crossant/feature/keyboard.hpp"
+#include "Crossant/keyboard.hpp"
 #include <map>
 #include <Windows.h>
 

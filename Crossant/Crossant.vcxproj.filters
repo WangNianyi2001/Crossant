@@ -11,10 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="feature\graphics\context.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature\window.hpp">
+    <ClInclude Include="window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common\subscriber.hpp">
@@ -32,13 +29,13 @@
     <ClInclude Include="common\range.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\2d\brush.hpp">
+    <ClInclude Include="2d\brush.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\2d\pen.hpp">
+    <ClInclude Include="2d\pen.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\2d\context.hpp">
+    <ClInclude Include="2d\context.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common\type\doublebuffer.hpp">
@@ -50,10 +47,7 @@
     <ClInclude Include="common\just.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\context.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature\graphics\target.hpp">
+    <ClInclude Include="3d\context.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="common\quaternion.hpp">
@@ -65,22 +59,49 @@
     <ClInclude Include="common\hierarchy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\mouse.hpp">
+    <ClInclude Include="mouse.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\keyboard.hpp">
+    <ClInclude Include="keyboard.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\vertex.hpp">
+    <ClInclude Include="3d\vertex.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\image.hpp">
+    <ClInclude Include="3d\shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="feature\graphics\3d\shader.hpp">
+    <ClInclude Include="utility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="crossant.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\2d\brush.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\2d\context.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\2d\pen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\3d\context.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\3d\shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\3d\vertex.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\context.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\target.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

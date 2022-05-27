@@ -1,7 +1,7 @@
 #include "freecameracontroller.hpp"
 #include "camera.hpp"
-#include "Crossant/feature/mouse.hpp"
-#include "Crossant/feature/keyboard.hpp"
+#include "Crossant/mouse.hpp"
+#include "Crossant/keyboard.hpp"
 
 using namespace Crossant::Space;
 

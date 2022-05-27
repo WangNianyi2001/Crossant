@@ -1,4 +1,4 @@
-#include "space.hpp"
+#include "hierarchy.hpp"
 
 using namespace Crossant::Space;
 

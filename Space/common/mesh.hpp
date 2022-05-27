@@ -1,9 +1,9 @@
 #pragma once
 #pragma once
 
-#include "space.hpp"
+#include "hierarchy.hpp"
 #include "Crossant/common/basic.hpp"
-#include "Crossant/feature/graphics/3d/vertex.hpp"
+#include "Crossant/graphics/3d/vertex.hpp"
 #include <map>
 
 namespace Crossant::Space {

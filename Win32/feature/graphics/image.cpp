@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Crossant/feature/graphics/image.hpp"
+#include "Crossant/graphics/image.hpp"
 #include <Windows.h>
 #include "Win32/utility.hpp"
 

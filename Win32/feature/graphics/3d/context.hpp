@@ -3,7 +3,7 @@
 #pragma comment(lib, "OpenGL32.Lib")
 #pragma comment(lib, "GlU32.Lib")
 
-#include "Crossant/feature/graphics/3d/context.hpp"
+#include "Crossant/graphics/3d/context.hpp"
 #include <Windows.h>
 #include "gl/gl.h"
 #include "gl/glu.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Crossant/feature/graphics/2d/context.hpp"
+#include "Crossant/graphics/2d/context.hpp"
 #include "../target.hpp"
 #include "brush.hpp"
 #include "pen.hpp"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Crossant/feature/window.hpp"
+#include "Crossant/window.hpp"
 #include "Win32/utility.hpp"
 #include <Windows.h>
 #include <windowsx.h>

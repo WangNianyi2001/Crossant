@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../space.hpp"
+#include "Space/common/hierarchy.hpp"
 
 namespace Crossant::Space {
 	struct Camera : Component {

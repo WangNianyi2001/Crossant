@@ -1,12 +1,7 @@
 #pragma once
 
-#include "Crossant/feature/window.hpp"
-#include "Space/space.hpp"
-#include "Space/component/meshrenderer.hpp"
-#include "Space/component/camera.hpp"
-#include "Space/component/freecameracontroller.hpp"
-
 #include "Crossant/crossant.hpp"
+#include "Space/space.hpp"
 
 int Crossant::Main() {
 	using namespace Crossant;
@@ -26,7 +21,6 @@ int Crossant::Main() {
 	cameraObj.transform.translation = { 0, 0, 4 };
 
 	Object cube(space);
-	MeshFilter filter(cube);
 	MeshRenderer renderer(cube);
 
 	Mesh cubeMesh = Mesh::cube;
@@ -34,7 +28,7 @@ int Crossant::Main() {
 		vertex.color = (Vector<Float, 4>)vertex.position;
 		vertex.texCoord = vertex.position;
 	}
-	filter.mesh = &cubeMesh;
+	renderer.mesh = &cubeMesh;
 	renderer.attributeUsage[Vertex::Attribute::Color].used = true;
 	renderer.attributeUsage[Vertex::Attribute::TexCoord].used = true;
 

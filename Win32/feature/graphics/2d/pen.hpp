@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Crossant/feature/graphics/2d/pen.hpp"
+#include "Crossant/graphics/2d/pen.hpp"
 #include <Windows.h>
 #include <map>
 

@@ -1,4 +1,4 @@
-#include "Crossant/feature/mouse.hpp"
+#include "Crossant/mouse.hpp"
 #include <map>
 #include <Windows.h>
 
